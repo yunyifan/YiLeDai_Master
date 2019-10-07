@@ -1,0 +1,25 @@
+platform:ios, '9.0'
+use_frameworks!
+target 'LeYiDaiProject' do
+   pod 'DZNEmptyDataSet'
+   pod 'MBProgressHUD'
+   pod 'Masonry'
+   pod 'MJRefresh'
+   pod 'AFNetworking'
+   pod 'YYModel'
+   pod 'SDWebImage'
+   pod 'WMPageController'
+   pod 'IQKeyboardManager'
+   pod 'WCDB','~>1.0.5’
+# 扫码
+
+   pod 'LBXScan/LBXNative','~> 2.3'
+   pod 'LBXScan/UI','~> 2.3'  
+   pod 'TZImagePickerController'
+#广告页
+  pod 'XHLaunchAd'
+#轮播
+  pod 'SDCycleScrollView'
+  pod 'BRPickerView'  #时间 地址 自定义字符串选择器
+
+end
