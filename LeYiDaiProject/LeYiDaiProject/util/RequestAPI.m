@@ -190,6 +190,30 @@
     }];
 }
 /**
+ 运营商认证
+ 
+ */
+-(void)useCustAuthOperatorInsert:(NSDictionary *)pramDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+    [[RequestAPI shareInstance] POST:[NSString stringWithFormat:@"%@api/custAuth/operator.do",BASEUEL] parameters:pramDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
+}
+/**
+ 银行卡认证
+ 
+ */
+-(void)useCustAuthBankInsert:(NSDictionary *)pramDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+    [[RequestAPI shareInstance] POST:[NSString stringWithFormat:@"%@api/custAuth/bankCard.do",BASEUEL] parameters:pramDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
+}
+
+
+/**
  
  查询可用银行卡
  
@@ -201,4 +225,17 @@
 
     }];
 }
+
+/**
+ 查询借款/还款记录
+ 
+ */
+-(void)useLoanLendTradeListInsert:(NSDictionary *)pramDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+    [[RequestAPI shareInstance] GET:[NSString stringWithFormat:@"%@api/loanLendTrade/loanLendTradeList",BASEUEL] parameters:pramDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
+}
+
 @end

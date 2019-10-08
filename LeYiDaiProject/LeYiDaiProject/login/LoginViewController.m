@@ -27,6 +27,7 @@
 @property (nonatomic,strong)UIButton *xieYiBut;
 @property (nonatomic,strong)UITextView *secretText;
 
+@property (nonatomic,assign)BOOL isGetCodeSuccess; // 是否获取验证码成功 ，获取验证码60s内，获取验证码按钮不高亮
 
 @end
 
@@ -160,12 +161,42 @@
     if (![LYDUtil isPhoneNumber:self.phoneText.text]) {
         return;
     }
-    
+    @weakify(self);
     NSDictionary *pramDic = @{@"phone":EMPTY_IF_NIL(self.phoneText.text),@"appscen":@"login"};
     [[RequestAPI shareInstance] getSysCode:pramDic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        @strongify(self);
         if (succeed) {
             if ([result[@"success"] intValue] == 1) {
-                [MBProgressHUD showSuccess:@"验证码获取成功"];
+                self.isGetCodeSuccess = YES;
+
+                [MBProgressHUD showSuccess:@"验证码已发送"];
+               __block int timeout=60; //倒计时时间
+               dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+               dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+               dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+               dispatch_source_set_event_handler(_timer, ^{
+                   if(timeout<=0){ //倒计时结束，关闭
+                       dispatch_source_cancel(_timer);
+                       dispatch_async(dispatch_get_main_queue(), ^{
+                           //设置界面的按钮显示 根据自己需求设置
+                           self.codeBut.enabled = YES;
+                           [self.codeBut setTitle:@"获取验证码" forState:UIControlStateNormal];
+                       });
+                   }else{
+                       int seconds = timeout ;//% 60;
+                       NSString *strTime = [NSString stringWithFormat:@"%dS", seconds];
+                       dispatch_async(dispatch_get_main_queue(), ^{
+                           //设置界面的按钮显示 根据自己需求设置
+                           self.codeBut.enabled = NO;
+
+                           [self.codeBut setTitle:[NSString stringWithFormat:@"%@",strTime] forState:UIControlStateNormal];
+                           self.isGetCodeSuccess = NO;
+
+                       });
+                       timeout--;
+                   }
+               });
+               dispatch_resume(_timer);
             }else{
                 
                 [MBProgressHUD showError:result[@"message"]];
@@ -223,12 +254,14 @@
         }
     }
     if (textField.tag == 1) {
+        if (self.isGetCodeSuccess == NO) {
             if(self.phoneText.text.length == 11){
-                self.codeBut.enabled = YES;
-            }else{
-                self.codeBut.enabled = NO;
-            }
-
+                   self.codeBut.enabled = YES;
+               }else{
+                   self.codeBut.enabled = NO;
+               }
+        }
+           
     }
     if (self.phoneText.text.length == 11 && self.codeText.text.length == 6) {
         self.loginBut.enabled = YES;

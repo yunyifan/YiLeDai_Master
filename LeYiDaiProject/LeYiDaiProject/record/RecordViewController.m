@@ -13,12 +13,19 @@
 
 
 #import "RecordTableViewCell.h"
-@interface RecordViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface RecordViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property (nonatomic,strong)UISegmentedControl *segControl;
 
 @property (nonatomic,assign)NSInteger selectSegIndexd;
 
 @property (nonatomic,strong)UITableView *resordTable;
+
+@property (nonatomic,strong)NSString *typeStr;
+
+@property (nonatomic,strong)NSMutableArray *listArray;
+
+@property (nonatomic,assign)BOOL isFirstReson;
+
 @end
 
 @implementation RecordViewController
@@ -30,6 +37,10 @@
     self.title = @"记录";
     self.view.backgroundColor = [UIColor whiteColor];
     [self creatLabUI];
+    
+    self.typeStr = @"lend";
+    [self useLoanLendTradeList];
+
 }
 -(void)creatLabUI{
    
@@ -54,14 +65,42 @@
     self.selectSegIndexd = sender.selectedSegmentIndex;
     if (sender.selectedSegmentIndex == 0) {
         // 借款记录
-        NSLog(@"借款记录");
+        self.typeStr = @"lend";
+        
+        
     }else{
         // 还款记录
-        NSLog(@"还款记录");
+        self.typeStr = @"repay";
+    }
+    
+    [self useLoanLendTradeList];
+}
+//- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView{
+//
+//    if (self.isFirstReson == YES) {
+//        return [UIImage imageNamed:@"empoty_station"];
+//
+//    }else{
+//        return [UIImage imageNamed:@""];
+//
+//    }
+//}
+
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView{
+    if (self.isFirstReson == YES) {
+        return Empoty_Data_Title(@"您还没有借过款", 14);
+        
+    }else{
+        return [[NSAttributedString alloc] initWithString:@""];
+        
     }
 }
+// 标题文字与详情文字同时调整垂直偏移量
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    return -130;
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return self.listArray.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -85,6 +124,30 @@
     }
 
 }
+
+/// 查询借款/还款记录
+-(void)useLoanLendTradeList{
+    NSDictionary *dic = @{@"userId":self.loginModel.userId,@"loanType":self.typeStr};
+    @weakify(self);
+    [[RequestAPI shareInstance] useLoanLendTradeListInsert:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        @strongify(self);
+        if (succeed) {
+            self.isFirstReson = YES;
+
+            if ([result[@"success"] intValue] == 1) {
+                [self.listArray removeAllObjects];
+                
+                [self.listArray addObjectsFromArray:result[@"result"][@"loanList"]];
+                
+                [self.resordTable reloadData];
+                
+                
+            }else{
+                [MBProgressHUD showError:result[@"message"]];
+            }
+        }
+    }];
+}
 -(UISegmentedControl *)segControl{
     if (!_segControl) {
         _segControl = [[UISegmentedControl alloc] initWithItems:@[@"借款记录",@"还款记录"]];
@@ -101,9 +164,17 @@
         _resordTable.rowHeight = 66;
         _resordTable.delegate  = self;
         _resordTable.dataSource = self;
+        _resordTable.emptyDataSetSource = self;
+        _resordTable.emptyDataSetDelegate = self;
         [_resordTable registerClass:[RecordTableViewCell class] forCellReuseIdentifier:@"cell"];
     }
     return _resordTable;
+}
+-(NSMutableArray *)listArray{
+    if (!_listArray) {
+        _listArray = [NSMutableArray array];
+    }
+    return _listArray;
 }
 /*
 #pragma mark - Navigation

@@ -14,6 +14,14 @@
 
 @property (nonatomic,strong)UIButton *nextBut;
 
+@property (nonatomic,assign)BOOL isGetCodeSuccess; // 是否获取验证码成功 ，获取验证码60s内，获取验证码按钮不高亮
+
+@property (nonatomic,strong)FSCustomButton *codeBut;
+
+@property (nonatomic,strong)NSString *nameStr; // 姓名
+@property (nonatomic,strong)NSString *bankCardStr; // 银行卡号
+@property (nonatomic,strong)NSString *phoneStr; //手机号
+@property (nonatomic,strong)NSString *codeStr; //验证码
 @end
 
 @implementation BankAuthenViewController
@@ -72,6 +80,9 @@
         UITextField *textFiled = [[UITextField alloc] init];
         textFiled.placeholder = rightArray[i];
         textFiled.tag = i+1;
+        if (i!=0) {
+            textFiled.keyboardType = UIKeyboardTypeNumberPad;
+        }
         [textFiled addTarget:self action:@selector(textChangeCLick:) forControlEvents:UIControlEventEditingChanged];
         textFiled.font = FONT(14);
         [bgView addSubview:textFiled];
@@ -93,20 +104,21 @@
             }];
         }else{
             
-            UIButton *codeBut = [UIButton buttonWithType:UIButtonTypeCustom];
-            [codeBut setTitle:@"获取验证码" forState:UIControlStateNormal];
-            codeBut.titleLabel.font = FONT(12);
-            codeBut.backgroundColor = But_Bg_Color;
-            //        [_codeBut setTitleColor:Tit_Gray_Color forState:UIControlStateNormal];
-            codeBut.timeInterval = TimeInterval;
-            codeBut.enabled = NO;
-            codeBut.layer.cornerRadius = 15;
-            codeBut.layer.shadowOffset = CGSizeMake(0, 2);
-            codeBut.layer.shadowOpacity = 1;
-            codeBut.layer.shadowColor = [UIColor colorWithHex:@"#B5B8FF"].CGColor;
-            codeBut.layer.shadowRadius = 6;
-            [bgView addSubview:codeBut];
-            [codeBut mas_makeConstraints:^(MASConstraintMaker *make) {
+            self.codeBut = [FSCustomButton buttonWithType:UIButtonTypeCustom];
+            [self.codeBut setTitle:@"获取验证码" forState:UIControlStateNormal];
+            self.codeBut.titleLabel.font = FONT(12);
+            [self.codeBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            self.codeBut.backgroundColor = But_Bg_Color;
+            self.codeBut.timeInterval = TimeInterval;
+            self.codeBut.enabled = NO;
+            [self.codeBut addTarget:self action:@selector(bankClick) forControlEvents:UIControlEventTouchUpInside];
+            self.codeBut.layer.cornerRadius = 15;
+            self.codeBut.layer.shadowOffset = CGSizeMake(0, 2);
+            self.codeBut.layer.shadowOpacity = 1;
+            self.codeBut.layer.shadowColor = [UIColor colorWithHex:@"#B5B8FF"].CGColor;
+            self.codeBut.layer.shadowRadius = 6;
+            [bgView addSubview:self.codeBut];
+            [self.codeBut mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(bgView);
                 make.right.mas_equalTo(-30);
                 make.width.mas_equalTo(82);
@@ -125,18 +137,133 @@
         make.top.mas_equalTo(lastView.mas_bottom).offset(62);
         make.left.mas_equalTo(27);
         make.right.mas_equalTo(-27);
+        make.height.mas_equalTo(45);
     }];
 
     
 }
+
+///获取验证码
+-(void)bankClick{
+    
+    UITextField *textFiled = (UITextField *)[self.view viewWithTag:3];
+    if (![LYDUtil isPhoneNumber:textFiled.text]) {
+           return;
+       }
+       @weakify(self);
+       NSDictionary *pramDic = @{@"phone":EMPTY_IF_NIL(textFiled.text),@"appscen":@"other"};
+       [[RequestAPI shareInstance] getSysCode:pramDic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+           @strongify(self);
+           if (succeed) {
+               if ([result[@"success"] intValue] == 1) {
+                   self.isGetCodeSuccess = YES;
+
+                    [MBProgressHUD showSuccess:@"验证码已发送"];
+                   __block int timeout=60; //倒计时时间
+                   dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+                   dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+                   dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+                   dispatch_source_set_event_handler(_timer, ^{
+                       if(timeout<=0){ //倒计时结束，关闭
+                           dispatch_source_cancel(_timer);
+                           dispatch_async(dispatch_get_main_queue(), ^{
+                               //设置界面的按钮显示 根据自己需求设置
+                               self.codeBut.enabled = YES;
+                               [self.codeBut setTitle:@"获取验证码" forState:UIControlStateNormal];
+                           });
+                       }else{
+                           int seconds = timeout ;//% 60;
+                           NSString *strTime = [NSString stringWithFormat:@"%dS", seconds];
+                           dispatch_async(dispatch_get_main_queue(), ^{
+                               //设置界面的按钮显示 根据自己需求设置
+                               self.codeBut.enabled = NO;
+
+                               [self.codeBut setTitle:[NSString stringWithFormat:@"%@",strTime] forState:UIControlStateNormal];
+                               self.isGetCodeSuccess = NO;
+
+                           });
+                           timeout--;
+                       }
+                   });
+                   dispatch_resume(_timer);
+               }else{
+                   
+                   [MBProgressHUD showError:result[@"message"]];
+
+               }
+           }
+       }];
+}
 -(void)nextButtonClick{
     
-    ApplicationInformationViewController *applicationVc = [[ApplicationInformationViewController alloc] init];
-    [self.navigationController pushViewController:applicationVc animated:YES];
+    NSDictionary *dic = @{@"accNo":EMPTY_IF_NIL(self.bankCardStr),@"idHolder":EMPTY_IF_NIL(self.nameStr),@"mobile":EMPTY_IF_NIL(self.phoneStr),@"custId":self.loginModel.custId};
+    [[RequestAPI shareInstance] useCustAuthBankInsert:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        
+    }];
+    
+//    ApplicationInformationViewController *applicationVc = [[ApplicationInformationViewController alloc] init];
+//    [self.navigationController pushViewController:applicationVc animated:YES];
     
 }
 -(void)textChangeCLick:(UITextField *)textField{
-    [MBProgressHUD showError:[NSString stringWithFormat:@"%ld",textField.tag]];
+    
+    if (textField.tag == 2) {
+        self.bankCardStr = textField.text;
+    }else if (textField.tag == 3){
+        self.phoneStr = textField.text;
+        [self textFieldDidChange:textField LimitLength:11];
+
+    }else if (textField.tag == 4){
+        self.codeStr = textField.text;
+        [self textFieldDidChange:textField LimitLength:6];
+
+    }else{
+        self.nameStr = textField.text;
+    }
+    
+}
+#pragma mark UITextFilDelagete
+
+-(void)textFieldDidChange:(UITextField *)textField LimitLength:(int)length{
+    CGFloat maxLength = length;
+    NSString *toBeString = textField.text;
+    
+    //获取高亮部分
+    UITextRange *selectedRange = [textField markedTextRange];
+    UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+    if (!position || !selectedRange)
+    {
+        if (toBeString.length > maxLength)
+        {
+            NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:maxLength];
+            if (rangeIndex.length == 1)
+            {
+                textField.text = [toBeString substringToIndex:maxLength];
+            }
+            else
+            {
+                NSRange rangeRange = [toBeString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, maxLength)];
+                textField.text = [toBeString substringWithRange:rangeRange];
+            }
+        }
+    }
+    if (textField.tag == 3) {
+        if (self.isGetCodeSuccess == NO) {
+            if(textField.text.length == 11){
+                    self.codeBut.enabled = YES;
+                }else{
+                    self.codeBut.enabled = NO;
+                }
+        }
+            
+
+    }
+    if (STRING_ISNIL(self.nameStr) || STRING_ISNIL(self.bankCardStr) || STRING_ISNIL(self.phoneStr) || STRING_ISNIL(self.codeStr)) {
+        self.nextBut.enabled = NO;
+    }else{
+        self.nextBut.enabled = YES;
+    }
+
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
@@ -151,9 +278,18 @@
 -(UIButton *)nextBut{
     if (!_nextBut) {
         _nextBut = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_nextBut setBackgroundImage:[UIImage imageNamed:@"but_enable"] forState:UIControlStateNormal];
         _nextBut.titleLabel.font = BOLDFONT(18);
+        _nextBut.backgroundColor = [UIColor colorWithHex:@"#4D56EF"];
+
+        [_nextBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_nextBut setTitle:@"下一步" forState:UIControlStateNormal];
+        _nextBut.layer.shadowOffset = CGSizeMake(0, 2);
+        _nextBut.layer.shadowOpacity = 1;
+        _nextBut.layer.shadowColor = [UIColor colorWithHex:@"#B5B8FF"].CGColor;
+        _nextBut.layer.shadowRadius = 9;
+
+        _nextBut.enabled = NO;
+
         [_nextBut addTarget:self action:@selector(nextButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _nextBut;

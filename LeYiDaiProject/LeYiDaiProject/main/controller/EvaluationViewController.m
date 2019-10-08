@@ -9,6 +9,8 @@
 #import "EvaluationViewController.h"
 #import "AuthenticationViewController.h"
 
+
+#import "OperatorViewController.h"
 @interface EvaluationViewController ()
 
 @property (nonatomic,strong)UIView *evaluaView;
@@ -104,8 +106,10 @@
  */
 -(void)renZhengButtonClick{
     
-    AuthenticationViewController *authenVc = [[AuthenticationViewController alloc] init];
-    [self.navigationController pushViewController:authenVc animated:YES];
+    OperatorViewController *operaVc = [[OperatorViewController alloc] init];
+    [self.navigationController pushViewController:operaVc animated:YES];
+//    AuthenticationViewController *authenVc = [[AuthenticationViewController alloc] init];
+//    [self.navigationController pushViewController:authenVc animated:YES];
 }
 /**
  查询认证列表

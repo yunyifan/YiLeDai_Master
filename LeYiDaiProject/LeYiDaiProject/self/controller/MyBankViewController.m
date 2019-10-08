@@ -77,7 +77,7 @@
 }
 -(void)useQuryBankInsert{
     
-    [[RequestAPI shareInstance] quryCustBankcardQueryList:@{@"custId":EMPTY_IF_NIL(self.loginModel.custId)} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+    [[RequestAPI shareInstance] quryCustBankcardQueryList:@{@"custId":EMPTY_IF_NIL(self.loginModel.custId),@"userId":self.loginModel.userId} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
         
     }];
 }
