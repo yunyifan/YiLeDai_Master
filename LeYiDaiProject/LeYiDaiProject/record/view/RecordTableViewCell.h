@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RecordTableViewCell : BaseTableViewCell
--(void)setUIData;
+-(void)setUIData:(NSDictionary *)dataDic;
 @end
 
 NS_ASSUME_NONNULL_END

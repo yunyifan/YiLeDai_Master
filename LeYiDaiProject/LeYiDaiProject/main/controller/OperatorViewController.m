@@ -251,19 +251,6 @@
 
 -(void)useOperatorInsert{
     
-    NSDictionary *dic = @{@"mobile":EMPTY_IF_NIL(self.phoneText.text),@"smsCode":EMPTY_IF_NIL(self.secretText.text),@"userId":self.loginModel.userId};
-    [[RequestAPI shareInstance] useCustAuthOperatorInsert:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
-        if (succeed) {
-            if ([result[@"success"] intValue] == 1) {
-                
-            }else{
-                
-                [MBProgressHUD showError:result[@"message"]];
-
-            }
-
-        }
-    }];
 }
 //-(MainAccationView *)accationView{
 //    if (!_accationView) {

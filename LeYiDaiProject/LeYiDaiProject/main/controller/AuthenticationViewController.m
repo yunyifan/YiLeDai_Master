@@ -142,7 +142,7 @@
             // 设置代理
             imagePickerController.delegate = self;
             // 是否显示裁剪框编辑（默认为NO），等于YES的时候，照片拍摄完成可以进行裁剪
-            imagePickerController.allowsEditing = NO;
+            imagePickerController.allowsEditing = YES;
             // 设置照片来源为相机
             imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
             imagePickerController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
@@ -160,7 +160,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     [picker dismissViewControllerAnimated:YES completion:nil];
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     UIImageView *zhengImage = (UIImageView *)[self.centerView viewWithTag:self.selectInteger];
     zhengImage.image = image;
     NSData *imgData  = UIImageJPEGRepresentation(image, 1);
@@ -189,8 +189,7 @@
 }
 -(void)nextButtonClick{
     
-//    AuthenDetialViewController *detialVc = [[AuthenDetialViewController alloc] init];
-//    [self.navigationController pushViewController:detialVc animated:YES];
+
     
     [self useCusAuthInsert];
 }
@@ -198,10 +197,24 @@
 /// 身份证信息认证
 -(void)useCusAuthInsert{
     
-    
-    NSDictionary *dic = @{@"idCardImgPositive":@"http://pic26.nipic.com/20121221/9252150_142515375000_2.jpg",@"idCardImgNegative":@"http://pic16.nipic.com/20111006/6239936_092702973000_2.jpg",@"userId":EMPTY_IF_NIL(self.loginModel.userId),@"appId":APPID};
-    
-    [[RequestAPI shareInstance] useCusAuthInsert:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    @weakify(self);
+    [[RequestAPI shareInstance] uploadMoreImage:EMPTY_IF_NIL(self.loginModel.userId) UrlString:@"" :@[self.topData,self.fanData] Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        @strongify(self);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if (succeed) {
+            if ([result[@"success"] intValue] == 1) {
+                
+                AuthenDetialViewController *detialVc = [[AuthenDetialViewController alloc] init];
+                [self.navigationController pushViewController:detialVc animated:YES];
+            }else{
+                
+                [MBProgressHUD showError:result[@"message"]];
+
+            }
+
+        }
+        
         
     }];
 }

@@ -88,7 +88,12 @@
 
 - (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView{
     if (self.isFirstReson == YES) {
-        return Empoty_Data_Title(@"您还没有借过款", 14);
+        if([self.typeStr isEqualToString:@"lend"]){
+            return Empoty_Data_Title(@"您还没有借款记录", 14);
+
+        }else{
+            return Empoty_Data_Title(@"您还没有还款记录", 14);
+        }
         
     }else{
         return [[NSAttributedString alloc] initWithString:@""];
@@ -109,7 +114,7 @@
         recordCell = [[RecordTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
     
-    [recordCell setUIData];
+    [recordCell setUIData:self.listArray[indexPath.row]];
     
     return recordCell;
 }

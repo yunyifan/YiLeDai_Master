@@ -12,7 +12,7 @@
 
 @property (nonatomic,strong)UIView *lineView;
 
-@property (nonatomic,strong)UIButton *nextBut;
+@property (nonatomic,strong)FSCustomButton *nextBut;
 
 @property (nonatomic,assign)BOOL isGetCodeSuccess; // 是否获取验证码成功 ，获取验证码60s内，获取验证码按钮不高亮
 
@@ -151,7 +151,7 @@
            return;
        }
        @weakify(self);
-       NSDictionary *pramDic = @{@"phone":EMPTY_IF_NIL(textFiled.text),@"appscen":@"other"};
+       NSDictionary *pramDic = @{@"phone":EMPTY_IF_NIL(textFiled.text),@"appscen":@"auth"};
        [[RequestAPI shareInstance] getSysCode:pramDic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
            @strongify(self);
            if (succeed) {
@@ -196,9 +196,20 @@
 }
 -(void)nextButtonClick{
     
-    NSDictionary *dic = @{@"accNo":EMPTY_IF_NIL(self.bankCardStr),@"idHolder":EMPTY_IF_NIL(self.nameStr),@"mobile":EMPTY_IF_NIL(self.phoneStr),@"custId":self.loginModel.custId};
+    NSDictionary *dic = @{@"accNo":EMPTY_IF_NIL(self.bankCardStr),@"idHolder":EMPTY_IF_NIL(self.nameStr),@"mobile":EMPTY_IF_NIL(self.phoneStr),@"userId":self.loginModel.userId,@"smsCode":self.codeStr};
     [[RequestAPI shareInstance] useCustAuthBankInsert:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
-        
+        if (succeed) {
+            if ([result[@"success"] intValue] == 1) {
+                
+                
+            }else{
+                
+                [MBProgressHUD showError:result[@"message"]];
+
+            }
+
+        }
+
     }];
     
 //    ApplicationInformationViewController *applicationVc = [[ApplicationInformationViewController alloc] init];
@@ -275,9 +286,9 @@
     }
     return _lineView;
 }
--(UIButton *)nextBut{
+-(FSCustomButton *)nextBut{
     if (!_nextBut) {
-        _nextBut = [UIButton buttonWithType:UIButtonTypeCustom];
+        _nextBut = [FSCustomButton buttonWithType:UIButtonTypeCustom];
         _nextBut.titleLabel.font = BOLDFONT(18);
         _nextBut.backgroundColor = [UIColor colorWithHex:@"#4D56EF"];
 

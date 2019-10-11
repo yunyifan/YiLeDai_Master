@@ -29,10 +29,24 @@
     
     return self;
 }
--(void)setUIData{
-    self.moneyLab.text = @"1000.00";
-    self.timeLab.text = @"2019年07月16日";
-    self.stauteLab.text = @"违约还款";
+-(void)setUIData:(NSDictionary *)dataDic{
+    
+//    "loanAcctNo"："1111", 贷款账号/还款单据号
+//    "lendAmount":1000000, 金额
+//    "beginDate":"2018-09-12", 借款/应还日期
+//    "lendState":"3", 0:未通过 1.审批中 2.放款中 3.使用中 4.逾期 5 已结清 8：正常还款 9：违约还款
+//     "lendState_dictText":"审批中"  状态值
+    
+    self.moneyLab.text = EMPTY_IF_NIL(dataDic[@"lendAmount"]);
+    self.timeLab.text = EMPTY_IF_NIL(dataDic[@"beginDate"]);
+    if ([dataDic[@"lendState"] intValue] == 9) {
+        self.stauteLab.textColor = Tit_Red_Color;
+
+    }else{
+        self.stauteLab.textColor = Tit_Gray_Color;
+
+    }
+    self.stauteLab.text = EMPTY_IF_NIL(dataDic[@"lendState_dictText"]) ;
 }
 -(void)initUI{
     

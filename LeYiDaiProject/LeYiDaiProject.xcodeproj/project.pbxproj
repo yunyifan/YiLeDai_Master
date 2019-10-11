@@ -46,6 +46,7 @@
 		C10DACBF233A27B80059A94C /* AppIdentificationManage.m in Sources */ = {isa = PBXBuildFile; fileRef = C10DACBE233A27B70059A94C /* AppIdentificationManage.m */; };
 		C11B3BD1234AC8FB00E4EE8B /* MyBankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3BD0234AC8FB00E4EE8B /* MyBankViewController.m */; };
 		C11B3BD4234ACB9100E4EE8B /* BankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3BD3234ACB9100E4EE8B /* BankTableViewCell.m */; };
+		C11B3BE1234ED60A00E4EE8B /* CustAuthresultMedel.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3BE0234ED60A00E4EE8B /* CustAuthresultMedel.m */; };
 		C11DBC0C2323560700733E2B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11DBC0B2323560700733E2B /* SettingViewController.m */; };
 		C12604BA232A11B20099BF22 /* MianTopBlueView.m in Sources */ = {isa = PBXBuildFile; fileRef = C12604B9232A11B20099BF22 /* MianTopBlueView.m */; };
 		C12DC0B7233C64B500ABF3F3 /* RepaymentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C12DC0B6233C64B500ABF3F3 /* RepaymentTableViewCell.m */; };
@@ -173,6 +174,8 @@
 		C11B3BD0234AC8FB00E4EE8B /* MyBankViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyBankViewController.m; sourceTree = "<group>"; };
 		C11B3BD2234ACB9100E4EE8B /* BankTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BankTableViewCell.h; sourceTree = "<group>"; };
 		C11B3BD3234ACB9100E4EE8B /* BankTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankTableViewCell.m; sourceTree = "<group>"; };
+		C11B3BDF234ED60A00E4EE8B /* CustAuthresultMedel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustAuthresultMedel.h; sourceTree = "<group>"; };
+		C11B3BE0234ED60A00E4EE8B /* CustAuthresultMedel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustAuthresultMedel.m; sourceTree = "<group>"; };
 		C11DBC0A2323560700733E2B /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		C11DBC0B2323560700733E2B /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		C12604B8232A11B20099BF22 /* MianTopBlueView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MianTopBlueView.h; sourceTree = "<group>"; };
@@ -369,6 +372,8 @@
 			children = (
 				C199FC9C2349B86100F25A64 /* MainDetianModel.h */,
 				C199FC9D2349B86100F25A64 /* MainDetianModel.m */,
+				C11B3BDF234ED60A00E4EE8B /* CustAuthresultMedel.h */,
+				C11B3BE0234ED60A00E4EE8B /* CustAuthresultMedel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -822,6 +827,7 @@
 				C1000CE7232132C7003C822F /* UIColor+HexColor.m in Sources */,
 				C100DE67232FABC00034989A /* LoanViewController.m in Sources */,
 				C14E513C2325F30A00745493 /* RecordTableViewCell.m in Sources */,
+				C11B3BE1234ED60A00E4EE8B /* CustAuthresultMedel.m in Sources */,
 				C1000CE5232132C7003C822F /* NSDate+Extension.m in Sources */,
 				C1000CE8232132C7003C822F /* MBProgressHUD+MJ.m in Sources */,
 				C199FC9B234982F300F25A64 /* LoginModel.m in Sources */,

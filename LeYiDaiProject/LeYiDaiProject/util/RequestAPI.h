@@ -31,6 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)useCustAuthBankInsert:(NSDictionary *)pramDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
 
 -(void)useLoanLendTradeListInsert:(NSDictionary *)pramDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
+
+-(void)quryWebGetWebInfo:(NSDictionary *)pramDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
+
+
+-(void)uploadMoreImage:(NSString *)userId UrlString:(NSString *)urlString :(NSArray *)arr Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
 @end
 
 NS_ASSUME_NONNULL_END
