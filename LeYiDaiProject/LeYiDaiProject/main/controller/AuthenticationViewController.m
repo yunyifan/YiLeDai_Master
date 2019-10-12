@@ -11,6 +11,8 @@
 #import "TZImagePickerController.h"
 
 #import "MainAccationView.h"
+
+#import "IDCardAutherModel.h"
 @interface AuthenticationViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic,strong)MainAccationView *accationView;
@@ -163,8 +165,7 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     UIImageView *zhengImage = (UIImageView *)[self.centerView viewWithTag:self.selectInteger];
     zhengImage.image = image;
-    NSData *imgData  = UIImageJPEGRepresentation(image, 1);
-    
+    NSData *imgData  = UIImageJPEGRepresentation(image, 0.4);
     
     if(self.selectInteger == 1){
         self.topData = imgData;
@@ -196,7 +197,8 @@
 
 /// 身份证信息认证
 -(void)useCusAuthInsert{
-    
+
+        
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     @weakify(self);
     [[RequestAPI shareInstance] uploadMoreImage:EMPTY_IF_NIL(self.loginModel.userId) UrlString:@"" :@[self.topData,self.fanData] Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
@@ -204,18 +206,20 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if (succeed) {
             if ([result[@"success"] intValue] == 1) {
-                
+
+                IDCardAutherModel *idCardModel = [IDCardAutherModel yy_modelWithDictionary:result[@"result"]];
                 AuthenDetialViewController *detialVc = [[AuthenDetialViewController alloc] init];
+                detialVc.idCardModel = idCardModel;
                 [self.navigationController pushViewController:detialVc animated:YES];
             }else{
-                
+
                 [MBProgressHUD showError:result[@"message"]];
 
             }
 
         }
-        
-        
+
+
     }];
 }
 -(MainAccationView *)accationView{

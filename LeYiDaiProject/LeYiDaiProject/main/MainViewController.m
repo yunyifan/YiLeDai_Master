@@ -17,6 +17,10 @@
 #import "MainAccationView.h"
 
 #import "MainDetianModel.h"
+
+
+#import "FaceAuthenViewController.h"
+
 @interface MainViewController ()
 
 @property (nonatomic,strong)UIImageView *topBgImg;
@@ -128,7 +132,12 @@
 }
 -(void)whiteBgViewButtonClick{
     
-    if (self.detialModel.userState == 1) {
+    
+//    FaceAuthenViewController *authenVc = [[FaceAuthenViewController alloc] init];
+//    [self.navigationController pushViewController:authenVc animated:YES];
+//    return;
+    
+    if (self.detialModel.userState == 1 || self.detialModel.userState == 2) {
 //        未认证
        EvaluationViewController *evaluaVc = [[EvaluationViewController alloc] init];
        [self.navigationController pushViewController:evaluaVc animated:YES];
@@ -150,7 +159,7 @@
         if (succeed) {
             if ([result[@"success"] intValue] == 1) {
                 self.detialModel = [MainDetianModel yy_modelWithDictionary:result[@"result"]];
-                if (self.detialModel.userState == 1) {
+                if (self.detialModel.userState == 1 || self.detialModel.userState == 2) {
                     [self creatInitNoAuthonUI];
                 }
             }

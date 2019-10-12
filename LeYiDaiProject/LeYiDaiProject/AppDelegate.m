@@ -11,6 +11,9 @@
 #import "LoginViewController.h"
 #import "BaseTabbarViewController.h"
 
+#import "IDLFaceSDK/IDLFaceSDK.h"
+#import "FaceParameterConfig.h"
+
 #import "LoginModel.h"
 @interface AppDelegate ()
 
@@ -27,6 +30,13 @@
     
     
     [IQKeyboardManager sharedManager].enable = YES;
+    
+    NSString* licensePath = [[NSBundle mainBundle] pathForResource:FACE_LICENSE_NAME ofType:FACE_LICENSE_SUFFIX];
+    NSAssert([[NSFileManager defaultManager] fileExistsAtPath:licensePath], @"license文件路径不对，请仔细查看文档");
+    [[FaceSDKManager sharedInstance] setLicenseID:FACE_LICENSE_ID andLocalLicenceFile:licensePath];
+    NSLog(@"canWork = %d",[[FaceSDKManager sharedInstance] canWork]);
+    NSLog(@"version = %@",[[FaceVerifier sharedInstance] getVersion]);
+
     
     [self initCustomWindow];
     

@@ -37,7 +37,7 @@
     self.rateLab.text = [NSString stringWithFormat:@"日利率：%@%@",self.creaditInfoModel.creditInfo.inteRate,@"%"];
 }
 -(void)creatMainUI{
-    if (self.type == 1) {
+    if (self.type == 1 || self.type == 2) {
         NSArray *titArr = @[@"申请借款",@"快速审核",@"实名认证",@"快速放款"];
       
         UIImageView *lastImg;
@@ -124,7 +124,7 @@
 }
 -(void)initDetialView{
     
-    if (self.type == 1) {
+    if (self.type == 1 || self.type == 2) {
         self.titLab.text = @"最高可借额度";
         self.img.hidden = YES;
         self.totalMoney.hidden = YES;
@@ -135,7 +135,7 @@
     [self addSubview:self.titLab];
     [self.titLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        if (self.type == 1) {
+        if (self.type == 1 || self.type == 2) {
             make.top.equalTo(self.lineVc).offset(24);
         }else{
             make.top.mas_equalTo(32);

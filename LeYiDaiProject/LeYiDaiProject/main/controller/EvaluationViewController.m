@@ -12,6 +12,8 @@
 #import "FaceAuthenViewController.h"
 #import "OperatorViewController.h"
 #import "ApplicationInformationViewController.h"
+#import "AuthenDetialViewController.h"
+
 
 #import "CustAuthresultMedel.h"
 @interface EvaluationViewController ()
@@ -118,10 +120,15 @@
  */
 -(void)renZhengButtonClick{
     
-    AuthenticationViewController *authenVc = [[AuthenticationViewController alloc] init];
-    [self.navigationController pushViewController:authenVc animated:YES];
+//    ApplicationInformationViewController *appVc = [[ApplicationInformationViewController alloc] init];
+//    [self.navigationController pushViewController:appVc animated:YES];
     
-    return;
+    
+//    FaceAuthenViewController *authenVc = [[FaceAuthenViewController alloc] init];
+//    [self.navigationController pushViewController:authenVc animated:YES];
+   
+    
+//    return;
     
     for (int i = 0; i<self.listArray.count; i++) {
         CustAuthresultMedel *model = self.listArray[i];
@@ -167,7 +174,7 @@
                 
             }else{
                 
-//                [MBProgressHUD showError:result[@"message"]];
+                [MBProgressHUD showError:result[@"message"]];
 
             }
 

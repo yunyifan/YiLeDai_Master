@@ -200,11 +200,12 @@
     [[RequestAPI shareInstance] useCustAuthBankInsert:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
         if (succeed) {
             if ([result[@"success"] intValue] == 1) {
-                
-                
+                NSLog(@"银行卡认证%@",result[@"result"][@"desc"]);
+                ApplicationInformationViewController *applicationVc = [[ApplicationInformationViewController alloc] init];
+                [self.navigationController pushViewController:applicationVc animated:YES];
             }else{
                 
-                [MBProgressHUD showError:result[@"message"]];
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"])];
 
             }
 
@@ -212,8 +213,7 @@
 
     }];
     
-//    ApplicationInformationViewController *applicationVc = [[ApplicationInformationViewController alloc] init];
-//    [self.navigationController pushViewController:applicationVc animated:YES];
+
     
 }
 -(void)textChangeCLick:(UITextField *)textField{

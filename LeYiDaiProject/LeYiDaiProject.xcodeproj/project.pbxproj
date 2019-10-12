@@ -47,6 +47,21 @@
 		C11B3BD1234AC8FB00E4EE8B /* MyBankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3BD0234AC8FB00E4EE8B /* MyBankViewController.m */; };
 		C11B3BD4234ACB9100E4EE8B /* BankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3BD3234ACB9100E4EE8B /* BankTableViewCell.m */; };
 		C11B3BE1234ED60A00E4EE8B /* CustAuthresultMedel.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3BE0234ED60A00E4EE8B /* CustAuthresultMedel.m */; };
+		C11B3BF023501D0100E4EE8B /* VideoCaptureDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3BEF23501D0000E4EE8B /* VideoCaptureDevice.m */; };
+		C11B3BF423501D0800E4EE8B /* ImageUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3BF223501D0800E4EE8B /* ImageUtils.m */; };
+		C11B3C0223501D9200E4EE8B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C11B3C0123501D9100E4EE8B /* libc++.tbd */; };
+		C11B3C052350411900E4EE8B /* IDCardAutherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3C042350411900E4EE8B /* IDCardAutherModel.m */; };
+		C11B3C1223516D4200E4EE8B /* com.baidu.idl.face.faceSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C11B3C0E23516D4000E4EE8B /* com.baidu.idl.face.faceSDK.bundle */; };
+		C11B3C1323516D4200E4EE8B /* IDLFaceSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C11B3C0F23516D4100E4EE8B /* IDLFaceSDK.framework */; };
+		C11B3C1423516D4200E4EE8B /* idl-license.face-ios in Resources */ = {isa = PBXBuildFile; fileRef = C11B3C1023516D4100E4EE8B /* idl-license.face-ios */; };
+		C11B3C1523516D4200E4EE8B /* com.baidu.idl.face.model.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C11B3C1123516D4200E4EE8B /* com.baidu.idl.face.model.bundle */; };
+		C11B3C242351758C00E4EE8B /* LivenessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3C162351758900E4EE8B /* LivenessViewController.m */; };
+		C11B3C252351758C00E4EE8B /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3C172351758900E4EE8B /* CircleView.m */; };
+		C11B3C262351758C00E4EE8B /* LivingConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3C182351758A00E4EE8B /* LivingConfigViewController.m */; };
+		C11B3C272351758C00E4EE8B /* RemindView.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3C1C2351758B00E4EE8B /* RemindView.m */; };
+		C11B3C282351758C00E4EE8B /* DetectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3C1D2351758B00E4EE8B /* DetectionViewController.m */; };
+		C11B3C2A2351758C00E4EE8B /* FaceBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3C222351758C00E4EE8B /* FaceBaseViewController.m */; };
+		C11B3C2D235180A600E4EE8B /* LivingConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3C2B235180A500E4EE8B /* LivingConfigModel.m */; };
 		C11DBC0C2323560700733E2B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11DBC0B2323560700733E2B /* SettingViewController.m */; };
 		C12604BA232A11B20099BF22 /* MianTopBlueView.m in Sources */ = {isa = PBXBuildFile; fileRef = C12604B9232A11B20099BF22 /* MianTopBlueView.m */; };
 		C12DC0B7233C64B500ABF3F3 /* RepaymentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C12DC0B6233C64B500ABF3F3 /* RepaymentTableViewCell.m */; };
@@ -176,6 +191,32 @@
 		C11B3BD3234ACB9100E4EE8B /* BankTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankTableViewCell.m; sourceTree = "<group>"; };
 		C11B3BDF234ED60A00E4EE8B /* CustAuthresultMedel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustAuthresultMedel.h; sourceTree = "<group>"; };
 		C11B3BE0234ED60A00E4EE8B /* CustAuthresultMedel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustAuthresultMedel.m; sourceTree = "<group>"; };
+		C11B3BEC23501CE100E4EE8B /* FaceParameterConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceParameterConfig.h; sourceTree = "<group>"; };
+		C11B3BEE23501D0000E4EE8B /* VideoCaptureDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCaptureDevice.h; sourceTree = "<group>"; };
+		C11B3BEF23501D0000E4EE8B /* VideoCaptureDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCaptureDevice.m; sourceTree = "<group>"; };
+		C11B3BF223501D0800E4EE8B /* ImageUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUtils.m; sourceTree = "<group>"; };
+		C11B3BF323501D0800E4EE8B /* ImageUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtils.h; sourceTree = "<group>"; };
+		C11B3C0123501D9100E4EE8B /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		C11B3C032350411900E4EE8B /* IDCardAutherModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDCardAutherModel.h; sourceTree = "<group>"; };
+		C11B3C042350411900E4EE8B /* IDCardAutherModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDCardAutherModel.m; sourceTree = "<group>"; };
+		C11B3C0E23516D4000E4EE8B /* com.baidu.idl.face.faceSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = com.baidu.idl.face.faceSDK.bundle; sourceTree = "<group>"; };
+		C11B3C0F23516D4100E4EE8B /* IDLFaceSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IDLFaceSDK.framework; sourceTree = "<group>"; };
+		C11B3C1023516D4100E4EE8B /* idl-license.face-ios */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "idl-license.face-ios"; sourceTree = "<group>"; };
+		C11B3C1123516D4200E4EE8B /* com.baidu.idl.face.model.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = com.baidu.idl.face.model.bundle; sourceTree = "<group>"; };
+		C11B3C162351758900E4EE8B /* LivenessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivenessViewController.m; sourceTree = "<group>"; };
+		C11B3C172351758900E4EE8B /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
+		C11B3C182351758A00E4EE8B /* LivingConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivingConfigViewController.m; sourceTree = "<group>"; };
+		C11B3C192351758A00E4EE8B /* FaceBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceBaseViewController.h; sourceTree = "<group>"; };
+		C11B3C1A2351758A00E4EE8B /* RemindView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindView.h; sourceTree = "<group>"; };
+		C11B3C1B2351758B00E4EE8B /* LivenessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivenessViewController.h; sourceTree = "<group>"; };
+		C11B3C1C2351758B00E4EE8B /* RemindView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemindView.m; sourceTree = "<group>"; };
+		C11B3C1D2351758B00E4EE8B /* DetectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetectionViewController.m; sourceTree = "<group>"; };
+		C11B3C202351758B00E4EE8B /* DetectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectionViewController.h; sourceTree = "<group>"; };
+		C11B3C212351758C00E4EE8B /* LivingConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivingConfigViewController.h; sourceTree = "<group>"; };
+		C11B3C222351758C00E4EE8B /* FaceBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceBaseViewController.m; sourceTree = "<group>"; };
+		C11B3C232351758C00E4EE8B /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
+		C11B3C2B235180A500E4EE8B /* LivingConfigModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivingConfigModel.m; sourceTree = "<group>"; };
+		C11B3C2C235180A600E4EE8B /* LivingConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivingConfigModel.h; sourceTree = "<group>"; };
 		C11DBC0A2323560700733E2B /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		C11DBC0B2323560700733E2B /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		C12604B8232A11B20099BF22 /* MianTopBlueView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MianTopBlueView.h; sourceTree = "<group>"; };
@@ -230,6 +271,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C11B3C0223501D9200E4EE8B /* libc++.tbd in Frameworks */,
+				C11B3C1323516D4200E4EE8B /* IDLFaceSDK.framework in Frameworks */,
 				F576662F17A32B2D8A2731A4 /* Pods_LeYiDaiProject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +306,7 @@
 		1610A53584A706D79EE27CA2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C11B3C0123501D9100E4EE8B /* libc++.tbd */,
 				D4D27320F73A4D9D768242FE /* Pods_LeYiDaiProject.framework */,
 			);
 			name = Frameworks;
@@ -332,8 +376,61 @@
 		C100DE772330E8D90034989A /* thirdSDK */ = {
 			isa = PBXGroup;
 			children = (
+				C11B3C0D23516D3900E4EE8B /* FaceSDK */,
 			);
 			path = thirdSDK;
+			sourceTree = "<group>";
+		};
+		C11B3BEB23501CC800E4EE8B /* FaceAuther */ = {
+			isa = PBXGroup;
+			children = (
+				C11B3C2C235180A600E4EE8B /* LivingConfigModel.h */,
+				C11B3C2B235180A500E4EE8B /* LivingConfigModel.m */,
+				C11B3C232351758C00E4EE8B /* CircleView.h */,
+				C11B3C172351758900E4EE8B /* CircleView.m */,
+				C11B3C202351758B00E4EE8B /* DetectionViewController.h */,
+				C11B3C1D2351758B00E4EE8B /* DetectionViewController.m */,
+				C11B3C192351758A00E4EE8B /* FaceBaseViewController.h */,
+				C11B3C222351758C00E4EE8B /* FaceBaseViewController.m */,
+				C11B3C1B2351758B00E4EE8B /* LivenessViewController.h */,
+				C11B3C162351758900E4EE8B /* LivenessViewController.m */,
+				C11B3C212351758C00E4EE8B /* LivingConfigViewController.h */,
+				C11B3C182351758A00E4EE8B /* LivingConfigViewController.m */,
+				C11B3C1A2351758A00E4EE8B /* RemindView.h */,
+				C11B3C1C2351758B00E4EE8B /* RemindView.m */,
+				C11B3BF123501D0800E4EE8B /* Utils */,
+				C11B3BED23501D0000E4EE8B /* Core */,
+			);
+			path = FaceAuther;
+			sourceTree = "<group>";
+		};
+		C11B3BED23501D0000E4EE8B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				C11B3BEE23501D0000E4EE8B /* VideoCaptureDevice.h */,
+				C11B3BEF23501D0000E4EE8B /* VideoCaptureDevice.m */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		C11B3BF123501D0800E4EE8B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C11B3BF223501D0800E4EE8B /* ImageUtils.m */,
+				C11B3BF323501D0800E4EE8B /* ImageUtils.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		C11B3C0D23516D3900E4EE8B /* FaceSDK */ = {
+			isa = PBXGroup;
+			children = (
+				C11B3C0E23516D4000E4EE8B /* com.baidu.idl.face.faceSDK.bundle */,
+				C11B3C1123516D4200E4EE8B /* com.baidu.idl.face.model.bundle */,
+				C11B3C1023516D4100E4EE8B /* idl-license.face-ios */,
+				C11B3C0F23516D4100E4EE8B /* IDLFaceSDK.framework */,
+			);
+			path = FaceSDK;
 			sourceTree = "<group>";
 		};
 		C14E51372325F2E900745493 /* model */ = {
@@ -374,6 +471,8 @@
 				C199FC9D2349B86100F25A64 /* MainDetianModel.m */,
 				C11B3BDF234ED60A00E4EE8B /* CustAuthresultMedel.h */,
 				C11B3BE0234ED60A00E4EE8B /* CustAuthresultMedel.m */,
+				C11B3C032350411900E4EE8B /* IDCardAutherModel.h */,
+				C11B3C042350411900E4EE8B /* IDCardAutherModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -400,6 +499,7 @@
 		C14E515023290F5C00745493 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				C11B3BEB23501CC800E4EE8B /* FaceAuther */,
 				C100DE47232DD5AC0034989A /* RepaymentViewController.h */,
 				C100DE48232DD5AC0034989A /* RepaymentViewController.m */,
 				C100DE4A232E0C930034989A /* EvaluationViewController.h */,
@@ -464,6 +564,7 @@
 				C1CE22CC2320F90F00515633 /* AppDelegate.m */,
 				C1CE22CE2320F90F00515633 /* ViewController.h */,
 				C1CE22CF2320F90F00515633 /* ViewController.m */,
+				C11B3BEC23501CE100E4EE8B /* FaceParameterConfig.h */,
 				C100DE772330E8D90034989A /* thirdSDK */,
 				C1CE2304232131AA00515633 /* base */,
 				C1CE22FD2321317100515633 /* category */,
@@ -719,7 +820,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1CE22D82320F91100515633 /* LaunchScreen.storyboard in Resources */,
+				C11B3C1423516D4200E4EE8B /* idl-license.face-ios in Resources */,
+				C11B3C1523516D4200E4EE8B /* com.baidu.idl.face.model.bundle in Resources */,
 				C1CE22D52320F91100515633 /* Assets.xcassets in Resources */,
+				C11B3C1223516D4200E4EE8B /* com.baidu.idl.face.faceSDK.bundle in Resources */,
 				C1CE22D32320F90F00515633 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -818,17 +922,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C11B3C2A2351758C00E4EE8B /* FaceBaseViewController.m in Sources */,
 				C100DE4F232E17DD0034989A /* AuthenticationViewController.m in Sources */,
+				C11B3C242351758C00E4EE8B /* LivenessViewController.m in Sources */,
 				C14E514D2328E27B00745493 /* RepaymentDetialViewController.m in Sources */,
 				C100DE58232E3DAD0034989A /* OperatorViewController.m in Sources */,
+				C11B3BF423501D0800E4EE8B /* ImageUtils.m in Sources */,
 				C14E514A2328C04200745493 /* LoanDetialView.m in Sources */,
 				C14E5153232914FF00745493 /* MainCenterView.m in Sources */,
 				C1000CDF232132C7003C822F /* NSArray+beyond.m in Sources */,
 				C1000CE7232132C7003C822F /* UIColor+HexColor.m in Sources */,
 				C100DE67232FABC00034989A /* LoanViewController.m in Sources */,
 				C14E513C2325F30A00745493 /* RecordTableViewCell.m in Sources */,
+				C11B3C252351758C00E4EE8B /* CircleView.m in Sources */,
 				C11B3BE1234ED60A00E4EE8B /* CustAuthresultMedel.m in Sources */,
 				C1000CE5232132C7003C822F /* NSDate+Extension.m in Sources */,
+				C11B3C052350411900E4EE8B /* IDCardAutherModel.m in Sources */,
 				C1000CE8232132C7003C822F /* MBProgressHUD+MJ.m in Sources */,
 				C199FC9B234982F300F25A64 /* LoginModel.m in Sources */,
 				C1CE22D02320F90F00515633 /* ViewController.m in Sources */,
@@ -859,18 +968,23 @@
 				C100DE5B232F229E0034989A /* BankAuthenViewController.m in Sources */,
 				C100DE42232DD0A90034989A /* FSCustomButton.m in Sources */,
 				C14E5144232898C100745493 /* BaseView.m in Sources */,
+				C11B3C2D235180A600E4EE8B /* LivingConfigModel.m in Sources */,
 				C100DE6A2330A7340034989A /* LoanOningViewController.m in Sources */,
 				C1CE22DB2320F91100515633 /* main.m in Sources */,
 				C1000CE3232132C7003C822F /* UISearchBar+ZMSearchBarPlaceholder.m in Sources */,
 				C100DE49232DD5AC0034989A /* RepaymentViewController.m in Sources */,
+				C11B3C272351758C00E4EE8B /* RemindView.m in Sources */,
 				C12DC0B7233C64B500ABF3F3 /* RepaymentTableViewCell.m in Sources */,
 				C1CE22CD2320F90F00515633 /* AppDelegate.m in Sources */,
 				C1000CF423222D3B003C822F /* RecordViewController.m in Sources */,
 				C16C104A2334CA7C00B34076 /* RequestAPI.m in Sources */,
+				C11B3C262351758C00E4EE8B /* LivingConfigViewController.m in Sources */,
 				C1000CFA23222DC0003C822F /* BaseNavViewController.m in Sources */,
 				C1000CE1232132C7003C822F /* NSString+SHA256_BASE64.m in Sources */,
 				C1000D112322882C003C822F /* SelfTableViewCell.m in Sources */,
+				C11B3C282351758C00E4EE8B /* DetectionViewController.m in Sources */,
 				C14E51412327C0F600745493 /* LoanDetialViewController.m in Sources */,
+				C11B3BF023501D0100E4EE8B /* VideoCaptureDevice.m in Sources */,
 				C12604BA232A11B20099BF22 /* MianTopBlueView.m in Sources */,
 				C1000CE0232132C7003C822F /* UIButton+Touch.m in Sources */,
 				C100DE61232F34400034989A /* ApplyInfoTableViewCell.m in Sources */,
@@ -1055,6 +1169,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LeYiDaiProject/thirdSDK/XYIDVerification-iOS-2.4.1",
 					"$(PROJECT_DIR)/LeYiDaiProject/thirdSDK/XYIDVerification-iOS-2.4.1",
+					"$(PROJECT_DIR)/LeYiDaiProject/thirdSDK/FaceSDK",
 				);
 				INFOPLIST_FILE = LeYiDaiProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1082,6 +1197,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LeYiDaiProject/thirdSDK/XYIDVerification-iOS-2.4.1",
 					"$(PROJECT_DIR)/LeYiDaiProject/thirdSDK/XYIDVerification-iOS-2.4.1",
+					"$(PROJECT_DIR)/LeYiDaiProject/thirdSDK/FaceSDK",
 				);
 				INFOPLIST_FILE = LeYiDaiProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

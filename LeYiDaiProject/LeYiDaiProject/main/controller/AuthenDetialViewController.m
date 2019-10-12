@@ -68,7 +68,7 @@
         
         UILabel *nameLab = [[UILabel alloc] init];
         nameLab.font = FONT(14);
-        nameLab.text = @"姓名";
+        
         nameLab.textColor = Tit_Gray_Color;
         [whiteBg addSubview:nameLab];
         [nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -78,7 +78,6 @@
         
         UILabel *numberLab = [[UILabel alloc] init];
         numberLab.font = FONT(14);
-        numberLab.text = @"身份证号";
         numberLab.textColor = Tit_Gray_Color;
         [whiteBg addSubview:numberLab];
         [numberLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -88,7 +87,6 @@
         
         UILabel *nameLabData = [[UILabel alloc] init];
         nameLabData.font = FONT(14);
-        nameLabData.text = @"小明";
         nameLabData.textColor = Tit_Black_Color;
         [whiteBg addSubview:nameLabData];
         [nameLabData mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -98,7 +96,7 @@
         
         UILabel *numberLabData = [[UILabel alloc] init];
         numberLabData.font = FONT(14);
-        numberLabData.text = @"393838398938938938";
+        
         numberLabData.textColor = Tit_Black_Color;
         [whiteBg addSubview:numberLabData];
         [numberLabData mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -117,6 +115,18 @@
                 make.right.mas_equalTo(0);
                 make.height.mas_equalTo(1);
             }];
+            
+            nameLab.text = @"姓名";
+            numberLab.text = @"身份证号";
+            nameLabData.text = EMPTY_IF_NIL(self.idCardModel.id_name);
+            numberLabData.text = EMPTY_IF_NIL(self.idCardModel.id_no);
+            
+        }else{
+            nameLab.text = @"签发机关";
+            numberLab.text = @"有效期限";
+            nameLabData.text = EMPTY_IF_NIL(self.idCardModel.issuingAuthority);
+            numberLabData.text = [NSString stringWithFormat:@"%@ - %@",EMPTY_IF_NIL(self.idCardModel.issuingDate),EMPTY_IF_NIL(self.idCardModel.expiryDate)] ;
+
         }
         
         
@@ -131,6 +141,7 @@
         make.top.mas_equalTo(lastBg.mas_bottom).offset(53);
         make.left.mas_equalTo(27);
         make.right.mas_equalTo(-27);
+        make.height.mas_equalTo(45);
     }];
     
     
@@ -145,9 +156,15 @@
 -(UIButton *)nextBut{
     if (!_nextBut) {
         _nextBut = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_nextBut setBackgroundImage:[UIImage imageNamed:@"but_able"] forState:UIControlStateNormal];
         _nextBut.titleLabel.font = BOLDFONT(18);
         [_nextBut setTitle:@"下一步" forState:UIControlStateNormal];
+         _nextBut.backgroundColor = [UIColor colorWithHex:@"#4D56EF"];
+         [_nextBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+         _nextBut.layer.shadowOffset = CGSizeMake(0, 2);
+        _nextBut.layer.shadowOpacity = 1;
+        _nextBut.layer.shadowColor = [UIColor colorWithHex:@"#B5B8FF"].CGColor;
+        _nextBut.layer.shadowRadius = 9;
+
         [_nextBut addTarget:self action:@selector(nextButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _nextBut;

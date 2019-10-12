@@ -57,7 +57,7 @@
   parameters:(id)parameters
   completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion
 {
-    NSLog(@"传入的参数 %@",parameters);
+    NSLog(@"传入的参数 %@,%@",parameters,URLString);
     AFHTTPSessionManager *manager = self.sessionManager;
     if([self.loginModel isLogin]){
         [manager.requestSerializer setValue:self.loginModel.token forHTTPHeaderField:@"X-Access-Token"];
@@ -69,7 +69,7 @@
     [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         @strongify(self);
         NSDictionary *dic = (NSDictionary *)responseObject;
-        NSLog(@"JSON: %@,%@", dic,URLString);
+        NSLog(@"JSON: %@", dic);
         if ([dic[@"code"] intValue] == 995) {
             [self.loginModel removeFromLocal];
             
@@ -95,7 +95,7 @@
   parameters:(id)parameters
   completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion
 {
-    NSLog(@"传入的参数 %@",parameters);
+    NSLog(@"传入的参数 %@,%@",parameters,URLString);
     AFHTTPSessionManager *manager = self.sessionManager;
             
     if([self.loginModel isLogin]){
@@ -184,7 +184,7 @@
  */
 -(void)useCusAuthInsert:(NSDictionary *)pramDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
     
-    [[RequestAPI shareInstance] POST:[NSString stringWithFormat:@"%@api/custAuth/idCard.do",BASEUEL] parameters:pramDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+    [[RequestAPI shareInstance] POST:[NSString stringWithFormat:@"%@api/custAuth/IdCard.do",BASEUEL] parameters:pramDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
         completion(succeed,result,error);
 
     }];
@@ -283,7 +283,7 @@
             // 上传filename
             NSString * fileName = [NSString stringWithFormat:@"%@.jpg", Name];
             
-            [formData appendPartWithFileData:imageData name:Name fileName:fileName mimeType:@"image/jpeg"];
+            [formData appendPartWithFileData:imageData name:Name fileName:fileName mimeType:@"image/jpg"];
         }
 
     } progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -291,13 +291,14 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         @strongify(self);
-        NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"完成 %@", dic);
-
+        NSDictionary * dic = responseObject;
+//        [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"完成 %@", responseObject);
+//
         if ([dic[@"code"] intValue] == 995) {
             [self.loginModel removeFromLocal];
             
-            [[AppDelegate shareAppDelegate] logout];
+//            [[AppDelegate shareAppDelegate] logout];
         }
         completion(TRUE,responseObject,nil);
 

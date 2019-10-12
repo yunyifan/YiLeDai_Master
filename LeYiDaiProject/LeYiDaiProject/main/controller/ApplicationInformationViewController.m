@@ -19,7 +19,7 @@
 
 @property (nonatomic,strong)NSArray *placehodelArray;
 
-@property (nonatomic,strong)UIButton *nextBut;
+@property (nonatomic,strong)FSCustomButton *nextBut;
 
 
 @end
@@ -54,8 +54,9 @@
     [footView addSubview:self.nextBut];
     [self.nextBut mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(footView);
-        make.left.mas_equalTo(27);
-        make.right.mas_equalTo(-27);
+        make.centerX.equalTo(footView);
+        make.width.mas_equalTo(SCREEN_WIDTH-27*2);
+        make.height.mas_equalTo(45);
         
     }];
     
@@ -135,10 +136,16 @@
     return _applyTable;
 }
 
--(UIButton *)nextBut{
+-(FSCustomButton *)nextBut{
     if (!_nextBut) {
-        _nextBut = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_nextBut setBackgroundImage:[UIImage imageNamed:@"but_enable"] forState:UIControlStateNormal];
+        _nextBut = [FSCustomButton buttonWithType:UIButtonTypeCustom];
+        _nextBut.backgroundColor = [UIColor colorWithHex:@"#4D56EF"];
+       [_nextBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+       _nextBut.layer.shadowOffset = CGSizeMake(0, 2);
+       _nextBut.layer.shadowOpacity = 1;
+       _nextBut.layer.shadowColor = [UIColor colorWithHex:@"#B5B8FF"].CGColor;
+       _nextBut.layer.shadowRadius = 9;
+        _nextBut.enabled = NO;
         _nextBut.titleLabel.font = BOLDFONT(18);
         [_nextBut setTitle:@"提交审核" forState:UIControlStateNormal];
         [_nextBut addTarget:self action:@selector(nextButtonClick) forControlEvents:UIControlEventTouchUpInside];

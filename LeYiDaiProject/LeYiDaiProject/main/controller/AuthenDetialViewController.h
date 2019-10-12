@@ -7,11 +7,12 @@
 //
 
 #import "BaseViewController.h"
-
+#import "IDCardAutherModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AuthenDetialViewController : BaseViewController
 
+@property (nonatomic,strong)IDCardAutherModel *idCardModel;
 @end
 
 NS_ASSUME_NONNULL_END
