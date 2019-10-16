@@ -195,7 +195,7 @@
  */
 -(void)useCustAuthOperatorInsert:(NSDictionary *)pramDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
     
-    [[RequestAPI shareInstance] POST:[NSString stringWithFormat:@"%@api/custAuth/operator.do",BASEUEL] parameters:pramDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+    [[RequestAPI shareInstance] GET:[NSString stringWithFormat:@"%@api/custAuth/operator.do",BASEUEL] parameters:pramDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
         completion(succeed,result,error);
 
     }];
@@ -211,7 +211,17 @@
 
     }];
 }
+/**
+ 人脸识别
+ 
+ */
+-(void)useFaceRecognition:(NSDictionary *)pramDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+    [[RequestAPI shareInstance] POST:[NSString stringWithFormat:@"%@api/custAuth/faceRecognition.do",BASEUEL] parameters:pramDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
 
+    }];
+}
 
 /**
  
@@ -316,5 +326,53 @@
 
     }];
 
+}
+/**
+ 
+ 提交额度审批资料
+ */
+-(void)useCustAuthCustInfoUp:(NSDictionary *)pramDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+//    1.综合授权书 2.借款协议 3.权益服务协议 4，委托扣款协议
+    [[RequestAPI shareInstance] POST:[NSString stringWithFormat:@"%@api/custAuth/custInfoUp",BASEUEL] parameters:pramDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
+}
+
+/**
+ 
+ 还款计算
+ */
+-(void)useLoanLendTradeGetRepayInfo:(NSDictionary *)pramDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+
+    [[RequestAPI shareInstance] GET:[NSString stringWithFormat:@"%@api/loanLendTrade/getRepayInfo",BASEUEL] parameters:pramDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
+}
+/**
+ 
+ 申请放款
+ */
+-(void)useLoanLendTradeUpInsert:(NSDictionary *)pramDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+
+    [[RequestAPI shareInstance] POST:[NSString stringWithFormat:@"%@api/loanLendTrade/loanLendTradeUp",BASEUEL] parameters:pramDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
+}
+/**
+ 查询待还款列表
+ 
+ */
+-(void)useGetRepayList:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+    [[RequestAPI shareInstance] GET:[NSString stringWithFormat:@"%@api/repayList/getRepayList",BASEUEL] parameters:prmDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
 }
 @end

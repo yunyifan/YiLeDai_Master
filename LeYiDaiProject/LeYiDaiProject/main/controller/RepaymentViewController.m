@@ -33,6 +33,8 @@
     self.navigationItem.title = @"还款";
     self.view.backgroundColor = [UIColor colorWithHex:@"#F6F7FB"];
     [self creatDetailUI];
+    
+    [self useGetRepayInsert];
 }
 -(void)creatDetailUI{
     
@@ -93,6 +95,24 @@
         make.right.mas_equalTo(0);
         make.left.mas_equalTo(0);
         make.height.mas_equalTo(45);
+    }];
+}
+-(void)useGetRepayInsert{
+    
+    @weakify(self);
+    [[RequestAPI shareInstance] useGetRepayList:@{@"userId":self.loginModel.userId} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        @strongify(self);
+        if (succeed) {
+              if ([result[@"success"] intValue] == 1) {
+                  
+                
+              }else{
+                  
+                  [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
+
+              }
+          }
+
     }];
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

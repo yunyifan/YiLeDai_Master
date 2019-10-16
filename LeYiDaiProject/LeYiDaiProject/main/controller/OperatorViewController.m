@@ -51,7 +51,9 @@
     
     self.navigationItem.title = @"额度评估-运营商认证";
 
-    [self creatInitUI];
+//    [self creatInitUI];
+    
+    [self creatOperInsert];
 }
 -(void)creatInitUI{
 //    [self.view addSubview:self.accationView];
@@ -182,7 +184,7 @@
                 dispatch_resume(_timer);
             }else{
                 
-                [MBProgressHUD showError:result[@"message"]];
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
 
             }
         }
@@ -251,6 +253,22 @@
 
 -(void)useOperatorInsert{
     
+}
+-(void)creatOperInsert{
+    NSDictionary *dic = @{@"type":@"ios",@"userId":self.loginModel.userId};
+    [[RequestAPI shareInstance] useCustAuthOperatorInsert:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        if (succeed) {
+            if ([result[@"success"] intValue] == 1) {
+                
+            }else{
+                
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
+
+            }
+
+        }
+    }];
+
 }
 //-(MainAccationView *)accationView{
 //    if (!_accationView) {

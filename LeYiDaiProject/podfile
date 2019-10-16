@@ -9,7 +9,6 @@ target 'LeYiDaiProject' do
    pod 'YYModel'
    pod 'SDWebImage'
    pod 'WMPageController'
-   pod 'IQKeyboardManager'
    pod 'WCDB','~>1.0.5’
 # 扫码
 

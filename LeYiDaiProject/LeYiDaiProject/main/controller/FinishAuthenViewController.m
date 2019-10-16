@@ -64,7 +64,7 @@
 }
 -(void)rightBtnClip{
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 -(UIView *)lineView{
     if (!_lineView) {

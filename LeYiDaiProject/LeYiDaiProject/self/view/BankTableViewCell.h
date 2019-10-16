@@ -7,10 +7,12 @@
 //
 
 #import "BaseTableViewCell.h"
-
+#import "BankDetialModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BankTableViewCell : BaseTableViewCell
+
+-(void)setCellData:(BankDetialModel *)model;
 
 @end
 

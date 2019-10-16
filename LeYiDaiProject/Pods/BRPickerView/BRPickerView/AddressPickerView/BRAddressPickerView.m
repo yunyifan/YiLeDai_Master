@@ -130,9 +130,11 @@
         NSBundle *bundle = [NSBundle bundleForClass:[self class]];
         NSURL *url = [bundle URLForResource:@"BRPickerView" withExtension:@"bundle"];
         NSBundle *plistBundle = [NSBundle bundleWithURL:url];
-        
+
         NSString *filePath = [plistBundle pathForResource:@"BRCity" ofType:@"plist"];
         NSArray *dataSource = [NSArray arrayWithContentsOfFile:filePath];
+
+
         if (!dataSource || dataSource.count == 0) {
             _isDataSourceValid = NO;
             return;
@@ -155,22 +157,22 @@
     NSMutableArray *tempArr1 = [NSMutableArray array];
     for (NSDictionary *proviceDic in self.dataSource) {
         BRProvinceModel *proviceModel = [[BRProvinceModel alloc]init];
-        proviceModel.code = proviceDic[@"code"];
-        proviceModel.name = proviceDic[@"name"];
+        proviceModel.code = proviceDic[@"label"];
+        proviceModel.name = proviceDic[@"value"];
         proviceModel.index = [self.dataSource indexOfObject:proviceDic];
-        NSArray *citylist = proviceDic[@"citylist"];
+        NSArray *citylist = proviceDic[@"children"];
         NSMutableArray *tempArr2 = [NSMutableArray array];
         for (NSDictionary *cityDic in citylist) {
             BRCityModel *cityModel = [[BRCityModel alloc]init];
-            cityModel.code = cityDic[@"code"];
-            cityModel.name = cityDic[@"name"];
+            cityModel.code = cityDic[@"label"];
+            cityModel.name = cityDic[@"value"];
             cityModel.index = [citylist indexOfObject:cityDic];
-            NSArray *arealist = cityDic[@"arealist"];
+            NSArray *arealist = cityDic[@"children"];
             NSMutableArray *tempArr3 = [NSMutableArray array];
             for (NSDictionary *areaDic in arealist) {
                 BRAreaModel *areaModel = [[BRAreaModel alloc]init];
-                areaModel.code = areaDic[@"code"];
-                areaModel.name = areaDic[@"name"];
+                areaModel.code = areaDic[@"label"];
+                areaModel.name = areaDic[@"value"];
                 areaModel.index = [arealist indexOfObject:areaDic];
                 [tempArr3 addObject:areaModel];
             }

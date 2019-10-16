@@ -15,11 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LoanRepayDueModel : NSObject
 @property (nonatomic,assign)int overFlag; // 0：逾期 1：未逾期
 
-@property (nonatomic,assign)int dueTermSum; // 贷款总期次
-@property (nonatomic,assign)int dueTerm; //贷款期次
+@property (nonatomic,assign)NSString * dueTermSum; // 贷款总期次
+@property (nonatomic,assign)NSString * dueTerm; //贷款期次
 @property (nonatomic,strong)NSString *dueDate; // 应还日期
 @property (nonatomic,strong)NSString *dueAmt; // 应还总额
-@property (nonatomic,assign)int overDays; // 逾期天数
+@property (nonatomic,assign)NSString * overDays; // 逾期天数
 @end
 
 @interface CreaditInfoModel : NSObject

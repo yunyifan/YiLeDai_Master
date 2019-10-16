@@ -13,7 +13,7 @@
 #import "OperatorViewController.h"
 #import "ApplicationInformationViewController.h"
 #import "AuthenDetialViewController.h"
-
+#import "YSSWebViewController.h"
 
 #import "CustAuthresultMedel.h"
 @interface EvaluationViewController ()
@@ -120,14 +120,12 @@
  */
 -(void)renZhengButtonClick{
     
-//    ApplicationInformationViewController *appVc = [[ApplicationInformationViewController alloc] init];
-//    [self.navigationController pushViewController:appVc animated:YES];
-    
-    
-//    FaceAuthenViewController *authenVc = [[FaceAuthenViewController alloc] init];
-//    [self.navigationController pushViewController:authenVc animated:YES];
-   
-    
+//      YSSWebViewController *webVc = [[YSSWebViewController alloc] init];
+//       NSString *urlEncoded = [@"http://47.100.11.188:8090/jeecg-boot/authResult.html?type=ios" stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+//      webVc.urlStr = [NSString stringWithFormat:@"%@",urlEncoded];
+//      [self.navigationController pushViewController:webVc animated:YES];
+//
+//
 //    return;
     
     for (int i = 0; i<self.listArray.count; i++) {
@@ -171,10 +169,13 @@
     [[RequestAPI shareInstance] useCustAuthOperatorInsert:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
         if (succeed) {
             if ([result[@"success"] intValue] == 1) {
-                
+                YSSWebViewController *webVc = [[YSSWebViewController alloc] init];
+                NSString *urlEncoded = [EMPTY_IF_NIL(result[@"result"][@"url"]) stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+               webVc.urlStr = [NSString stringWithFormat:@"%@",urlEncoded];
+               [self.navigationController pushViewController:webVc animated:YES];
             }else{
                 
-                [MBProgressHUD showError:result[@"message"]];
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
 
             }
 
@@ -182,6 +183,7 @@
     }];
 
 }
+
 /**
  查询认证列表
  
@@ -206,7 +208,7 @@
                
             }else{
                 
-                [MBProgressHUD showError:result[@"message"]];
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
 
             }
         }

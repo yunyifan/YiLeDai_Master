@@ -11,10 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MainCenterView : BaseView
--(instancetype)initWithMainType:(NSInteger)typeIndex;
+-(instancetype)initWithMainType:(MainDetianModel *)modelDetia;
 
-@property (nonatomic,assign)NSInteger type;  //0 默认没有借过钱
-@property (nonatomic,strong)UIButton *statueBut;
+@property (nonatomic,strong)FSCustomButton *statueBut;
 
 @property (nonatomic,strong)MainDetianModel *creaditInfoModel;
 @end

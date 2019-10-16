@@ -164,7 +164,6 @@
         _nextBut.layer.shadowOpacity = 1;
         _nextBut.layer.shadowColor = [UIColor colorWithHex:@"#B5B8FF"].CGColor;
         _nextBut.layer.shadowRadius = 9;
-
         [_nextBut addTarget:self action:@selector(nextButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _nextBut;

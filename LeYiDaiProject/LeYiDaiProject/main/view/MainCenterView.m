@@ -21,29 +21,34 @@
 @end
 @implementation MainCenterView
 
--(instancetype)initWithMainType:(NSInteger)typeIndex{
+-(instancetype)initWithMainType:(MainDetianModel *)modelDetia{
     self = [super init];
     if (self) {
-        self.type = typeIndex;
+        self.creaditInfoModel = modelDetia;
 //        [self initDetialView];
         [self creatMainUI];
     }
     return self;
 }
--(void)setCreaditInfoModel:(MainDetianModel *)creaditInfoModel{
-    _creaditInfoModel = creaditInfoModel;
-    self.moneyLab.text = self.creaditInfoModel.creditInfo.creditLimit;
-    //        _rateLab.text = @"日利率：0.9%";
-    self.rateLab.text = [NSString stringWithFormat:@"日利率：%@%@",self.creaditInfoModel.creditInfo.inteRate,@"%"];
-}
 -(void)creatMainUI{
-    if (self.type == 1 || self.type == 2) {
+    
+    for (UIView *suvView in self.subviews) {
+        if (suvView.tag>1000) {
+            [suvView removeFromSuperview];
+
+        }
+    }
+
+    if (self.creaditInfoModel.userState == 1 || self.self.creaditInfoModel.userState == 2 || (self.self.creaditInfoModel.userState == 4 && [self.creaditInfoModel.creditInfo.creditAppstate intValue] == 9) ){
+        
+        
         NSArray *titArr = @[@"申请借款",@"快速审核",@"实名认证",@"快速放款"];
       
         UIImageView *lastImg;
         for (int i=0; i<3; i++) {
             
             UIImageView *arrimg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_red_arrow"]];
+            arrimg.tag = 1000+i;
             [self addSubview:arrimg];
             [arrimg mas_makeConstraints:^(MASConstraintMaker *make) {
                 if (lastImg) {
@@ -69,6 +74,7 @@
             
             UILabel *lable = [[UILabel alloc] init];
             lable.font = FONT(13);
+            lable.tag = 1100+i;
             lable.textColor = [UIColor colorWithHex:@"#FF52A5"];
             lable.text = titArr[i];
             [self addSubview:lable];
@@ -84,6 +90,7 @@
         lable.font = FONT(13);
         lable.textColor = [UIColor colorWithHex:@"#FF52A5"];
         lable.text = titArr[3];
+        lable.tag = 1200;
         [self addSubview:lable];
         [lable mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(lastImg);
@@ -95,9 +102,22 @@
         [self addSubview:self.lineVc];
         [LYDUtil drawDashLine:self.lineVc lineLength:10 lineSpacing:5 lineColor:[UIColor colorWithHex:@"#FF52A5"]];
         
-    }else{
+    }else if(self.self.creaditInfoModel.userState == 3 || self.self.creaditInfoModel.userState == 4 ||self.self.creaditInfoModel.userState == 5){
+        UIImage *leftIm;
+        NSString *righStr;
+        if (self.self.creaditInfoModel.userState == 3) {
+            leftIm = [UIImage imageNamed:@"shenhe_icon"];
+            righStr = @"统正在审核的资料，我们将在10-30分钟内估算出";
+        }else if(self.self.creaditInfoModel.userState == 4 && [self.creaditInfoModel.creditInfo.creditAppstate intValue] == 1){
+            leftIm = [UIImage imageNamed:@"loan_icon"];
+            righStr = @"恭喜您，审核通过！立即去借款吧。";
+        }else{
+            leftIm = [UIImage imageNamed:@"loan_icon"];
+            righStr = @"正在放款中，预计10分钟内到达账户，请耐心等待";
+        }
         
-        UIImageView *leftImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shenhe_icon"]];
+        UIImageView *leftImg = [[UIImageView alloc] initWithImage:leftIm];
+        leftImg.tag = 1300;
         [self addSubview:leftImg];
         [leftImg mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(14);
@@ -107,7 +127,8 @@
         UILabel *sheheLab = [[UILabel alloc] init];
         sheheLab.font = FONT(13);
         sheheLab.textColor = [UIColor colorWithHex:@"#FF52A5"];
-        sheheLab.text = @"统正在审核的资料，我们将在10-30分钟内估算出";
+        sheheLab.text = righStr;
+        sheheLab.tag = 1400;
         [self addSubview:sheheLab];
         [sheheLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(leftImg);
@@ -123,11 +144,49 @@
 
 }
 -(void)initDetialView{
-    
-    if (self.type == 1 || self.type == 2) {
+    self.moneyLab.text = self.creaditInfoModel.creditInfo.creditLeftamt;
+       //        _rateLab.text = @"日利率：0.9%";
+       self.rateLab.text = [NSString stringWithFormat:@"日利率：%@%@",self.creaditInfoModel.creditInfo.inteRate,@"%"];
+    self.totalMoney.text = [NSString stringWithFormat:@"总额度%@",self.creaditInfoModel.creditInfo.creditLimit];
+    if (self.self.creaditInfoModel.userState == 1 || self.self.creaditInfoModel.userState == 2) {
+        if(self.self.creaditInfoModel.userState == 1){
+            [self.statueBut setTitle:@"去认证" forState:UIControlStateNormal];
+        }
         self.titLab.text = @"最高可借额度";
         self.img.hidden = YES;
         self.totalMoney.hidden = YES;
+        self.statueBut.enabled = YES;
+    }else if (self.self.creaditInfoModel.userState == 3){
+        self.titLab.text = @"最高可借额度";
+       self.img.hidden = NO;
+       self.totalMoney.hidden = NO;
+        self.statueBut.enabled = NO;
+    }else if (self.self.creaditInfoModel.userState == 4){
+        if ([self.creaditInfoModel.creditInfo.creditAppstate intValue] == 1) {
+            self.titLab.text = @"可借额度";
+
+            self.statueBut.enabled = YES;
+        }else{
+            if([self.creaditInfoModel.creditInfo.creditAppstate intValue] == 9){
+                self.titLab.text = @"审核未通过,7天后再试";
+            }else{
+                self.titLab.text = @"最高可借额度";
+
+            }
+            self.statueBut.enabled = NO;
+        }
+    }else if (self.self.creaditInfoModel.userState == 5){
+        self.titLab.text = @"剩余额度";
+        self.statueBut.enabled = NO;
+
+    }else if (self.creaditInfoModel.userState == 6){
+        self.titLab.text = @"剩余额度";
+        self.statueBut.enabled = NO;
+        if (self.creaditInfoModel.loanRepayDue.overFlag == 1) {
+            [self.statueBut setTitle:@"我要借钱" forState:UIControlStateNormal];
+        }else{
+            [self.statueBut setTitle:@"逾期中" forState:UIControlStateNormal];
+        }
     }
     
     
@@ -135,7 +194,7 @@
     [self addSubview:self.titLab];
     [self.titLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        if (self.type == 1 || self.type == 2) {
+        if (self.creaditInfoModel.userState == 1 || self.creaditInfoModel.userState == 2 || self.creaditInfoModel.userState == 3 || self.creaditInfoModel.userState == 4 ||self.creaditInfoModel.userState == 5) {
             make.top.equalTo(self.lineVc).offset(24);
         }else{
             make.top.mas_equalTo(32);
@@ -205,13 +264,14 @@
     }
     return _rateLab;
 }
--(UIButton *)statueBut{
+-(FSCustomButton *)statueBut{
     if (!_statueBut) {
-        _statueBut = [UIButton buttonWithType:UIButtonTypeCustom];
+        _statueBut = [FSCustomButton buttonWithType:UIButtonTypeCustom];
         _statueBut.titleLabel.font = BOLDFONT(15);
         [_statueBut setTitle:@"我要借钱" forState:UIControlStateNormal];
         _statueBut.layer.backgroundColor = But_Bg_Color.CGColor;
         _statueBut.layer.cornerRadius = 20;
+        [_statueBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 //        _statueBut.alpha = 0.2;
         
     }
@@ -228,7 +288,6 @@
         _totalMoney = [[UILabel alloc] init];
         _totalMoney.font = FONT(13);
         _totalMoney.textColor = Tit_Black_Color;
-        _totalMoney.text = @"总额度 2000";
     }
     return _totalMoney;
 }

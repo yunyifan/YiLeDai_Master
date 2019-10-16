@@ -213,7 +213,7 @@
                 [self.navigationController pushViewController:detialVc animated:YES];
             }else{
 
-                [MBProgressHUD showError:result[@"message"]];
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
 
             }
 

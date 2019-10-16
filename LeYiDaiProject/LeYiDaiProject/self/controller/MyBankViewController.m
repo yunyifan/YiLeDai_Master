@@ -11,9 +11,12 @@
 
 #import "BankTableViewCell.h"
 
+#import "BankDetialModel.h"
 @interface MyBankViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UITableView *bankTableView;
+
+@property (nonatomic,strong)NSMutableArray *modelArray;
 @end
 
 @implementation MyBankViewController
@@ -21,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.modelArray = [NSMutableArray array];
     self.navigationItem.title = @"银行卡";
     
     self.bankTableView.tableFooterView = [self tableFootView];
@@ -66,27 +69,52 @@
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return self.modelArray.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     BankTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
         cell = [[BankTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
+    BankDetialModel *model = self.modelArray[indexPath.row];
+    [cell setCellData:model];
     return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)useQuryBankInsert{
     
+    @weakify(self);
     [[RequestAPI shareInstance] quryCustBankcardQueryList:@{@"custId":EMPTY_IF_NIL(self.loginModel.custId),@"userId":self.loginModel.userId} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
-        
+        @strongify(self);
+        if (succeed) {
+            if ([result[@"success"] intValue] == 1) {
+                [self.modelArray removeAllObjects];
+                NSArray *array = result[@"result"][@"bankList"];
+                for (NSDictionary *dic in array) {
+                    BankDetialModel *model = [BankDetialModel yy_modelWithDictionary:dic];
+                    [self.modelArray addObject:model];
+                }
+                
+                [self.bankTableView reloadData];
+              
+            }else{
+                
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
+
+            }
+        }
     }];
 }
 -(UITableView *)bankTableView{
     if (!_bankTableView) {
         _bankTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _bankTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _bankTableView.rowHeight = UITableViewAutomaticDimension;
-        _bankTableView.estimatedRowHeight = 110;
+        _bankTableView.rowHeight = 120;
+//        _bankTableView.estimatedRowHeight = 110;
         _bankTableView.dataSource = self;
         _bankTableView.delegate = self;
         [_bankTableView registerClass:[BankTableViewCell class] forCellReuseIdentifier:@"cell"];

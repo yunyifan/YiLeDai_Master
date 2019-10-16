@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LoanViewController : BaseViewController
 
+@property (nonatomic,strong)NSString *creditLeftamtStr;
+
 @end
 
 NS_ASSUME_NONNULL_END

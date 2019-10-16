@@ -25,7 +25,37 @@
     }
     return self;
 }
+-(void)setBlueViewData:(MainDetianModel *)detialModel{
+    
+    self.titLab.text = [NSString stringWithFormat:@"最近待还款%@/%@",EMPTY_IF_NIL(detialModel.loanRepayDue.dueTerm),EMPTY_IF_NIL(detialModel.loanRepayDue.dueTermSum)];
+    if(detialModel.loanRepayDue.overFlag == 0){
+        self.bottomLab.text =  @"已逾期";
+        self.timeLab.text = EMPTY_IF_NIL(detialModel.loanRepayDue.overDays);
+        
+        NSDictionary *attributes = @{NSFontAttributeName:FONT(12)};
+               
+        CGSize textSize = [EMPTY_IF_NIL(detialModel.loanRepayDue.overDays) boundingRectWithSize:CGSizeMake(220, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+        
+        [self.timeLab mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(textSize.width + 20);
+        }];
 
+    }else{
+        self.bottomLab.text =  @"待还日";
+
+        self.timeLab.text = EMPTY_IF_NIL(detialModel.loanRepayDue.dueDate);
+        NSDictionary *attributes = @{NSFontAttributeName:FONT(12)};
+                      
+               CGSize textSize = [EMPTY_IF_NIL(detialModel.loanRepayDue.dueDate) boundingRectWithSize:CGSizeMake(220, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+               
+               [self.timeLab mas_updateConstraints:^(MASConstraintMaker *make) {
+                   make.width.mas_equalTo(textSize.width + 20);
+               }];
+
+    }
+    self.moneyLab.text = EMPTY_IF_NIL(detialModel.loanRepayDue.dueAmt);
+
+}
 -(void)creatInitUI{
     
     [self addSubview:self.bgImg];
@@ -49,13 +79,14 @@
     [self.bottomLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.moneyLab.mas_bottom).offset(8);
         make.left.equalTo(self.titLab);
+        make.width.mas_equalTo(40);
     }];
     
     [self addSubview:self.timeLab];
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.bottomLab);
         make.left.equalTo(self.bottomLab.mas_right).offset(3);
-        make.width.mas_equalTo(64);
+//        make.width.mas_equalTo(64);
         make.height.mas_equalTo(18);
     }];
     
@@ -78,7 +109,6 @@
         _titLab = [[UILabel alloc] init];
         _titLab.font = FONT(12);
         _titLab.textColor = [UIColor whiteColor];
-        _titLab.text = @"最近待还款1/3";
     }
     return _titLab;
 }
@@ -87,7 +117,6 @@
         _moneyLab = [[UILabel alloc] init];
         _moneyLab.font = BOLDFONT(24);
         _moneyLab.textColor = [UIColor whiteColor];
-        _moneyLab.text = @"450.00";
     }
     return _moneyLab;
 }
@@ -105,7 +134,6 @@
         _timeLab = [[UILabel alloc] init];
         _timeLab.font = FONT(12);
         _timeLab.textColor = [UIColor whiteColor];
-        _timeLab.text = @"09月12日";
         _timeLab.layer.backgroundColor = [UIColor colorWithHex:@"#3A44E6"].CGColor;
         _timeLab.layer.cornerRadius = 9.5;
         _timeLab.textAlignment = NSTextAlignmentCenter;

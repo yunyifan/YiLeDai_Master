@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -63,6 +63,24 @@
 		C11B3C2A2351758C00E4EE8B /* FaceBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3C222351758C00E4EE8B /* FaceBaseViewController.m */; };
 		C11B3C2D235180A600E4EE8B /* LivingConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3C2B235180A500E4EE8B /* LivingConfigModel.m */; };
 		C11DBC0C2323560700733E2B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11DBC0B2323560700733E2B /* SettingViewController.m */; };
+		C12167162354585B001EE1C6 /* IQTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C12166F52354585B001EE1C6 /* IQTextView.m */; };
+		C12167172354585B001EE1C6 /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = C12166F92354585B001EE1C6 /* IQToolbar.m */; };
+		C12167182354585B001EE1C6 /* IQTitleBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C12166FB2354585B001EE1C6 /* IQTitleBarButtonItem.m */; };
+		C12167192354585B001EE1C6 /* IQBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C12166FC2354585B001EE1C6 /* IQBarButtonItem.m */; };
+		C121671A2354585B001EE1C6 /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = C12166FD2354585B001EE1C6 /* IQUIView+IQKeyboardToolbar.m */; };
+		C121671B2354585B001EE1C6 /* IQPreviousNextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C12166FE2354585B001EE1C6 /* IQPreviousNextView.m */; };
+		C121671C2354585B001EE1C6 /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C12167062354585B001EE1C6 /* IQKeyboardManager.bundle */; };
+		C121671D2354585B001EE1C6 /* IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C12167092354585B001EE1C6 /* IQKeyboardManager.m */; };
+		C121671E2354585B001EE1C6 /* IQNSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = C121670B2354585B001EE1C6 /* IQNSArray+Sort.m */; };
+		C121671F2354585B001EE1C6 /* IQUITextFieldView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C121670D2354585B001EE1C6 /* IQUITextFieldView+Additions.m */; };
+		C12167202354585B001EE1C6 /* IQUIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C121670E2354585B001EE1C6 /* IQUIScrollView+Additions.m */; };
+		C12167212354585B001EE1C6 /* IQUIView+Hierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = C121670F2354585B001EE1C6 /* IQUIView+Hierarchy.m */; };
+		C12167222354585B001EE1C6 /* IQUIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C12167132354585B001EE1C6 /* IQUIViewController+Additions.m */; };
+		C12167232354585B001EE1C6 /* IQKeyboardReturnKeyHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C12167152354585B001EE1C6 /* IQKeyboardReturnKeyHandler.m */; };
+		C121672623545CF5001EE1C6 /* YSSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C121672423545CF4001EE1C6 /* YSSWebViewController.m */; };
+		C121672923548A8E001EE1C6 /* CustInfoUpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C121672823548A8E001EE1C6 /* CustInfoUpModel.m */; };
+		C121672E2354B636001EE1C6 /* city.json in Resources */ = {isa = PBXBuildFile; fileRef = C121672D2354B636001EE1C6 /* city.json */; };
+		C12167312355D2FC001EE1C6 /* RepayDueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C12167302355D2FC001EE1C6 /* RepayDueModel.m */; };
 		C12604BA232A11B20099BF22 /* MianTopBlueView.m in Sources */ = {isa = PBXBuildFile; fileRef = C12604B9232A11B20099BF22 /* MianTopBlueView.m */; };
 		C12DC0B7233C64B500ABF3F3 /* RepaymentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C12DC0B6233C64B500ABF3F3 /* RepaymentTableViewCell.m */; };
 		C1457BFE233DDC3E00804E3E /* YSSModelDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = C1457BFD233DDC3E00804E3E /* YSSModelDialog.m */; };
@@ -77,6 +95,7 @@
 		C16C104A2334CA7C00B34076 /* RequestAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C16C10492334CA7C00B34076 /* RequestAPI.m */; };
 		C199FC9B234982F300F25A64 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C199FC9A234982F300F25A64 /* LoginModel.m */; };
 		C199FC9E2349B86100F25A64 /* MainDetianModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C199FC9D2349B86100F25A64 /* MainDetianModel.m */; };
+		C1C11BB42356D6C800CABDE5 /* BankDetialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C11BB32356D6C800CABDE5 /* BankDetialModel.m */; };
 		C1CE22CD2320F90F00515633 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CE22CC2320F90F00515633 /* AppDelegate.m */; };
 		C1CE22D02320F90F00515633 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CE22CF2320F90F00515633 /* ViewController.m */; };
 		C1CE22D32320F90F00515633 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1CE22D12320F90F00515633 /* Main.storyboard */; };
@@ -219,6 +238,42 @@
 		C11B3C2C235180A600E4EE8B /* LivingConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivingConfigModel.h; sourceTree = "<group>"; };
 		C11DBC0A2323560700733E2B /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		C11DBC0B2323560700733E2B /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		C12166F52354585B001EE1C6 /* IQTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQTextView.m; sourceTree = "<group>"; };
+		C12166F62354585B001EE1C6 /* IQTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQTextView.h; sourceTree = "<group>"; };
+		C12166F82354585B001EE1C6 /* IQUIView+IQKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIView+IQKeyboardToolbar.h"; sourceTree = "<group>"; };
+		C12166F92354585B001EE1C6 /* IQToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQToolbar.m; sourceTree = "<group>"; };
+		C12166FA2354585B001EE1C6 /* IQPreviousNextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQPreviousNextView.h; sourceTree = "<group>"; };
+		C12166FB2354585B001EE1C6 /* IQTitleBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQTitleBarButtonItem.m; sourceTree = "<group>"; };
+		C12166FC2354585B001EE1C6 /* IQBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQBarButtonItem.m; sourceTree = "<group>"; };
+		C12166FD2354585B001EE1C6 /* IQUIView+IQKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+IQKeyboardToolbar.m"; sourceTree = "<group>"; };
+		C12166FE2354585B001EE1C6 /* IQPreviousNextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQPreviousNextView.m; sourceTree = "<group>"; };
+		C12166FF2354585B001EE1C6 /* IQToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQToolbar.h; sourceTree = "<group>"; };
+		C12167002354585B001EE1C6 /* IQBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQBarButtonItem.h; sourceTree = "<group>"; };
+		C12167012354585B001EE1C6 /* IQTitleBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQTitleBarButtonItem.h; sourceTree = "<group>"; };
+		C12167032354585B001EE1C6 /* IQKeyboardManagerConstantsInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManagerConstantsInternal.h; sourceTree = "<group>"; };
+		C12167042354585B001EE1C6 /* IQKeyboardManagerConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManagerConstants.h; sourceTree = "<group>"; };
+		C12167062354585B001EE1C6 /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
+		C12167072354585B001EE1C6 /* IQKeyboardReturnKeyHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardReturnKeyHandler.h; sourceTree = "<group>"; };
+		C12167082354585B001EE1C6 /* IQKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManager.h; sourceTree = "<group>"; };
+		C12167092354585B001EE1C6 /* IQKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyboardManager.m; sourceTree = "<group>"; };
+		C121670B2354585B001EE1C6 /* IQNSArray+Sort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQNSArray+Sort.m"; sourceTree = "<group>"; };
+		C121670C2354585B001EE1C6 /* IQUIViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIViewController+Additions.h"; sourceTree = "<group>"; };
+		C121670D2354585B001EE1C6 /* IQUITextFieldView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUITextFieldView+Additions.m"; sourceTree = "<group>"; };
+		C121670E2354585B001EE1C6 /* IQUIScrollView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIScrollView+Additions.m"; sourceTree = "<group>"; };
+		C121670F2354585B001EE1C6 /* IQUIView+Hierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+Hierarchy.m"; sourceTree = "<group>"; };
+		C12167102354585B001EE1C6 /* IQNSArray+Sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQNSArray+Sort.h"; sourceTree = "<group>"; };
+		C12167112354585B001EE1C6 /* IQUIScrollView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIScrollView+Additions.h"; sourceTree = "<group>"; };
+		C12167122354585B001EE1C6 /* IQUITextFieldView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUITextFieldView+Additions.h"; sourceTree = "<group>"; };
+		C12167132354585B001EE1C6 /* IQUIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIViewController+Additions.m"; sourceTree = "<group>"; };
+		C12167142354585B001EE1C6 /* IQUIView+Hierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIView+Hierarchy.h"; sourceTree = "<group>"; };
+		C12167152354585B001EE1C6 /* IQKeyboardReturnKeyHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyboardReturnKeyHandler.m; sourceTree = "<group>"; };
+		C121672423545CF4001EE1C6 /* YSSWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSWebViewController.m; sourceTree = "<group>"; };
+		C121672523545CF4001EE1C6 /* YSSWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSWebViewController.h; sourceTree = "<group>"; };
+		C121672723548A8E001EE1C6 /* CustInfoUpModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustInfoUpModel.h; sourceTree = "<group>"; };
+		C121672823548A8E001EE1C6 /* CustInfoUpModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustInfoUpModel.m; sourceTree = "<group>"; };
+		C121672D2354B636001EE1C6 /* city.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city.json; sourceTree = "<group>"; };
+		C121672F2355D2FC001EE1C6 /* RepayDueModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepayDueModel.h; sourceTree = "<group>"; };
+		C12167302355D2FC001EE1C6 /* RepayDueModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepayDueModel.m; sourceTree = "<group>"; };
 		C12604B8232A11B20099BF22 /* MianTopBlueView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MianTopBlueView.h; sourceTree = "<group>"; };
 		C12604B9232A11B20099BF22 /* MianTopBlueView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MianTopBlueView.m; sourceTree = "<group>"; };
 		C12DC0B5233C64B500ABF3F3 /* RepaymentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepaymentTableViewCell.h; sourceTree = "<group>"; };
@@ -247,6 +302,8 @@
 		C199FC9A234982F300F25A64 /* LoginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		C199FC9C2349B86100F25A64 /* MainDetianModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainDetianModel.h; sourceTree = "<group>"; };
 		C199FC9D2349B86100F25A64 /* MainDetianModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainDetianModel.m; sourceTree = "<group>"; };
+		C1C11BB22356D6C800CABDE5 /* BankDetialModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BankDetialModel.h; sourceTree = "<group>"; };
+		C1C11BB32356D6C800CABDE5 /* BankDetialModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankDetialModel.m; sourceTree = "<group>"; };
 		C1CE22C82320F90F00515633 /* LeYiDaiProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeYiDaiProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1CE22CB2320F90F00515633 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C1CE22CC2320F90F00515633 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -346,6 +403,8 @@
 		C1000D0723228307003C822F /* model */ = {
 			isa = PBXGroup;
 			children = (
+				C1C11BB22356D6C800CABDE5 /* BankDetialModel.h */,
+				C1C11BB32356D6C800CABDE5 /* BankDetialModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -376,6 +435,7 @@
 		C100DE772330E8D90034989A /* thirdSDK */ = {
 			isa = PBXGroup;
 			children = (
+				C12166F32354585B001EE1C6 /* IQKeyboardManager */,
 				C11B3C0D23516D3900E4EE8B /* FaceSDK */,
 			);
 			path = thirdSDK;
@@ -433,6 +493,83 @@
 			path = FaceSDK;
 			sourceTree = "<group>";
 		};
+		C12166F32354585B001EE1C6 /* IQKeyboardManager */ = {
+			isa = PBXGroup;
+			children = (
+				C12166F42354585B001EE1C6 /* IQTextView */,
+				C12166F72354585B001EE1C6 /* IQToolbar */,
+				C12167022354585B001EE1C6 /* Constants */,
+				C12167052354585B001EE1C6 /* Resources */,
+				C12167072354585B001EE1C6 /* IQKeyboardReturnKeyHandler.h */,
+				C12167082354585B001EE1C6 /* IQKeyboardManager.h */,
+				C12167092354585B001EE1C6 /* IQKeyboardManager.m */,
+				C121670A2354585B001EE1C6 /* Categories */,
+				C12167152354585B001EE1C6 /* IQKeyboardReturnKeyHandler.m */,
+			);
+			name = IQKeyboardManager;
+			path = "../../../../壹升升/YSSProject-master/YSSProject-master/PubView/IQKeyboardManager";
+			sourceTree = "<group>";
+		};
+		C12166F42354585B001EE1C6 /* IQTextView */ = {
+			isa = PBXGroup;
+			children = (
+				C12166F52354585B001EE1C6 /* IQTextView.m */,
+				C12166F62354585B001EE1C6 /* IQTextView.h */,
+			);
+			path = IQTextView;
+			sourceTree = "<group>";
+		};
+		C12166F72354585B001EE1C6 /* IQToolbar */ = {
+			isa = PBXGroup;
+			children = (
+				C12166F82354585B001EE1C6 /* IQUIView+IQKeyboardToolbar.h */,
+				C12166F92354585B001EE1C6 /* IQToolbar.m */,
+				C12166FA2354585B001EE1C6 /* IQPreviousNextView.h */,
+				C12166FB2354585B001EE1C6 /* IQTitleBarButtonItem.m */,
+				C12166FC2354585B001EE1C6 /* IQBarButtonItem.m */,
+				C12166FD2354585B001EE1C6 /* IQUIView+IQKeyboardToolbar.m */,
+				C12166FE2354585B001EE1C6 /* IQPreviousNextView.m */,
+				C12166FF2354585B001EE1C6 /* IQToolbar.h */,
+				C12167002354585B001EE1C6 /* IQBarButtonItem.h */,
+				C12167012354585B001EE1C6 /* IQTitleBarButtonItem.h */,
+			);
+			path = IQToolbar;
+			sourceTree = "<group>";
+		};
+		C12167022354585B001EE1C6 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				C12167032354585B001EE1C6 /* IQKeyboardManagerConstantsInternal.h */,
+				C12167042354585B001EE1C6 /* IQKeyboardManagerConstants.h */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		C12167052354585B001EE1C6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C12167062354585B001EE1C6 /* IQKeyboardManager.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C121670A2354585B001EE1C6 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C121670B2354585B001EE1C6 /* IQNSArray+Sort.m */,
+				C121670C2354585B001EE1C6 /* IQUIViewController+Additions.h */,
+				C121670D2354585B001EE1C6 /* IQUITextFieldView+Additions.m */,
+				C121670E2354585B001EE1C6 /* IQUIScrollView+Additions.m */,
+				C121670F2354585B001EE1C6 /* IQUIView+Hierarchy.m */,
+				C12167102354585B001EE1C6 /* IQNSArray+Sort.h */,
+				C12167112354585B001EE1C6 /* IQUIScrollView+Additions.h */,
+				C12167122354585B001EE1C6 /* IQUITextFieldView+Additions.h */,
+				C12167132354585B001EE1C6 /* IQUIViewController+Additions.m */,
+				C12167142354585B001EE1C6 /* IQUIView+Hierarchy.h */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		C14E51372325F2E900745493 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,12 +604,17 @@
 		C14E514E23290F5C00745493 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				C121672D2354B636001EE1C6 /* city.json */,
 				C199FC9C2349B86100F25A64 /* MainDetianModel.h */,
 				C199FC9D2349B86100F25A64 /* MainDetianModel.m */,
 				C11B3BDF234ED60A00E4EE8B /* CustAuthresultMedel.h */,
 				C11B3BE0234ED60A00E4EE8B /* CustAuthresultMedel.m */,
 				C11B3C032350411900E4EE8B /* IDCardAutherModel.h */,
 				C11B3C042350411900E4EE8B /* IDCardAutherModel.m */,
+				C121672723548A8E001EE1C6 /* CustInfoUpModel.h */,
+				C121672823548A8E001EE1C6 /* CustInfoUpModel.m */,
+				C121672F2355D2FC001EE1C6 /* RepayDueModel.h */,
+				C12167302355D2FC001EE1C6 /* RepayDueModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -499,6 +641,8 @@
 		C14E515023290F5C00745493 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				C121672523545CF4001EE1C6 /* YSSWebViewController.h */,
+				C121672423545CF4001EE1C6 /* YSSWebViewController.m */,
 				C11B3BEB23501CC800E4EE8B /* FaceAuther */,
 				C100DE47232DD5AC0034989A /* RepaymentViewController.h */,
 				C100DE48232DD5AC0034989A /* RepaymentViewController.m */,
@@ -821,8 +965,10 @@
 			files = (
 				C1CE22D82320F91100515633 /* LaunchScreen.storyboard in Resources */,
 				C11B3C1423516D4200E4EE8B /* idl-license.face-ios in Resources */,
+				C121672E2354B636001EE1C6 /* city.json in Resources */,
 				C11B3C1523516D4200E4EE8B /* com.baidu.idl.face.model.bundle in Resources */,
 				C1CE22D52320F91100515633 /* Assets.xcassets in Resources */,
+				C121671C2354585B001EE1C6 /* IQKeyboardManager.bundle in Resources */,
 				C11B3C1223516D4200E4EE8B /* com.baidu.idl.face.faceSDK.bundle in Resources */,
 				C1CE22D32320F90F00515633 /* Main.storyboard in Resources */,
 			);
@@ -850,51 +996,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-LeYiDaiProject/Pods-LeYiDaiProject-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/BRPickerView/BRPickerView.framework",
-				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
-				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
-				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
-				"${BUILT_PRODUCTS_DIR}/LBXScan/LBXScan.framework",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
-				"${BUILT_PRODUCTS_DIR}/SDCycleScrollView/SDCycleScrollView.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SQLiteRepairKit/sqliterk.framework",
-				"${BUILT_PRODUCTS_DIR}/TZImagePickerController/TZImagePickerController.framework",
-				"${BUILT_PRODUCTS_DIR}/WCDB/WCDB.framework",
-				"${BUILT_PRODUCTS_DIR}/WCDBOptimizedSQLCipher/sqlcipher.framework",
-				"${BUILT_PRODUCTS_DIR}/WMPageController/WMPageController.framework",
-				"${BUILT_PRODUCTS_DIR}/XHLaunchAd/XHLaunchAd.framework",
-				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LeYiDaiProject/Pods-LeYiDaiProject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BRPickerView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LBXScan.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDCycleScrollView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/sqliterk.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TZImagePickerController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WCDB.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/sqlcipher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WMPageController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XHLaunchAd.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LeYiDaiProject/Pods-LeYiDaiProject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LeYiDaiProject/Pods-LeYiDaiProject-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LeYiDaiProject/Pods-LeYiDaiProject-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EE552636F6792A01E557E9A8 /* [CP] Check Pods Manifest.lock */ = {
@@ -922,15 +1033,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C121671E2354585B001EE1C6 /* IQNSArray+Sort.m in Sources */,
 				C11B3C2A2351758C00E4EE8B /* FaceBaseViewController.m in Sources */,
 				C100DE4F232E17DD0034989A /* AuthenticationViewController.m in Sources */,
 				C11B3C242351758C00E4EE8B /* LivenessViewController.m in Sources */,
 				C14E514D2328E27B00745493 /* RepaymentDetialViewController.m in Sources */,
 				C100DE58232E3DAD0034989A /* OperatorViewController.m in Sources */,
 				C11B3BF423501D0800E4EE8B /* ImageUtils.m in Sources */,
+				C12167202354585B001EE1C6 /* IQUIScrollView+Additions.m in Sources */,
+				C121671B2354585B001EE1C6 /* IQPreviousNextView.m in Sources */,
 				C14E514A2328C04200745493 /* LoanDetialView.m in Sources */,
 				C14E5153232914FF00745493 /* MainCenterView.m in Sources */,
 				C1000CDF232132C7003C822F /* NSArray+beyond.m in Sources */,
+				C121671F2354585B001EE1C6 /* IQUITextFieldView+Additions.m in Sources */,
 				C1000CE7232132C7003C822F /* UIColor+HexColor.m in Sources */,
 				C100DE67232FABC00034989A /* LoanViewController.m in Sources */,
 				C14E513C2325F30A00745493 /* RecordTableViewCell.m in Sources */,
@@ -941,15 +1056,19 @@
 				C1000CE8232132C7003C822F /* MBProgressHUD+MJ.m in Sources */,
 				C199FC9B234982F300F25A64 /* LoginModel.m in Sources */,
 				C1CE22D02320F90F00515633 /* ViewController.m in Sources */,
+				C12167162354585B001EE1C6 /* IQTextView.m in Sources */,
 				C1000CFD23222DF4003C822F /* BaseTabbarViewController.m in Sources */,
 				C11B3BD4234ACB9100E4EE8B /* BankTableViewCell.m in Sources */,
+				C12167222354585B001EE1C6 /* IQUIViewController+Additions.m in Sources */,
 				C15EC7D5233CB94E00B13E71 /* RepaymentBottomView.m in Sources */,
 				C100DE4C232E0C930034989A /* EvaluationViewController.m in Sources */,
 				C100DE52232E2A8D0034989A /* AuthenDetialViewController.m in Sources */,
+				C121672923548A8E001EE1C6 /* CustInfoUpModel.m in Sources */,
 				C14E51472328991B00745493 /* RecordDetialLoanView.m in Sources */,
 				C10DACBF233A27B80059A94C /* AppIdentificationManage.m in Sources */,
 				C100DE43232DD0A90034989A /* CALayer+FSUI.m in Sources */,
 				C1000CF723222D44003C822F /* MainViewController.m in Sources */,
+				C121671D2354585B001EE1C6 /* IQKeyboardManager.m in Sources */,
 				C1000CF123222D1E003C822F /* SelfViewController.m in Sources */,
 				C1457BFE233DDC3E00804E3E /* YSSModelDialog.m in Sources */,
 				C1000CE4232132C7003C822F /* UITextView+Placeholder.m in Sources */,
@@ -968,6 +1087,7 @@
 				C100DE5B232F229E0034989A /* BankAuthenViewController.m in Sources */,
 				C100DE42232DD0A90034989A /* FSCustomButton.m in Sources */,
 				C14E5144232898C100745493 /* BaseView.m in Sources */,
+				C121672623545CF5001EE1C6 /* YSSWebViewController.m in Sources */,
 				C11B3C2D235180A600E4EE8B /* LivingConfigModel.m in Sources */,
 				C100DE6A2330A7340034989A /* LoanOningViewController.m in Sources */,
 				C1CE22DB2320F91100515633 /* main.m in Sources */,
@@ -975,19 +1095,27 @@
 				C100DE49232DD5AC0034989A /* RepaymentViewController.m in Sources */,
 				C11B3C272351758C00E4EE8B /* RemindView.m in Sources */,
 				C12DC0B7233C64B500ABF3F3 /* RepaymentTableViewCell.m in Sources */,
+				C12167312355D2FC001EE1C6 /* RepayDueModel.m in Sources */,
 				C1CE22CD2320F90F00515633 /* AppDelegate.m in Sources */,
 				C1000CF423222D3B003C822F /* RecordViewController.m in Sources */,
 				C16C104A2334CA7C00B34076 /* RequestAPI.m in Sources */,
+				C121671A2354585B001EE1C6 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				C11B3C262351758C00E4EE8B /* LivingConfigViewController.m in Sources */,
 				C1000CFA23222DC0003C822F /* BaseNavViewController.m in Sources */,
 				C1000CE1232132C7003C822F /* NSString+SHA256_BASE64.m in Sources */,
+				C12167232354585B001EE1C6 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				C1000D112322882C003C822F /* SelfTableViewCell.m in Sources */,
+				C12167182354585B001EE1C6 /* IQTitleBarButtonItem.m in Sources */,
+				C12167192354585B001EE1C6 /* IQBarButtonItem.m in Sources */,
 				C11B3C282351758C00E4EE8B /* DetectionViewController.m in Sources */,
 				C14E51412327C0F600745493 /* LoanDetialViewController.m in Sources */,
+				C1C11BB42356D6C800CABDE5 /* BankDetialModel.m in Sources */,
 				C11B3BF023501D0100E4EE8B /* VideoCaptureDevice.m in Sources */,
 				C12604BA232A11B20099BF22 /* MianTopBlueView.m in Sources */,
+				C12167172354585B001EE1C6 /* IQToolbar.m in Sources */,
 				C1000CE0232132C7003C822F /* UIButton+Touch.m in Sources */,
 				C100DE61232F34400034989A /* ApplyInfoTableViewCell.m in Sources */,
+				C12167212354585B001EE1C6 /* IQUIView+Hierarchy.m in Sources */,
 				C100DE64232F6C2A0034989A /* FinishAuthenViewController.m in Sources */,
 				C1000D0423222F49003C822F /* KLTNavigationController.m in Sources */,
 			);

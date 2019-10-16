@@ -32,12 +32,25 @@
     
     return self;
 }
+-(void)setCellData:(BankDetialModel *)model{
+    
+    [self.iconImage sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"bankImage"]];
+
+    self.nameLab.text = EMPTY_IF_NIL(model.bankcardName);
+//    if ([model.cardType intValue] == 1) {
+        self.decLab.text = model.cardType;
+
+//    }else{
+//        self.decLab.text = @"信用卡";
+//    }
+    
+    self.numLab.text = model.bankcardNo;
+}
 -(void)creatDetialCell{
     
     [self addSubview:self.bgView];
     [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(12);
-        make.bottom.mas_equalTo(-12);
         make.left.mas_equalTo(12);
         make.height.mas_equalTo(95);
         make.right.mas_equalTo(-12);
@@ -65,8 +78,8 @@
     }];
     
     [self.bgView addSubview:self.numLab];
-    [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-35);
+    [self.numLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.bgView).offset(-20);
         make.centerY.equalTo(self.bgView);
     }];
 }
@@ -91,7 +104,7 @@
         _nameLab = [[UILabel alloc] init];
         _nameLab.textColor = [UIColor whiteColor];
         _nameLab.font = FONT(16);
-        _nameLab.text = @"招商银行";
+        
     }
     return _nameLab;
 }

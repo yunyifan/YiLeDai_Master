@@ -188,7 +188,7 @@
                    dispatch_resume(_timer);
                }else{
                    
-                   [MBProgressHUD showError:result[@"message"]];
+                   [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
 
                }
            }
@@ -205,7 +205,7 @@
                 [self.navigationController pushViewController:applicationVc animated:YES];
             }else{
                 
-                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"])];
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
 
             }
 

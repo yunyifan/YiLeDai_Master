@@ -7,11 +7,14 @@
 //
 
 #import "BaseViewController.h"
-
+#import "BankDetialModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LoanOningViewController : BaseViewController
 
+@property (nonatomic,strong)NSDictionary *dataDic;
+
+@property (nonatomic,strong)BankDetialModel *detailModel;
 @end
 
 NS_ASSUME_NONNULL_END

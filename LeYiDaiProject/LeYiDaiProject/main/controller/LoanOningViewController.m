@@ -74,7 +74,7 @@
     self.moneyLab = [[UILabel alloc] init];
     self.moneyLab.font = BOLDFONT(30);
     self.moneyLab.textColor = Tit_Black_Color;
-    NSAttributedString *string = [LYDUtil LableTextShowInBottom:@"1000元" InsertWithString:@"元" InsertSecondStr:@"" InsertStringColor:Tit_Black_Color WithInsertStringFont:FONT(16)];
+    NSAttributedString *string = [LYDUtil LableTextShowInBottom:[NSString stringWithFormat:@"%@元",self.dataDic[@"lendAmount"]] InsertWithString:@"元" InsertSecondStr:@"" InsertStringColor:Tit_Black_Color WithInsertStringFont:FONT(16)];
     [self.moneyLab setAttributedText:string];
     [self.topView addSubview:self.moneyLab];
     [self.moneyLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -122,10 +122,12 @@
         }];
         
         if (i == 0) {
-            rightLab.text = @"招商银行 8898";
+            NSString *strCar = [self.detailModel.bankcardNo substringFromIndex:self.detailModel.bankcardNo.length-4];
+
+            rightLab.text = [NSString stringWithFormat:@"%@ %@",self.detailModel.bankcardName,strCar];
             
             UIImageView *bottomImg = [[UIImageView alloc] init];
-            bottomImg.backgroundColor = [UIColor redColor];
+            [bottomImg sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"bankImage"]];
             bottomImg.layer.cornerRadius = 10;
             bottomImg.clipsToBounds = YES;
             [self.bottomView addSubview:bottomImg];
@@ -137,7 +139,7 @@
             
             
         }else{
-            rightLab.text = @"预计等待1~2小时";
+            rightLab.text = self.dataDic[@"waitTime"];
         }
         
         lastLab = leftLab;

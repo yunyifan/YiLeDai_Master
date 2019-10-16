@@ -199,7 +199,7 @@
                dispatch_resume(_timer);
             }else{
                 
-                [MBProgressHUD showError:result[@"message"]];
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
 
             }
         }
@@ -220,7 +220,7 @@
                 [[AppDelegate shareAppDelegate] initCustomWindow];
             }else{
                 
-                [MBProgressHUD showError:result[@"message"]];
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
 
             }
         }

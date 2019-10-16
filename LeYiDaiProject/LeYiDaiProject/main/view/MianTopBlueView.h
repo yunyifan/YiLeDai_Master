@@ -7,10 +7,13 @@
 //
 
 #import "BaseView.h"
-
+#import "MainDetianModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MianTopBlueView : BaseView
+
+-(void)setBlueViewData:(MainDetianModel *)detialModel;
+
 @property (nonatomic,strong)UIButton *payBut;
 
 @end

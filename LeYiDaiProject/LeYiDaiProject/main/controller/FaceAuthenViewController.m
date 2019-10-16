@@ -9,6 +9,7 @@
 #import "FaceAuthenViewController.h"
 #import "OperatorViewController.h"
 #import "DetectionViewController.h"
+#import "YSSWebViewController.h"
 
 #import "LivenessViewController.h"
 #import "LivingConfigModel.h"
@@ -27,7 +28,9 @@
 @property (nonatomic,strong)UIButton *faceBut;
 @property (nonatomic,strong)UILabel *desLab;
 
-@property (nonatomic,strong)UIButton *nextBut;
+@property (nonatomic,strong)FSCustomButton *nextBut;
+
+@property (nonatomic,strong)NSString *base64ImageStr;
 
 @end
 
@@ -45,12 +48,13 @@
 }
 -(void)notificationClick:(NSNotification *)info{
     UIImage *img = info.object;
-    NSData *imgData  = UIImageJPEGRepresentation(img, 0.4);
-    UIImage *faceImg = [UIImage imageWithData:imgData];
+    NSData *imgData  = UIImageJPEGRepresentation(img, 1);
+    self.base64ImageStr = [imgData base64EncodedStringWithOptions:0];
+//    UIImage *faceImg = [UIImage imageWithData:imgData];
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
-        [self.faceBut setImage:faceImg forState:UIControlStateNormal];
+        [self.faceBut setImage:img forState:UIControlStateNormal];
         self.nextBut.enabled = YES;
         
     });
@@ -104,16 +108,48 @@
  下一步
  */
 -(void)nextButtonClick{
-    
-    OperatorViewController *operaVc = [[OperatorViewController alloc] init];
-    [self.navigationController pushViewController:operaVc animated:YES];
+        
+    [[RequestAPI shareInstance] useFaceRecognition:@{@"base64Image":@"",@"userId":self.loginModel.userId} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        if (succeed) {
+            if ([result[@"success"] intValue] == 1) {
+
+                [self creatOperInsert];
+
+                
+            }else{
+
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
+
+            }
+
+        }
+
+    }];
+}
+-(void)creatOperInsert{
+    NSDictionary *dic = @{@"type":@"ios",@"userId":self.loginModel.userId};
+    [[RequestAPI shareInstance] useCustAuthOperatorInsert:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        if (succeed) {
+            if ([result[@"success"] intValue] == 1) {
+                YSSWebViewController *webVc = [[YSSWebViewController alloc] init];
+                NSString *urlEncoded = [EMPTY_IF_NIL(result[@"result"][@"url"]) stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+               webVc.urlStr = [NSString stringWithFormat:@"%@",urlEncoded];
+               [self.navigationController pushViewController:webVc animated:YES];
+            }else{
+                
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
+
+            }
+
+        }
+    }];
+
 }
 
 /**
  人脸识别
  */
 -(void)faceButClick{
-//    [MBProgressHUD showError:@"人脸识别"];
     
    if ([[FaceSDKManager sharedInstance] canWork]) {
         NSString* licensePath = [[NSBundle mainBundle] pathForResource:FACE_LICENSE_NAME ofType:FACE_LICENSE_SUFFIX];
@@ -165,9 +201,9 @@
     }
     return _desLab;
 }
--(UIButton *)nextBut{
+-(FSCustomButton *)nextBut{
     if (!_nextBut) {
-        _nextBut = [UIButton buttonWithType:UIButtonTypeCustom];
+        _nextBut = [FSCustomButton buttonWithType:UIButtonTypeCustom];
          _nextBut.backgroundColor = [UIColor colorWithHex:@"#4D56EF"];
          [_nextBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
          [_nextBut setTitle:@"下一步" forState:UIControlStateNormal];
@@ -177,6 +213,7 @@
         _nextBut.layer.shadowRadius = 9;
         _nextBut.enabled = NO;
         _nextBut.titleLabel.font = BOLDFONT(18);
+        _nextBut.timeInterval = 3;
         [_nextBut addTarget:self action:@selector(nextButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _nextBut;

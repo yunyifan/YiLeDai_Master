@@ -18,9 +18,6 @@
 
 #import "MainDetianModel.h"
 
-
-#import "FaceAuthenViewController.h"
-
 @interface MainViewController ()
 
 @property (nonatomic,strong)UIImageView *topBgImg;
@@ -52,6 +49,9 @@
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
     
     self.navigationController.navigationBar.translucent = YES;
+    
+    [self useMainInsert];
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -59,7 +59,6 @@
     
 //    [self creatMianUI];
     
-    [self useMainInsert];
 }
 -(void)creatInitNoAuthonUI{
         //  没有借过
@@ -69,7 +68,7 @@
 
     }];
 
-    self.whiteBgView.creaditInfoModel = self.detialModel;
+//    self.whiteBgView.creaditInfoModel = self.detialModel;
     [self.view addSubview:self.whiteBgView];
     [self.whiteBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
@@ -92,17 +91,31 @@
         make.left.mas_equalTo(15);
     }];
     
-    [self.view addSubview:self.accationView];
-    [self.accationView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.top.equalTo(self.whiteNavBg.mas_bottom);
-        make.height.mas_equalTo(30);
-    }];
+    if(self.detialModel.loanRepayDue.overFlag == 1){
+        // 未逾期
+    }else{
+        [self.view addSubview:self.accationView];
+        [self.accationView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.top.equalTo(self.whiteNavBg.mas_bottom);
+            make.height.mas_equalTo(30);
+        }];
+
+    }
     
-    
+    [self.blueBgView setBlueViewData:self.detialModel];
     [self.view addSubview:self.blueBgView];
     [self.blueBgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.accationView.mas_bottom).offset(9);
+        if(self.detialModel.loanRepayDue.overFlag == 1){
+            // 未逾期
+            make.top.mas_equalTo(Height_NavBar+9);
+
+        }else{
+            make.top.equalTo(self.accationView.mas_bottom).offset(Height_NavBar+39);
+
+
+        }
+
         make.left.mas_equalTo(10);
         make.right.mas_equalTo(-10);
         make.height.mas_equalTo(110);
@@ -132,21 +145,18 @@
 }
 -(void)whiteBgViewButtonClick{
     
-    
-//    FaceAuthenViewController *authenVc = [[FaceAuthenViewController alloc] init];
-//    [self.navigationController pushViewController:authenVc animated:YES];
-//    return;
-    
     if (self.detialModel.userState == 1 || self.detialModel.userState == 2) {
 //        未认证
        EvaluationViewController *evaluaVc = [[EvaluationViewController alloc] init];
        [self.navigationController pushViewController:evaluaVc animated:YES];
+    }else if (self.detialModel.userState == 4){
+        if ([self.detialModel.creditInfo.creditAppstate intValue] == 1) {
+            
+            LoanViewController *loanVc = [[LoanViewController alloc] init];
+            loanVc.creditLeftamtStr = self.detialModel.creditInfo.creditLeftamt;
+            [self.navigationController pushViewController:loanVc animated:YES];
+        }
     }
-    
-
-    
-//    LoanViewController *loanVc = [[LoanViewController alloc] init];
-//    [self.navigationController pushViewController:loanVc animated:YES];
     
 }
 
@@ -159,12 +169,25 @@
         if (succeed) {
             if ([result[@"success"] intValue] == 1) {
                 self.detialModel = [MainDetianModel yy_modelWithDictionary:result[@"result"]];
-                if (self.detialModel.userState == 1 || self.detialModel.userState == 2) {
+                if (self.detialModel.userState == 1 || self.detialModel.userState == 2 || self.detialModel.userState == 3 ||self.detialModel.userState == 4 || self.detialModel.userState == 5) {
                     [self creatInitNoAuthonUI];
+                }else if(self.detialModel.userState == 6){
+                    
+                    if (self.topBgImg) {
+                        [self.topBgImg removeFromSuperview];
+                    }
+                    if(self.whiteBgView){
+                        [self.whiteBgView removeFromSuperview];
+                    }
+                   
+                    [self creatMianUI];
+                    
                 }
+            }else{
+                
+                
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
             }
-        }else{
-            [MBProgressHUD showError:result[@"message"]];
         }
     }];
 }
@@ -194,14 +217,12 @@
     if (!_blueBgView) {
         _blueBgView = [[MianTopBlueView alloc] init];
         [_blueBgView.payBut addTarget:self action:@selector(payButtonClick) forControlEvents:UIControlEventTouchUpInside];
-
-        
     }
     return _blueBgView;
 }
 -(MainCenterView *)whiteBgView{
     if (!_whiteBgView) {
-        _whiteBgView = [[MainCenterView alloc] initWithMainType:self.detialModel.userState];
+        _whiteBgView = [[MainCenterView alloc] initWithMainType:self.detialModel];
         _whiteBgView.layer.backgroundColor = [UIColor whiteColor].CGColor;
         _whiteBgView.layer.cornerRadius = 4;
         [_whiteBgView.statueBut addTarget:self action:@selector(whiteBgViewButtonClick) forControlEvents:UIControlEventTouchUpInside];
