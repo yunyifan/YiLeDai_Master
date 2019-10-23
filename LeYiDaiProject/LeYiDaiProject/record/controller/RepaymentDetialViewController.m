@@ -7,6 +7,7 @@
 //
 
 #import "RepaymentDetialViewController.h"
+#import "LoanDetialViewController.h"
 #import "LoanDetialView.h"
 
 @interface RepaymentDetialViewController ()
@@ -28,6 +29,8 @@
 @property (nonatomic,strong)UIView *centerView;
 @property (nonatomic,strong)UILabel *leftPayLab;
 @property (nonatomic,strong)UILabel *evenPayLab; // 已还款
+
+@property (nonatomic,strong)NSDictionary *resultDic;
 @end
 
 @implementation RepaymentDetialViewController
@@ -39,17 +42,16 @@
     
     [self creatDetialUI];
     
-    [self setTopViewData];
 }
 
 -(void)setTopViewData{
     
     self.titLab.text = @"还款金额(元)";  // 违约： 违约还款金额
-    self.moneyLab.text = @"1000.00"; //
+    self.moneyLab.text = EMPTY_IF_NIL(self.resultDic[@"realAmt"]);
     
     
     // 还款
-    self.detialLab.text = @"对应1笔借款"; // 违约：请及时还款，保证信用良好！
+    self.detialLab.text = [NSString stringWithFormat:@"对应%@笔借款",self.resultDic[@"loanCount"]]; 
 }
 -(void)creatDetialUI{
     [self.view addSubview:self.baseScrollView];
@@ -209,13 +211,37 @@
  借款详情
  */
 -(void)loanDetialButtonClick{
-    [MBProgressHUD showError:@"借款详情"];
+    LoanDetialViewController *loanDeVc = [[LoanDetialViewController alloc] init];
+    loanDeVc.dataDic = self.dataDic;
+    [self.navigationController pushViewController:loanDeVc animated:YES];
 }
 /**
  去还款
  */
 -(void)payMoneyClick{
     [MBProgressHUD showError:@"去还款"];
+}
+/**
+ 还款详情
+ 
+ */
+-(void)useGetrepayInfoInsert{
+    
+   @weakify(self);
+    [[RequestAPI shareInstance] useRepayListGetrepayInfo:@{@"userId":self.loginModel.userId,@"repayListid":EMPTY_IF_NIL(self.dataDic[@"loanAcctNo"])} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        @strongify(self);
+        if (succeed) {
+            if ([result[@"success"] intValue] == 1) {
+                self.resultDic = result[@"result"][@"repayInfo"];
+                [self setTopViewData];
+
+            }else{
+                
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
+
+            }
+        }
+    }];
 }
 -(UIScrollView *)baseScrollView{
     if (!_baseScrollView) {

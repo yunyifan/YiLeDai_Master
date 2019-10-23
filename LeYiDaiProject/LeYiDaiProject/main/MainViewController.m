@@ -141,6 +141,7 @@
  */
 -(void)payButtonClick{
     RepaymentViewController *repVc = [[RepaymentViewController alloc] init];
+    repVc.overFlag = self.detialModel.loanRepayDue.overFlag;
     [self.navigationController pushViewController:repVc animated:YES];
 }
 -(void)whiteBgViewButtonClick{

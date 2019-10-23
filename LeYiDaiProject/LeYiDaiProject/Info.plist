@@ -2,6 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Privacy - Contacts Usage Description
+Privacy - Contacts Usage Description</key>
+	<string>认证需要访问您的通讯录</string>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
 	<key>NSCameraUsageDescription</key>

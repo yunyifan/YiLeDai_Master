@@ -375,4 +375,49 @@
 
     }];
 }
+
+/**
+ 
+ 新增银行卡
+ */
+-(void)useAddSeleBank:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+    [[RequestAPI shareInstance] POST:[NSString stringWithFormat:@"%@api/custBankcard/add",BASEUEL] parameters:prmDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
+}
+/**
+ 借款详情
+ 
+ */
+-(void)useGetLoanAccountInfo:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+    [[RequestAPI shareInstance] GET:[NSString stringWithFormat:@"%@api/loanLendTrade/getLoanAccountInfo",BASEUEL] parameters:prmDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
+}
+/**
+ 
+ 申请还款
+ */
+-(void)useRepayListUpInsert:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+    [[RequestAPI shareInstance] POST:[NSString stringWithFormat:@"%@api/repayList/repayListUp",BASEUEL] parameters:prmDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
+}
+/**
+ 还款详情
+ 
+ */
+-(void)useRepayListGetrepayInfo:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+    [[RequestAPI shareInstance] GET:[NSString stringWithFormat:@"%@api/repayList/getrepayInfo",BASEUEL] parameters:prmDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
+}
 @end

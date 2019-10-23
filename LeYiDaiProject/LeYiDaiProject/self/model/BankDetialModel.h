@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong)NSString *custName;// 客户姓名
 @property (nonatomic,strong)NSString *sysOrgCode; //
-@property (nonatomic,strong)NSString *cardBankid; //开户机构码    
+@property (nonatomic,strong)NSString *cardBankid; //开户机构码
+@property (nonatomic,strong)NSString *cardBankname; //银行
 
 
 @end

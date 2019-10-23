@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RepaymentViewController : BaseViewController
+@property (nonatomic,assign)int overFlag; //0:逾期 1 未逾期
 
 @end
 

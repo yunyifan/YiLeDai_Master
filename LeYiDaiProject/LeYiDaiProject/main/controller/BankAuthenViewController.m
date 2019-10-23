@@ -150,8 +150,14 @@
     if (![LYDUtil isPhoneNumber:textFiled.text]) {
            return;
        }
+    NSString *appScr ;
+    if (self.isAddBank == YES) {
+        appScr = @"other";
+    }else{
+        appScr = @"auth";
+    }
        @weakify(self);
-       NSDictionary *pramDic = @{@"phone":EMPTY_IF_NIL(textFiled.text),@"appscen":@"auth"};
+       NSDictionary *pramDic = @{@"phone":EMPTY_IF_NIL(textFiled.text),@"appscen":appScr};
        [[RequestAPI shareInstance] getSysCode:pramDic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
            @strongify(self);
            if (succeed) {
@@ -197,21 +203,42 @@
 -(void)nextButtonClick{
     
     NSDictionary *dic = @{@"accNo":EMPTY_IF_NIL(self.bankCardStr),@"idHolder":EMPTY_IF_NIL(self.nameStr),@"mobile":EMPTY_IF_NIL(self.phoneStr),@"userId":self.loginModel.userId,@"smsCode":self.codeStr};
-    [[RequestAPI shareInstance] useCustAuthBankInsert:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
-        if (succeed) {
-            if ([result[@"success"] intValue] == 1) {
-                NSLog(@"银行卡认证%@",result[@"result"][@"desc"]);
-                ApplicationInformationViewController *applicationVc = [[ApplicationInformationViewController alloc] init];
-                [self.navigationController pushViewController:applicationVc animated:YES];
-            }else{
-                
-                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
+    
+    if (self.isAddBank == YES) {
+        [[RequestAPI shareInstance] useAddSeleBank:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+            
+            if (succeed) {
+                if ([result[@"success"] intValue] == 1) {
+                   
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+                    
+                    [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
+
+                }
 
             }
 
-        }
+        }];
+    }else{
+        [[RequestAPI shareInstance] useCustAuthBankInsert:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+              if (succeed) {
+                  if ([result[@"success"] intValue] == 1) {
+                      NSLog(@"银行卡认证%@",result[@"result"][@"desc"]);
+                      ApplicationInformationViewController *applicationVc = [[ApplicationInformationViewController alloc] init];
+                      [self.navigationController pushViewController:applicationVc animated:YES];
+                  }else{
+                      
+                      [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
 
-    }];
+                  }
+
+              }
+
+          }];
+    }
+    
+  
     
 
     

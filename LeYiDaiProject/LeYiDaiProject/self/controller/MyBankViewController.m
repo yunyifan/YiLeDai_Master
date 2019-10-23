@@ -20,7 +20,15 @@
 @end
 
 @implementation MyBankViewController
-
+-(void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [self useQuryBankInsert];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -32,7 +40,6 @@
     [self.bankTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    [self useQuryBankInsert];
 }
 -(UIView *)tableFootView{
     UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80)];
@@ -65,6 +72,7 @@
 }
 -(void)addBankClick{
     BankAuthenViewController *bankAuthVc = [[BankAuthenViewController alloc] init];
+    bankAuthVc.isAddBank = YES;
     [self.navigationController pushViewController:bankAuthVc animated:YES];
     
 }
@@ -82,7 +90,9 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    BankDetialModel *model = self.modelArray[indexPath.row];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Bank_Model" object:model];
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)useQuryBankInsert{

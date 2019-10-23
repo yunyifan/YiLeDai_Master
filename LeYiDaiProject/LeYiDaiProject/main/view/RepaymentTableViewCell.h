@@ -7,13 +7,18 @@
 //
 
 #import "BaseTableViewCell.h"
-
+#import "RepayDueModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RepaymentTableViewCell : BaseTableViewCell
+
+-(void)setRepayCellData:(RepayDueModel *)model;
+
 @property (nonatomic,strong)FSCustomButton *checkDetialBut; // 查看具体详情
+
 @property (nonatomic,strong)UIButton *selectBut;
 
+@property (nonatomic,assign)int cellOverFlag;
 @end
 
 NS_ASSUME_NONNULL_END

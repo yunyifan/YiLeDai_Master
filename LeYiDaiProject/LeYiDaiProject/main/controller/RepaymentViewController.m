@@ -9,7 +9,12 @@
 #import "RepaymentViewController.h"
 #import "RepaymentTableViewCell.h"
 #import "RepaymentBottomView.h"
+#import "MyBankViewController.h"
 
+#import "RepaySelectBankView.h"
+#import "YSSModelDialog.h"
+#import "RepayDueModel.h"
+#import "BankDetialModel.h"
 @interface RepaymentViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UIView *topView;
@@ -23,19 +28,47 @@
 @property (nonatomic,strong)UIButton *sureBut;
 
 @property (nonatomic,strong)RepaymentBottomView *bottomView;
+
+@property (nonatomic,strong)NSMutableArray *selectArray; // 选中的数据
+@property (nonatomic,strong)NSMutableArray *dataArray; //总数据
+
+@property (nonatomic,strong) RepaySelectBankView *bankView;
+
+@property (nonatomic,strong)NSDictionary *dataDictt;
 @end
 
 @implementation RepaymentViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.navigationItem.title = @"还款";
+    self.selectArray = [NSMutableArray array];
+    self.dataArray = [NSMutableArray array];
+    if (self.overFlag == 0) {
+        self.navigationItem.title = @"逾期还款";
+
+    }else{
+        self.navigationItem.title = @"还款";
+
+    }
     self.view.backgroundColor = [UIColor colorWithHex:@"#F6F7FB"];
     [self creatDetailUI];
     
     [self useGetRepayInsert];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationClick:) name:@"Bank_Model" object:nil];
+
 }
+-(void)notificationClick:(NSNotification *)info{
+    
+    BankDetialModel *detialModl = (BankDetialModel *)info.object;
+    
+//    self.firstBankModel = [[BankDetialModel alloc] init];
+    NSString *strCar = [detialModl.bankcardNo substringFromIndex:detialModl.bankcardNo.length-4];
+    NSString *butStr = [NSString stringWithFormat:@"%@  %@",detialModl.cardBankname,strCar];
+
+    [_bankView.bankNum setTitle:[NSString stringWithFormat:@"%@",butStr] forState:UIControlStateNormal];
+}
+
 -(void)creatDetailUI{
     
     [self.view addSubview:self.topView];
@@ -64,6 +97,7 @@
     
     self.moneyText = [[UITextField alloc] init];
     self.moneyText.font = FONT(16);
+    self.moneyText.enabled = NO;
     self.moneyText.placeholder = @"请输入还款金额";
     [self.topView addSubview:self.moneyText];
     [self.moneyText mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -97,6 +131,146 @@
         make.height.mas_equalTo(45);
     }];
 }
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataArray.count;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    RepaymentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell = [[RepaymentTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+    }
+    cell.cellOverFlag = self.overFlag;
+    [cell.checkDetialBut addTarget:self action:@selector(detialButCick:) forControlEvents:UIControlEventTouchUpInside];
+
+    [cell.selectBut addTarget:self action:@selector(selectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    NSDictionary *modelDic = self.dataArray[indexPath.row];
+
+    if ([self.selectArray containsObject:modelDic]) {
+
+        [cell.selectBut setImage:[UIImage imageNamed:@"repay_select"] forState:UIControlStateNormal];
+
+    }else{
+        [cell.selectBut setImage:[UIImage imageNamed:@"repay_select_no"] forState:UIControlStateNormal];
+
+    }
+
+    RepayDueModel *repayModel = [RepayDueModel yy_modelWithDictionary:modelDic];
+    [cell setRepayCellData:repayModel];
+    return cell;
+}
+/**
+ 多选
+ 
+ */
+-(void)selectButtonClick:(UIButton *)button{
+    
+    UIView *cellVewi = button.superview.superview;
+    
+    RepaymentTableViewCell *cell = (RepaymentTableViewCell *)[cellVewi superview];
+    
+    NSIndexPath *indexPath = [self.repayTable indexPathForCell:cell];
+    
+    NSDictionary *modelDic = self.dataArray[indexPath.row];
+    
+
+    if ([self.selectArray containsObject:modelDic]) {
+        if (self.selectArray.count == 1) {
+            return;
+        }else{
+            [self.selectArray removeObject:modelDic];
+        }
+    }else{
+        [self.selectArray addObject:modelDic];
+
+    }
+
+    [self.repayTable reloadData];
+    
+    [self getAllAmutMoney];
+}
+-(void)detialButCick:(FSCustomButton *)but{
+    
+    UIView *cellVewi = but.superview.superview;
+    
+    RepaymentTableViewCell *cell = (RepaymentTableViewCell *)cellVewi;
+    
+    NSIndexPath *indexPath = [self.repayTable indexPathForCell:cell];
+    
+    NSDictionary *modelDic  = self.dataArray[indexPath.row];
+    
+    RepayDueModel *repayModel = [RepayDueModel yy_modelWithDictionary:modelDic];
+
+    
+//    @[@"还款总额",@"利息",@"费用",@"违约金"]
+    [self.bottomView setDataArray:@[@"还款本金",@"利息",@"费用"] RightDataArray:@[EMPTY_IF_NIL(repayModel.dueCapi),EMPTY_IF_NIL(repayModel.dueInte),EMPTY_IF_NIL(repayModel.dueOtherfee)]];
+    [YSSModelDialog showView:self.bottomView andAlpha:0.4];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(0);
+    }];
+}
+-(void)getAllAmutMoney{
+    float allMoney = 0.00;
+    for (NSDictionary *dic in self.selectArray) {
+        NSString *str = [NSString stringWithFormat:@"%@",dic[@"dueAmt"]];
+        allMoney = allMoney + [str floatValue];
+    }
+    
+    self.moneyText.text = [NSString stringWithFormat:@"%.2f",allMoney];
+
+    
+    
+}
+#pragma mark -------------选择银行卡--------------------
+-(void)selectBankViewClick{
+    MyBankViewController *bankVc = [[MyBankViewController alloc] init];
+    [self.navigationController pushViewController:bankVc animated:YES];
+}
+-(void)repayButClick{
+    
+    [self.bankView removeFromSuperview];
+    NSMutableArray *repayAccnoArr = [NSMutableArray array];
+    for (NSDictionary *dic in self.selectArray) {
+        [repayAccnoArr addObject:[NSString stringWithFormat:@"%@",dic[@"repayAccno"]]];
+    }
+    NSDictionary *dic = @{@"userId":self.loginModel.userId,@"repayaccNo":self.dataDictt[@"bankcardNo"],@"repayAccname":self.dataDictt[@"bankcardName"],@"realAmt":self.moneyText.text,@"loanAcctNos":repayAccnoArr};
+    [[RequestAPI shareInstance] useRepayListUpInsert:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        if (succeed) {
+              if ([result[@"success"] intValue] == 1) {
+                  [MBProgressHUD showSuccess:@"还款成功"];
+                  [self.navigationController popToRootViewControllerAnimated:YES];
+              }else{
+                  
+                  [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
+
+              }
+          }
+
+    }];
+    
+}
+-(void)sureButtonClick{
+    
+    self.bankView = [[RepaySelectBankView alloc] init];
+    NSAttributedString *string = [LYDUtil LableTextShowInBottom:[NSString stringWithFormat:@"￥%@",self.moneyText.text] InsertWithString:@"￥" InsertSecondStr:@"" InsertStringColor:Tit_Black_Color WithInsertStringFont:BOLDFONT(16)];
+
+    [self.bankView.moneyLab setAttributedText:string];
+    
+    NSString *cardStr = [NSString stringWithFormat:@"%@",self.dataDictt[@"bankcardNo"]];
+    NSString *strCar = [cardStr substringFromIndex:cardStr.length-4];
+    NSString *butStr = [NSString stringWithFormat:@"%@  %@",self.dataDictt[@"cardBankname"],strCar];
+
+    [self.bankView.bankNum setTitle:[NSString stringWithFormat:@"%@",butStr] forState:UIControlStateNormal];
+    [self.view addSubview:self.bankView];
+    [self.bankView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    [self.bankView.bankNum addTarget:self action:@selector(selectBankViewClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.bankView.repayBut addTarget:self action:@selector(repayButClick) forControlEvents:UIControlEventTouchUpInside];
+}
 -(void)useGetRepayInsert{
     
     @weakify(self);
@@ -104,7 +278,18 @@
         @strongify(self);
         if (succeed) {
               if ([result[@"success"] intValue] == 1) {
+                  [self.dataArray removeAllObjects];
+                  [self.selectArray removeAllObjects];
+                  NSArray *Array = result[@"result"][@"repayList"];
+                  self.dataDictt = result[@"result"];
+                  [self.dataArray addObjectsFromArray:Array];
                   
+                  NSDictionary *dic = self.dataArray[0];
+                  self.moneyText.text = [NSString stringWithFormat:@"%@",dic[@"dueAmt"]];
+                                
+                  [self.selectArray addObject:dic];
+                  
+                  [self.repayTable reloadData];
                 
               }else{
                   
@@ -114,35 +299,6 @@
           }
 
     }];
-}
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
-}
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    RepaymentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (!cell) {
-        cell = [[RepaymentTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-    }
-    [cell.checkDetialBut addTarget:self action:@selector(detialButCick:) forControlEvents:UIControlEventTouchUpInside];
-
-    [cell.selectBut addTarget:self action:@selector(selectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    return cell;
-}
--(void)selectButtonClick:(UIButton *)button{
-    [MBProgressHUD showError:@"选择"];
-}
--(void)detialButCick:(FSCustomButton *)but{
-    
-//    @[@"还款总额",@"利息",@"费用",@"违约金"]
-    [self.bottomView setDataArray:@[@"还款本金",@"利息",@"费用"] RightDataArray:@[@"500.00",@"50.00",@"10.00"]];
-    [YSSModelDialog showView:self.bottomView andAlpha:0.4];
-    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.mas_equalTo(0);
-    }];
-}
--(void)sureButtonClick{
-    [MBProgressHUD showError:@"确定"];
 }
 -(UIView *)topView{
     if (!_topView) {

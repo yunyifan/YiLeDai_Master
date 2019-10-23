@@ -43,10 +43,10 @@
     }else{
         self.bottomLab.text =  @"待还日";
 
-        self.timeLab.text = EMPTY_IF_NIL(detialModel.loanRepayDue.dueDate);
+        self.timeLab.text = [NSString stringWithFormat:@"%@",EMPTY_IF_NIL(detialModel.loanRepayDue.dueDate)] ;
         NSDictionary *attributes = @{NSFontAttributeName:FONT(12)};
                       
-               CGSize textSize = [EMPTY_IF_NIL(detialModel.loanRepayDue.dueDate) boundingRectWithSize:CGSizeMake(220, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+               CGSize textSize = [[NSString stringWithFormat:@"%@",EMPTY_IF_NIL(detialModel.loanRepayDue.dueDate)] boundingRectWithSize:CGSizeMake(220, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
                
                [self.timeLab mas_updateConstraints:^(MASConstraintMaker *make) {
                    make.width.mas_equalTo(textSize.width + 20);

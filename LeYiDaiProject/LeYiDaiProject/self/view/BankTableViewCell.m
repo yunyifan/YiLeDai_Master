@@ -36,7 +36,7 @@
     
     [self.iconImage sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"bankImage"]];
 
-    self.nameLab.text = EMPTY_IF_NIL(model.bankcardName);
+    self.nameLab.text = EMPTY_IF_NIL(model.cardBankname);
 //    if ([model.cardType intValue] == 1) {
         self.decLab.text = model.cardType;
 

@@ -7,11 +7,16 @@
 //
 
 #import "LoanDetialViewController.h"
-
+#import "RepaymentViewController.h"
+#import "RepayRecordDetialViewController.h"
 
 
 #import "RecordDetialLoanView.h"
 #import "LoanDetialView.h"
+#import "BRPickerView.h"
+#import "CheckRepayDetialView.h"
+
+#import "LoanDetialInfoModel.h"
 
 @interface LoanDetialViewController ()<RecordDetialLoanViewDelegate>
 @property(nonatomic,strong)UIScrollView *baseScrollView; // 底层scrollview
@@ -30,6 +35,12 @@
 
 @property (nonatomic,strong)LoanDetialView *repaymentDetialView;  // 还款明细
 
+
+@property (nonatomic,strong)LoanDetialInfoModel *detialInfoModel;
+
+@property (nonatomic,assign)RecordType cordType;
+
+@property (nonatomic,strong)FSCustomButton *bottomBbut; //还款
 @end
 
 @implementation LoanDetialViewController
@@ -40,17 +51,44 @@
     self.navigationItem.title = @"借款详情";
     
     [self creatDetialUI];
-    [self setTopViewData];
+    
+    [self useGetLoanAccountInfoInsert];
+    
 }
 -(void)setTopViewData{
     
-    self.titLab.text = @"放款中金额(元)";
-    self.moneyLab.text = @"1000.00";
+    if (self.detialInfoModel.lendState == 2) {
+        self.titLab.text = @"放款中金额(元)";
+        self.statueImg.image = [UIImage imageNamed:@"record_loan"];  // record_loan
+        
+        self.cordType = RecordTypeLoanning;
+        
+        [self loadMoneyInfoOning];
+
+    }else if (self.detialInfoModel.lendState == 3){
+        self.titLab.text = @"使用中金额(元)";
+        self.detialLab.text = EMPTY_IF_NIL(self.detialInfoModel.loanAccountInfo.retuKind_dictText);
+        self.cordType = RecordTypeUseing;
+        [self useMoneyNoRepaty];
+        
+    }else if (self.detialInfoModel.lendState == 5){
+        self.titLab.text = @"已结清金额(元)";
+        self.detialLab.text = @"好借好还，再借不难"; // 使用中：该笔额度将分两期换完
+        self.statueImg.image = [UIImage imageNamed:@"record_settle"];  //
+        self.cordType = RecordTypeSettlement;
+        [self moneyIsClear];
+    }else if (self.detialInfoModel.lendState == 4){
+        // 逾期
+        self.moneyLab.textColor = [UIColor colorWithHex:@"#FF0E2E"];
+        self.titLab.text = @"逾期还款金额(元)";
+        self.detialLab.text = @"请及时还款，保证信用良好！"; // 使用中：该笔额度将分两期换完
+        self.cordType = RecordTypeDefault;
+        
+        [self creatBeyoundRepayTime];
+    }
+    self.moneyLab.text = EMPTY_IF_NIL(self.detialInfoModel.loanAccountInfo.loanAmount);
     
-    self.statueImg.image = [UIImage imageNamed:@"record_settle"];  // record_loan
     
-    // 使用中
-    self.detialLab.text = @"好借好还，再借不难"; // 使用中：该笔额度将分两期换完
 }
 -(void)creatDetialUI{
     [self.view addSubview:self.baseScrollView];
@@ -97,10 +135,37 @@
         make.centerX.equalTo(self.topView);
     }];
     
-//    放款中
+
+ 
     
-    /*
-    [self.loanView setRedordViewData];
+}
+/**
+ 放款中
+ 
+ */
+-(void)loadMoneyInfoOning{
+    
+    [self.loanView setRedordViewData:self.detialInfoModel];
+    [self.contentView addSubview:self.loanView];
+    [self.loanView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(10);
+        make.right.mas_equalTo(-10);
+        make.top.equalTo(self.topView.mas_bottom).offset(9);
+        make.height.mas_equalTo(100);
+        make.bottom.equalTo(self.contentView).offset(-10);
+
+    }];
+    
+    
+    
+}
+/**
+ 使用中
+ 
+ */
+-(void)useMoneyNoRepaty{
+    
+    [self.loanView setRedordViewData:self.detialInfoModel];
     [self.contentView addSubview:self.loanView];
     [self.loanView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
@@ -108,9 +173,10 @@
         make.top.equalTo(self.topView.mas_bottom).offset(9);
         make.height.mas_equalTo(100);
     }];
+
     
-    
-    [self.loanDetialView creatDetialUI:@[@"1000.00",@"2018-09-09到2018-11-0"]];
+    [self.loanDetialView creatDetialUI:@[EMPTY_IF_NIL(self.detialInfoModel.loanAccountInfo.loanAmount),[NSString stringWithFormat:@"%@到%@",self.detialInfoModel.loanAccountInfo.beginDate,self.detialInfoModel.loanAccountInfo.endDate]]];
+
     [self.contentView addSubview:self.loanDetialView];
     [self.loanDetialView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.loanView);
@@ -118,36 +184,143 @@
         make.bottom.equalTo(self.contentView).offset(-10);
 
     }];
-    
-    */
-    //  已结清金额
-    [self.loanDetialView creatDetialUI:@[@"1000.00",@"2018-09-09到2018-11-0",@"公分两期还款"]];
-    [self.contentView addSubview:self.loanDetialView];
-    [self.loanDetialView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(10);
-        make.right.mas_equalTo(-10);
-        make.top.equalTo(self.topView.mas_bottom).offset(9);
-        
-    }];
-    
-    [self.repaymentDetialView creatDetialUI:@[@"1000.00",@"300.00",@"0.00"]];
-    [self.contentView addSubview:self.repaymentDetialView];
-    [self.repaymentDetialView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.loanDetialView);
-        make.top.equalTo(self.loanDetialView.mas_bottom).offset(9);
-        make.bottom.equalTo(self.contentView).offset(-10);
 
+}
+/**
+ 已结清
+ 
+ */
+-(void)moneyIsClear{
+    //  已结清金额
+    [self.loanDetialView creatDetialUI:@[EMPTY_IF_NIL(self.detialInfoModel.loanAccountInfo.loanAmount),[NSString stringWithFormat:@"%@到%@",self.detialInfoModel.loanAccountInfo.beginDate,self.detialInfoModel.loanAccountInfo.endDate],EMPTY_IF_NIL(self.detialInfoModel.loanAccountInfo.retuKind_dictText)]];
+
+     [self.contentView addSubview:self.loanDetialView];
+     [self.loanDetialView mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.left.mas_equalTo(10);
+         make.right.mas_equalTo(-10);
+         make.top.equalTo(self.topView.mas_bottom).offset(9);
+         
+     }];
+     
+    [self.repaymentDetialView.recordBut addTarget:self action:@selector(recordButtonClick) forControlEvents:UIControlEventTouchUpInside];
+
+    self.repaymentDetialView.detialRecordType =RecordTypeRepayment;
+     [self.repaymentDetialView creatDetialUI:@[EMPTY_IF_NIL(self.detialInfoModel.loanAccountInfo.realCapiSum),EMPTY_IF_NIL(self.detialInfoModel.loanAccountInfo.realInte),EMPTY_IF_NIL(self.detialInfoModel.loanAccountInfo.realFeeSum)]];
+     [self.contentView addSubview:self.repaymentDetialView];
+     [self.repaymentDetialView mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.left.right.equalTo(self.loanDetialView);
+         make.top.equalTo(self.loanDetialView.mas_bottom).offset(9);
+         make.bottom.equalTo(self.contentView).offset(-10);
+
+     }];
+}
+/**
+ 逾期还款
+ 
+ */
+-(void)creatBeyoundRepayTime{
+    
+    [self.loanDetialView creatDetialUI:@[EMPTY_IF_NIL(self.detialInfoModel.loanAccountInfo.loanAmount),[NSString stringWithFormat:@"%@到%@",self.detialInfoModel.loanAccountInfo.beginDate,self.detialInfoModel.loanAccountInfo.endDate],EMPTY_IF_NIL(self.detialInfoModel.loanAccountInfo.retuKind_dictText)]];
+
+     [self.contentView addSubview:self.loanDetialView];
+     [self.loanDetialView mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.left.mas_equalTo(10);
+         make.right.mas_equalTo(-10);
+         make.top.equalTo(self.topView.mas_bottom).offset(9);
+         
+     }];
+     
+    [self.repaymentDetialView.recordBut addTarget:self action:@selector(recordButtonClick) forControlEvents:UIControlEventTouchUpInside];
+
+    self.repaymentDetialView.detialRecordType =RecordTypeDefault;
+     [self.repaymentDetialView creatDetialUI:@[EMPTY_IF_NIL(self.detialInfoModel.loanAccountInfo.realCapiSum),EMPTY_IF_NIL(self.detialInfoModel.loanAccountInfo.realInte),EMPTY_IF_NIL(self.detialInfoModel.loanAccountInfo.realFeeSum)]];
+     [self.contentView addSubview:self.repaymentDetialView];
+     [self.repaymentDetialView mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.left.right.equalTo(self.loanDetialView);
+         make.top.equalTo(self.loanDetialView.mas_bottom).offset(9);
+         make.bottom.equalTo(self.contentView).offset(-59);
+
+     }];
+
+    
+    [self.view addSubview:self.bottomBbut];
+    [self.bottomBbut mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.left.right.equalTo(self.view);
+        make.height.mas_equalTo(49);
     }];
     
 }
+/**
+ 还款记录
+ */
+-(void)recordButtonClick{
+    
+    RepayRecordDetialViewController *vc = [[RepayRecordDetialViewController alloc] init];
+    vc.dataArray = self.detialInfoModel.LoanRepayTermList;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma ----------------- RecordDetialLoanViewDelegate-----------------
 -(void)recordDetialLoanButtonClick:(NSInteger)butTag{
     if (butTag == 1) {
-        NSLog(@"查看还款计划");
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in self.detialInfoModel.LoanRepayTermList) {
+            NSAttributedString *string = [LYDUtil LableTextShowInBottom:[NSString stringWithFormat:@"第一期%@应还 %@",dic[@"dueDate"],dic[@"realAmt"]] InsertWithString:[NSString stringWithFormat:@"%@",dic[@"realAmt"]] InsertSecondStr:@"" InsertStringColor:[UIColor colorWithHex:@"#4D56EF"] WithInsertStringFont:FONT(14)];
+            [array addObject:string];
+            
+            
+
+        }
+        
+        CheckRepayDetialView *detialVc = [[CheckRepayDetialView alloc] init];
+        [detialVc creatArrayLable:array];
+        [YSSModelDialog showView:detialVc andAlpha:0.3];
+        [detialVc mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self.view);
+        }];
+        
+
     }else{
-        NSLog(@"去还款");
+        RepaymentViewController *repVc = [[RepaymentViewController alloc] init];
+        repVc.overFlag = 1;
+        [self.navigationController pushViewController:repVc animated:YES];
     }
 }
+-(void)bottomBUttonclick{
+    
+    RepaymentViewController *repVc = [[RepaymentViewController alloc] init];
+    repVc.overFlag = 0;
+    [self.navigationController pushViewController:repVc animated:YES];
+}
+/**
+ 借款详情
+ 
+ */
+-(void)useGetLoanAccountInfoInsert{
+    
+    @weakify(self);
+    NSDictionary *dic = @{@"userId":EMPTY_IF_NIL(self.loginModel.userId),@"lendTransno":EMPTY_IF_NIL(self.dataDic[@"loanAcctNo"])};
+    [[RequestAPI shareInstance] useGetLoanAccountInfo:dic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        @strongify(self);
+        if (succeed) {
+            if ([result[@"success"] intValue] == 1) {
+                self.detialInfoModel = [LoanDetialInfoModel yy_modelWithDictionary:result[@"result"]];
+                
+                [self setTopViewData];
+                
+                
+
+            }else{
+                
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
+
+            }
+
+        
+        }
+    }];
+}
+
 -(UIScrollView *)baseScrollView{
     if (!_baseScrollView) {
         _baseScrollView = [[UIScrollView alloc]init];
@@ -202,7 +375,7 @@
 }
 -(RecordDetialLoanView *)loanView{
     if (!_loanView) {
-        _loanView = [[RecordDetialLoanView alloc] initWithType:RecordTypeUseing];
+        _loanView = [[RecordDetialLoanView alloc] initWithType:self.cordType];
         _loanView.layer.backgroundColor = [UIColor whiteColor].CGColor;
         _loanView.layer.cornerRadius = 4;
         _loanView.delegate = self;
@@ -211,7 +384,7 @@
 }
 -(LoanDetialView *)loanDetialView{
     if (!_loanDetialView) {
-        _loanDetialView = [[LoanDetialView alloc] initWithType:RecordTypeSettlement];
+        _loanDetialView = [[LoanDetialView alloc] initWithType:self.cordType];
         _loanDetialView.layer.backgroundColor = [UIColor whiteColor].CGColor;
         _loanDetialView.layer.cornerRadius = 4;
     }
@@ -219,11 +392,22 @@
 }
 -(LoanDetialView *)repaymentDetialView{
     if (!_repaymentDetialView) {
-        _repaymentDetialView = [[LoanDetialView alloc] initWithType:RecordTypeRepayment];
+        _repaymentDetialView = [[LoanDetialView alloc] initWithType:self.cordType];
         _repaymentDetialView.layer.backgroundColor = [UIColor whiteColor].CGColor;
         _repaymentDetialView.layer.cornerRadius = 4;
     }
     return _repaymentDetialView;
+}
+-(FSCustomButton *)bottomBbut{
+    if (!_bottomBbut) {
+        _bottomBbut = [FSCustomButton buttonWithType:UIButtonTypeCustom];
+        _bottomBbut.backgroundColor = [UIColor colorWithHex:@"#FF0E2E"];
+        _bottomBbut.titleLabel.font = BOLDFONT(17);
+        [_bottomBbut setTitle:@"去还款" forState:UIControlStateNormal];
+        [_bottomBbut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_bottomBbut addTarget:self action:@selector(bottomBUttonclick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _bottomBbut;
 }
 /*
 #pragma mark - Navigation

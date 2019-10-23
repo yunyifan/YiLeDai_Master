@@ -37,8 +37,8 @@
 //    "lendState":"3", 0:未通过 1.审批中 2.放款中 3.使用中 4.逾期 5 已结清 8：正常还款 9：违约还款
 //     "lendState_dictText":"审批中"  状态值
     
-    self.moneyLab.text = EMPTY_IF_NIL(dataDic[@"lendAmount"]);
-    self.timeLab.text = EMPTY_IF_NIL(dataDic[@"beginDate"]);
+    self.moneyLab.text = [NSString stringWithFormat:@"%@",EMPTY_IF_NIL(dataDic[@"lendAmount"])] ;
+    self.timeLab.text = [NSString stringWithFormat:@"%@",EMPTY_IF_NIL(dataDic[@"beginDate"])] ;
     if ([dataDic[@"lendState"] intValue] == 9) {
         self.stauteLab.textColor = Tit_Red_Color;
 

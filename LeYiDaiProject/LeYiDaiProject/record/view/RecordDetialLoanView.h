@@ -8,6 +8,7 @@
 
 #import "BaseView.h"
 
+#import "LoanDetialInfoModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol RecordDetialLoanViewDelegate <NSObject>
@@ -24,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(instancetype)initWithType:(RecordType)recordType;
 
--(void)setRedordViewData;
+-(void)setRedordViewData:(LoanDetialInfoModel *)infoModel;
 
 @end
 

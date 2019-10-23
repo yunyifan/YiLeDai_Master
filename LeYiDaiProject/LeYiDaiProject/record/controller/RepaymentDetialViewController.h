@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RepaymentDetialViewController : BaseViewController
 
+@property (nonatomic,strong)NSDictionary *dataDic;
 @end
 
 NS_ASSUME_NONNULL_END

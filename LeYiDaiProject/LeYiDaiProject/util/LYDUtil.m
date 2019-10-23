@@ -105,5 +105,65 @@
     }
     return resultDic;
 }
+#pragma mark ---- 将时间戳转换成时间
 
++ (NSString *)getTimeFromTimestamp:(NSString *)timeTamp{
+
+    //将对象类型的时间转换为NSDate类型
+
+    NSDate * myDate=[NSDate dateWithTimeIntervalSince1970:[timeTamp doubleValue]/1000];
+
+    //设置时间格式
+
+    NSDateFormatter * formatter=[[NSDateFormatter alloc]init];
+
+//    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [formatter setDateFormat:@"YYYY-MM-dd"];
+
+
+    //将时间转换为字符串
+
+    NSString *timeStr=[formatter stringFromDate:myDate];
+
+    return timeStr;
+
+}
++(UIViewController*) currentViewController {
+    
+    // Find best view controller
+    UIViewController* viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    return [self findBestViewController:viewController];
+}
+
++(UIViewController*) findBestViewController:(UIViewController*)vc {
+    if (vc.presentedViewController) {
+        // Return presented view controller
+        return [self findBestViewController:vc.presentedViewController];
+    } else if ([vc isKindOfClass:[UISplitViewController class]]) {
+        // Return right hand side
+        UISplitViewController* svc = (UISplitViewController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self findBestViewController:svc.viewControllers.lastObject];
+        else
+            return vc;
+    } else if ([vc isKindOfClass:[UINavigationController class]]) {
+        
+        // Return top view
+        UINavigationController* svc = (UINavigationController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self findBestViewController:svc.topViewController];
+        else
+            return vc;
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        
+        // Return visible view
+        UITabBarController* svc = (UITabBarController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self findBestViewController:svc.selectedViewController];
+        else
+            return vc;
+    } else {
+        return vc;
+    }
+}
 @end

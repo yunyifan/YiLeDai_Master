@@ -11,12 +11,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LoanDetialView : BaseView
+@property (nonatomic,strong)UIButton *recordBut;
 
 @property (nonatomic,assign)RecordType detialRecordType;
 
 -(instancetype)initWithType:(RecordType)recordType;
 
 -(void)creatDetialUI:(NSArray *)array;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

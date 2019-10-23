@@ -46,6 +46,14 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)useLoanLendTradeUpInsert:(NSDictionary *)pramDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
 
 -(void)useGetRepayList:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
+
+-(void)useAddSeleBank:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
+
+-(void)useGetLoanAccountInfo:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
+
+-(void)useRepayListUpInsert:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
+
+-(void)useRepayListGetrepayInfo:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
 @end
 
 NS_ASSUME_NONNULL_END

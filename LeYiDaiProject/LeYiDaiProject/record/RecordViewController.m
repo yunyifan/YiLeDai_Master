@@ -75,16 +75,16 @@
     
     [self useLoanLendTradeList];
 }
-//- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView{
-//
-//    if (self.isFirstReson == YES) {
-//        return [UIImage imageNamed:@"empoty_station"];
-//
-//    }else{
-//        return [UIImage imageNamed:@""];
-//
-//    }
-//}
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView{
+
+    if (self.isFirstReson == YES) {
+        return [UIImage imageNamed:@"record_empty"];
+
+    }else{
+        return [UIImage imageNamed:@""];
+
+    }
+}
 
 - (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView{
     if (self.isFirstReson == YES) {
@@ -122,9 +122,11 @@
     
     if (self.selectSegIndexd == 0) {
         LoanDetialViewController *loanDeVc = [[LoanDetialViewController alloc] init];
+        loanDeVc.dataDic = self.listArray[indexPath.row];
         [self.navigationController pushViewController:loanDeVc animated:YES];
     }else{
         RepaymentDetialViewController *repayDeVc = [[RepaymentDetialViewController alloc] init];
+        repayDeVc.dataDic = self.listArray[indexPath.row];
         [self.navigationController pushViewController:repayDeVc animated:YES];
     }
 

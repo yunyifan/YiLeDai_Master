@@ -28,6 +28,18 @@
     }
     return self;
 }
+-(void)setRepayCellData:(RepayDueModel *)model{
+    
+    self.moneyLab.text = EMPTY_IF_NIL(model.dueAmt);
+    
+    if (self.cellOverFlag == 0) {
+        self.bottomLab.text = [NSString stringWithFormat:@"%@（逾%@期）",EMPTY_IF_NIL(model.createTime),model.dueTerm];
+
+    }else{
+        self.bottomLab.text = [NSString stringWithFormat:@"%@（第%@期 %@）",EMPTY_IF_NIL(model.createTime),model.dueTerm,@"可提前还款"];
+
+    }
+}
 -(void)creatCellUI{
     
     [self.contentView addSubview:self.bgView];
@@ -66,8 +78,8 @@
     [self.bgView addSubview:self.selectBut];
     [self.selectBut mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView);
-        make.right.mas_equalTo(-10);
-        make.width.height.mas_equalTo(30);
+        make.right.mas_equalTo(0);
+        make.width.height.mas_equalTo(40);
     }];
 }
 -(UIView *)bgView{

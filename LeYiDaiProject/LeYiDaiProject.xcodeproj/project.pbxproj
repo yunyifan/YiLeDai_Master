@@ -93,6 +93,11 @@
 		C14E5153232914FF00745493 /* MainCenterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C14E5152232914FF00745493 /* MainCenterView.m */; };
 		C15EC7D5233CB94E00B13E71 /* RepaymentBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = C15EC7D4233CB94E00B13E71 /* RepaymentBottomView.m */; };
 		C16C104A2334CA7C00B34076 /* RequestAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C16C10492334CA7C00B34076 /* RequestAPI.m */; };
+		C16F5024235ED75D0022DB95 /* RepaySelectBankView.m in Sources */ = {isa = PBXBuildFile; fileRef = C16F5023235ED75D0022DB95 /* RepaySelectBankView.m */; };
+		C16F5027235EF15D0022DB95 /* CheckRepayDetialView.m in Sources */ = {isa = PBXBuildFile; fileRef = C16F5026235EF15D0022DB95 /* CheckRepayDetialView.m */; };
+		C16F502A235EFFFE0022DB95 /* RepayRecordDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C16F5029235EFFFE0022DB95 /* RepayRecordDetialViewController.m */; };
+		C16F502D235F03AE0022DB95 /* RepayDetialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C16F502C235F03AE0022DB95 /* RepayDetialTableViewCell.m */; };
+		C16F5030235F27CB0022DB95 /* PhoneBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C16F502F235F27CB0022DB95 /* PhoneBookModel.m */; };
 		C199FC9B234982F300F25A64 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C199FC9A234982F300F25A64 /* LoginModel.m */; };
 		C199FC9E2349B86100F25A64 /* MainDetianModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C199FC9D2349B86100F25A64 /* MainDetianModel.m */; };
 		C1C11BB42356D6C800CABDE5 /* BankDetialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C11BB32356D6C800CABDE5 /* BankDetialModel.m */; };
@@ -104,6 +109,7 @@
 		C1CE22DB2320F91100515633 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CE22DA2320F91100515633 /* main.m */; };
 		C1CE22E52320F91100515633 /* LeYiDaiProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CE22E42320F91100515633 /* LeYiDaiProjectTests.m */; };
 		C1CE22F02320F91100515633 /* LeYiDaiProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CE22EF2320F91100515633 /* LeYiDaiProjectUITests.m */; };
+		C1D27018235D8646006CCF33 /* LoanDetialInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D27017235D8646006CCF33 /* LoanDetialInfoModel.m */; };
 		F576662F17A32B2D8A2731A4 /* Pods_LeYiDaiProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4D27320F73A4D9D768242FE /* Pods_LeYiDaiProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -298,6 +304,16 @@
 		C15EC7D4233CB94E00B13E71 /* RepaymentBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepaymentBottomView.m; sourceTree = "<group>"; };
 		C16C10482334CA7C00B34076 /* RequestAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestAPI.h; sourceTree = "<group>"; };
 		C16C10492334CA7C00B34076 /* RequestAPI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestAPI.m; sourceTree = "<group>"; };
+		C16F5022235ED75D0022DB95 /* RepaySelectBankView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepaySelectBankView.h; sourceTree = "<group>"; };
+		C16F5023235ED75D0022DB95 /* RepaySelectBankView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepaySelectBankView.m; sourceTree = "<group>"; };
+		C16F5025235EF15D0022DB95 /* CheckRepayDetialView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckRepayDetialView.h; sourceTree = "<group>"; };
+		C16F5026235EF15D0022DB95 /* CheckRepayDetialView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckRepayDetialView.m; sourceTree = "<group>"; };
+		C16F5028235EFFFD0022DB95 /* RepayRecordDetialViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepayRecordDetialViewController.h; sourceTree = "<group>"; };
+		C16F5029235EFFFE0022DB95 /* RepayRecordDetialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepayRecordDetialViewController.m; sourceTree = "<group>"; };
+		C16F502B235F03AE0022DB95 /* RepayDetialTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepayDetialTableViewCell.h; sourceTree = "<group>"; };
+		C16F502C235F03AE0022DB95 /* RepayDetialTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepayDetialTableViewCell.m; sourceTree = "<group>"; };
+		C16F502E235F27CB0022DB95 /* PhoneBookModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneBookModel.h; sourceTree = "<group>"; };
+		C16F502F235F27CB0022DB95 /* PhoneBookModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneBookModel.m; sourceTree = "<group>"; };
 		C199FC99234982F300F25A64 /* LoginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
 		C199FC9A234982F300F25A64 /* LoginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		C199FC9C2349B86100F25A64 /* MainDetianModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainDetianModel.h; sourceTree = "<group>"; };
@@ -320,6 +336,8 @@
 		C1CE22EB2320F91100515633 /* LeYiDaiProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeYiDaiProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1CE22EF2320F91100515633 /* LeYiDaiProjectUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeYiDaiProjectUITests.m; sourceTree = "<group>"; };
 		C1CE22F12320F91100515633 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1D27016235D8646006CCF33 /* LoanDetialInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoanDetialInfoModel.h; sourceTree = "<group>"; };
+		C1D27017235D8646006CCF33 /* LoanDetialInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoanDetialInfoModel.m; sourceTree = "<group>"; };
 		D4D27320F73A4D9D768242FE /* Pods_LeYiDaiProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeYiDaiProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -405,6 +423,8 @@
 			children = (
 				C1C11BB22356D6C800CABDE5 /* BankDetialModel.h */,
 				C1C11BB32356D6C800CABDE5 /* BankDetialModel.m */,
+				C16F502E235F27CB0022DB95 /* PhoneBookModel.h */,
+				C16F502F235F27CB0022DB95 /* PhoneBookModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -573,6 +593,8 @@
 		C14E51372325F2E900745493 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				C1D27016235D8646006CCF33 /* LoanDetialInfoModel.h */,
+				C1D27017235D8646006CCF33 /* LoanDetialInfoModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -586,6 +608,10 @@
 				C14E51462328991B00745493 /* RecordDetialLoanView.m */,
 				C14E51482328C04200745493 /* LoanDetialView.h */,
 				C14E51492328C04200745493 /* LoanDetialView.m */,
+				C16F5025235EF15D0022DB95 /* CheckRepayDetialView.h */,
+				C16F5026235EF15D0022DB95 /* CheckRepayDetialView.m */,
+				C16F502B235F03AE0022DB95 /* RepayDetialTableViewCell.h */,
+				C16F502C235F03AE0022DB95 /* RepayDetialTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -597,6 +623,8 @@
 				C14E51402327C0F600745493 /* LoanDetialViewController.m */,
 				C14E514B2328E27B00745493 /* RepaymentDetialViewController.h */,
 				C14E514C2328E27B00745493 /* RepaymentDetialViewController.m */,
+				C16F5028235EFFFD0022DB95 /* RepayRecordDetialViewController.h */,
+				C16F5029235EFFFE0022DB95 /* RepayRecordDetialViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -634,6 +662,8 @@
 				C12DC0B6233C64B500ABF3F3 /* RepaymentTableViewCell.m */,
 				C15EC7D3233CB94E00B13E71 /* RepaymentBottomView.h */,
 				C15EC7D4233CB94E00B13E71 /* RepaymentBottomView.m */,
+				C16F5022235ED75D0022DB95 /* RepaySelectBankView.h */,
+				C16F5023235ED75D0022DB95 /* RepaySelectBankView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1051,10 +1081,12 @@
 				C14E513C2325F30A00745493 /* RecordTableViewCell.m in Sources */,
 				C11B3C252351758C00E4EE8B /* CircleView.m in Sources */,
 				C11B3BE1234ED60A00E4EE8B /* CustAuthresultMedel.m in Sources */,
+				C16F502A235EFFFE0022DB95 /* RepayRecordDetialViewController.m in Sources */,
 				C1000CE5232132C7003C822F /* NSDate+Extension.m in Sources */,
 				C11B3C052350411900E4EE8B /* IDCardAutherModel.m in Sources */,
 				C1000CE8232132C7003C822F /* MBProgressHUD+MJ.m in Sources */,
 				C199FC9B234982F300F25A64 /* LoginModel.m in Sources */,
+				C16F5027235EF15D0022DB95 /* CheckRepayDetialView.m in Sources */,
 				C1CE22D02320F90F00515633 /* ViewController.m in Sources */,
 				C12167162354585B001EE1C6 /* IQTextView.m in Sources */,
 				C1000CFD23222DF4003C822F /* BaseTabbarViewController.m in Sources */,
@@ -1064,7 +1096,9 @@
 				C100DE4C232E0C930034989A /* EvaluationViewController.m in Sources */,
 				C100DE52232E2A8D0034989A /* AuthenDetialViewController.m in Sources */,
 				C121672923548A8E001EE1C6 /* CustInfoUpModel.m in Sources */,
+				C16F5030235F27CB0022DB95 /* PhoneBookModel.m in Sources */,
 				C14E51472328991B00745493 /* RecordDetialLoanView.m in Sources */,
+				C16F5024235ED75D0022DB95 /* RepaySelectBankView.m in Sources */,
 				C10DACBF233A27B80059A94C /* AppIdentificationManage.m in Sources */,
 				C100DE43232DD0A90034989A /* CALayer+FSUI.m in Sources */,
 				C1000CF723222D44003C822F /* MainViewController.m in Sources */,
@@ -1085,6 +1119,7 @@
 				C11B3BD1234AC8FB00E4EE8B /* MyBankViewController.m in Sources */,
 				C1000CEB232133D0003C822F /* LYDUtil.m in Sources */,
 				C100DE5B232F229E0034989A /* BankAuthenViewController.m in Sources */,
+				C1D27018235D8646006CCF33 /* LoanDetialInfoModel.m in Sources */,
 				C100DE42232DD0A90034989A /* FSCustomButton.m in Sources */,
 				C14E5144232898C100745493 /* BaseView.m in Sources */,
 				C121672623545CF5001EE1C6 /* YSSWebViewController.m in Sources */,
@@ -1103,6 +1138,7 @@
 				C11B3C262351758C00E4EE8B /* LivingConfigViewController.m in Sources */,
 				C1000CFA23222DC0003C822F /* BaseNavViewController.m in Sources */,
 				C1000CE1232132C7003C822F /* NSString+SHA256_BASE64.m in Sources */,
+				C16F502D235F03AE0022DB95 /* RepayDetialTableViewCell.m in Sources */,
 				C12167232354585B001EE1C6 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				C1000D112322882C003C822F /* SelfTableViewCell.m in Sources */,
 				C12167182354585B001EE1C6 /* IQTitleBarButtonItem.m in Sources */,
@@ -1293,10 +1329,9 @@
 				CODE_SIGN_STYLE = Manual;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = GC9MT2VULF;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/LeYiDaiProject/thirdSDK/XYIDVerification-iOS-2.4.1",
-					"$(PROJECT_DIR)/LeYiDaiProject/thirdSDK/XYIDVerification-iOS-2.4.1",
 					"$(PROJECT_DIR)/LeYiDaiProject/thirdSDK/FaceSDK",
 				);
 				INFOPLIST_FILE = LeYiDaiProject/Info.plist;
@@ -1321,10 +1356,9 @@
 				CODE_SIGN_STYLE = Manual;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = GC9MT2VULF;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/LeYiDaiProject/thirdSDK/XYIDVerification-iOS-2.4.1",
-					"$(PROJECT_DIR)/LeYiDaiProject/thirdSDK/XYIDVerification-iOS-2.4.1",
 					"$(PROJECT_DIR)/LeYiDaiProject/thirdSDK/FaceSDK",
 				);
 				INFOPLIST_FILE = LeYiDaiProject/Info.plist;

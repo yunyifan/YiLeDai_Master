@@ -13,7 +13,6 @@
 
 @property (nonatomic,strong)UILabel *leftLab;
 @property (nonatomic,strong)UIImageView *arrImg;
-@property (nonatomic,strong)UIButton *recordBut;
 
 @end
 
@@ -126,23 +125,11 @@
     
 }
 
-/**
- 还款记录
- */
--(void)recordButtonClick{
-    
-    [MBProgressHUD showError:@"还款记录"];
-    if (self.detialRecordType == RecordTypeRepayment) {
-        
-    }else if(self.detialRecordType == RecordTypeDefault){
-        
-    }
-}
 -(UILabel *)leftLab{
     if (!_leftLab) {
         _leftLab = [[UILabel alloc] init];
         _leftLab.font = FONT(13);
-        _leftLab.textColor = Tit_Gray_Color;
+        _leftLab.textColor = [UIColor colorWithHex:@"#99A7B8"];
         _leftLab.text = @"还款记录";
     }
     return _leftLab;
@@ -156,7 +143,6 @@
 -(UIButton *)recordBut{
     if (!_recordBut) {
         _recordBut = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_recordBut addTarget:self action:@selector(recordButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _recordBut;
 }

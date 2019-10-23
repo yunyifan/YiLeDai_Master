@@ -24,6 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 // 过滤字典中的null
 + (NSMutableDictionary *)nullDicToDic:(NSDictionary *)dic;
 
+//时间戳转时间
++ (NSString *)getTimeFromTimestamp:(NSString *)timeTamp;
+
++(UIViewController*) currentViewController;
+
 @end
 
 NS_ASSUME_NONNULL_END

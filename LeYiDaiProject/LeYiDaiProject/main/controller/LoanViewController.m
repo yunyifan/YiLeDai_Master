@@ -49,6 +49,10 @@
 @end
 
 @implementation LoanViewController
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
@@ -67,7 +71,17 @@
 
     [self initLoanUI];
     [self useGetRepayInfo];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationClick:) name:@"Bank_Model" object:nil];
 
+}
+-(void)notificationClick:(NSNotification *)info{
+    
+    BankDetialModel *detialModl = (BankDetialModel *)info.object;
+    
+//    self.firstBankModel = [[BankDetialModel alloc] init];
+    self.firstBankModel = detialModl;
+    [self reloadBankView];
 }
 -(void)textCLick:(UITextField *)textFi{
     if (STRING_ISNIL(textFi.text)) {

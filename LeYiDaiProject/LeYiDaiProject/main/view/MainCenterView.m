@@ -110,7 +110,7 @@
             righStr = @"统正在审核的资料，我们将在10-30分钟内估算出";
         }else if(self.self.creaditInfoModel.userState == 4 && [self.creaditInfoModel.creditInfo.creditAppstate intValue] == 1){
             leftIm = [UIImage imageNamed:@"loan_icon"];
-            righStr = @"恭喜您，审核通过！立即去借款吧。";
+            righStr = @"在还完借款前，本平台不支持二次借款";
         }else{
             leftIm = [UIImage imageNamed:@"loan_icon"];
             righStr = @"正在放款中，预计10分钟内到达账户，请耐心等待";

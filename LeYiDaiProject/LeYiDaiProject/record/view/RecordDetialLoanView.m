@@ -44,12 +44,12 @@
     
     return self;
 }
--(void)setRedordViewData{
+-(void)setRedordViewData:(LoanDetialInfoModel *)infoModel{
     if (self.detialRecordType == RecordTypeLoanning) {
         self.moanyLab.text = @"借款金额";
         self.payTypeLab.text = @"还款方式";
-        self.moanyLabData.text = @"1000.00";
-        self.payTypeLabData.text = @"共分两期还款";
+        self.moanyLabData.text = EMPTY_IF_NIL(infoModel.loanAccountInfo.loanAmount);
+        self.payTypeLabData.text = EMPTY_IF_NIL(infoModel.loanAccountInfo.retuKind_dictText);
     }else if (self.detialRecordType == RecordTypeUseing){
         self.moanyLab.text = @"查看还款计划";
         self.payTypeLab.text = @"去还款";
