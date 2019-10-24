@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PhoneBookModel : NSObject
++(id)sharedInstance;
 
+- (void)requestContactAuthorAfterSystemVersion9;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -420,4 +420,15 @@
 
     }];
 }
+/**
+ 通讯录
+ 
+ */
+-(void)custInfoPhoneBookInsert:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+    [[RequestAPI shareInstance] POST:[NSString stringWithFormat:@"%@api/custInfo/phoneBook.do",BASEUEL] parameters:prmDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
+}
 @end

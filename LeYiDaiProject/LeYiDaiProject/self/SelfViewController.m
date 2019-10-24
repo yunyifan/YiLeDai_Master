@@ -9,14 +9,13 @@
 #import "SelfViewController.h"
 #import "SettingViewController.h"
 #import "MyBankViewController.h"
-
+#import "FeedBackViewController.h"
 #import "SelfTableViewCell.h"
 @interface SelfViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 // 头部UI
 @property (nonatomic,strong)UIImageView *topView;
 @property (nonatomic,strong)UILabel *nameLab; //
-@property (nonatomic,strong)UILabel *timeLab; // 还款日期
 @property (nonatomic,strong)UILabel *descLab;
 
 // 认证
@@ -55,8 +54,9 @@
     // Do any additional setup after loading the view.
    
     self.imageArr = @[@"self_bank",@"self_sever",@"self_feedback",@"self_setting"];
-    self.titArr = @[@"我的银行卡",@"服务中心",@"意见反馈",@"设置"];
+    self.titArr = @[@"我的银行卡",@"客服电话",@"意见反馈",@"设置"];
     [self creatTopView];
+    
 }
 -(void)creatTopView{
     [self.view addSubview:self.topView];
@@ -65,20 +65,18 @@
         make.height.mas_equalTo(170);
     }];
     
+    if(STRING_ISNIL(self.loginModel.userName)){
+        self.nameLab.text = [NSString stringWithFormat:@"%@",self.loginModel.account];
+    }else{
+        self.nameLab.text = [NSString stringWithFormat:@"%@",self.loginModel.userName];
+
+    }
     [self.topView addSubview:self.nameLab];
     [self.nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(60);
         make.left.mas_equalTo(20);
     }];
-    
-    [self.topView addSubview:self.timeLab];
-    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.nameLab);
-        make.left.equalTo(self.nameLab.mas_right).offset(10);
-        make.width.mas_equalTo(148);
-        make.height.mas_equalTo(21);
-    }];
-    
+        
     [self.topView addSubview:self.descLab];
     [self.descLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nameLab.mas_bottom).offset(6);
@@ -154,10 +152,19 @@
         }
             break;
         case 1:
-            
+        {
+            if (STRING_ISNIL(self.loginModel.servicetele)) {
+                   return;
+               }
+               NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",self.loginModel.servicetele];
+               [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+        }
             break;
         case 2:
-            
+        {
+            FeedBackViewController *feedVc = [[FeedBackViewController alloc] init];
+            [self.navigationController pushViewController:feedVc animated:YES];
+        }
             break;
         case 3:
         {
@@ -179,23 +186,9 @@
     if (!_nameLab) {
         _nameLab = [[UILabel alloc] init];
         _nameLab.font = BOLDFONT(20);
-        _nameLab.text = @"赵尚";
         _nameLab.textColor = [UIColor whiteColor];
     }
     return _nameLab;
-}
--(UILabel *)timeLab{
-    if (!_timeLab) {
-        _timeLab = [[UILabel alloc] init];
-        _timeLab.font = FONT(12);
-        _timeLab.text = @"最近还款日: 2019-09-09";
-        _timeLab.textColor = [UIColor colorWithHex:@"#FFB41B"];
-        _timeLab.layer.backgroundColor = [UIColor colorWithRed:113/255.0 green:115/255.0 blue:222/255.0 alpha:0.5] .CGColor;
-        _timeLab.layer.cornerRadius = 10.5;
-        _timeLab.textAlignment = NSTextAlignmentCenter;
-        
-    }
-    return _timeLab;
 }
 -(UILabel *)descLab{
     if (!_descLab) {

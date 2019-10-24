@@ -265,10 +265,8 @@
     if (butTag == 1) {
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in self.detialInfoModel.LoanRepayTermList) {
-            NSAttributedString *string = [LYDUtil LableTextShowInBottom:[NSString stringWithFormat:@"第一期%@应还 %@",dic[@"dueDate"],dic[@"realAmt"]] InsertWithString:[NSString stringWithFormat:@"%@",dic[@"realAmt"]] InsertSecondStr:@"" InsertStringColor:[UIColor colorWithHex:@"#4D56EF"] WithInsertStringFont:FONT(14)];
+            NSAttributedString *string = [LYDUtil LableTextShowInBottom:[NSString stringWithFormat:@"第%@期%@应还 %@",dic[@"dueTerm"],dic[@"dueDate"],dic[@"realAmt"]] InsertWithString:[NSString stringWithFormat:@"%@",dic[@"realAmt"]] InsertSecondStr:@"" InsertStringColor:[UIColor colorWithHex:@"#4D56EF"] WithInsertStringFont:FONT(14)];
             [array addObject:string];
-            
-            
 
         }
         

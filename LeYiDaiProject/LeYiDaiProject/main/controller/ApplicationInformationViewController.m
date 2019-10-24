@@ -44,7 +44,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nofiticationCLick:) name:@"Device_book" object:nil];
+
     self.navigationItem.title = @"额度评估-申请资料";
     self.leftArray = @[@[@"*最高学历",@"*婚姻状况",@"*住宅地址",@"*紧急联系人1",@"*紧急联系人2"],@[@"*单位名称",@"*单位地址",@"*从事职业",@"*职务级别",@"*月收入"]] ;
     self.placehodelArray = @[@[@"本科",@"未婚",@"请选择地址",@"通讯录添加",@"通讯录添加"],@[@"南京XXX科技公司",@"请选择地址",@"请选择",@"普通员工",@"请选择"]];
@@ -72,6 +73,17 @@
     
     self.applyTable.tableFooterView = [self footerView];
     
+    [[PhoneBookModel sharedInstance] requestContactAuthorAfterSystemVersion9];
+
+    
+}
+-(void)nofiticationCLick:(NSNotification *)info{
+    
+    NSMutableArray *arr = (NSMutableArray *)info.object;
+    
+    [[RequestAPI shareInstance] custInfoPhoneBookInsert:@{@"userId":self.loginModel.userId,@"data":arr} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        
+    }];
 }
 -(void)nextButtonClick{
     

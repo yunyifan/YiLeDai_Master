@@ -241,7 +241,7 @@
         if (succeed) {
               if ([result[@"success"] intValue] == 1) {
                   [MBProgressHUD showSuccess:@"还款成功"];
-                  [self.navigationController popToRootViewControllerAnimated:YES];
+                  [self.navigationController popViewControllerAnimated:YES];
               }else{
                   
                   [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];

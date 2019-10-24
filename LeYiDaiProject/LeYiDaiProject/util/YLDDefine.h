@@ -20,6 +20,7 @@
 #import "YSSModelDialog.h"
 #import "UIImageView+WebCache.h"
 #import "AppIdentificationManage.h"
+#import "PhoneBookModel.h"
 
 // 环境开关
 #define ENVIRONMENT_FLAG 0

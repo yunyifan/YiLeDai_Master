@@ -100,7 +100,7 @@
 }
 -(UIImageView *)bgImg{
     if (!_bgImg) {
-        _bgImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_top_blue"]];
+        _bgImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_top_blue_def"]];
     }
     return _bgImg;
 }

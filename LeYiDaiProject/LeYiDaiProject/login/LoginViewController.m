@@ -283,7 +283,7 @@
     if (!_descLab) {
         _descLab = [[UILabel alloc] init];
         _descLab.font = BOLDFONT(13);
-        _descLab.text = @"欢迎使用***贷";
+        _descLab.text = @"欢迎使用安心贷";
     }
     return _descLab;
 }

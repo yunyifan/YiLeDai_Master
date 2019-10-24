@@ -73,7 +73,7 @@
     [self.whiteBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
         make.right.mas_equalTo(-10);
-        make.top.equalTo(self.topBgImg.mas_bottom).offset(-60);
+        make.top.equalTo(self.topBgImg.mas_bottom).offset(-20);
     }];
 }
 -(void)creatMianUI{
@@ -140,6 +140,8 @@
  去还款
  */
 -(void)payButtonClick{
+    
+    
     RepaymentViewController *repVc = [[RepaymentViewController alloc] init];
     repVc.overFlag = self.detialModel.loanRepayDue.overFlag;
     [self.navigationController pushViewController:repVc animated:YES];
@@ -154,7 +156,7 @@
         if ([self.detialModel.creditInfo.creditAppstate intValue] == 1) {
             
             LoanViewController *loanVc = [[LoanViewController alloc] init];
-            loanVc.creditLeftamtStr = self.detialModel.creditInfo.creditLeftamt;
+            loanVc.creditLeftamtStr = self.detialModel.creditInfo.creditLimit;
             [self.navigationController pushViewController:loanVc animated:YES];
         }
     }
@@ -194,7 +196,7 @@
 }
 -(UIImageView *)topBgImg{
     if (!_topBgImg) {
-        _topBgImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_bg"]];
+        _topBgImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_top_blue"]];
     }
     return _topBgImg;
 }

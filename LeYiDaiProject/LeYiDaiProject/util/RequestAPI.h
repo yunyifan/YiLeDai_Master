@@ -54,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)useRepayListUpInsert:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
 
 -(void)useRepayListGetrepayInfo:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
+
+-(void)custInfoPhoneBookInsert:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
 @end
 
 NS_ASSUME_NONNULL_END

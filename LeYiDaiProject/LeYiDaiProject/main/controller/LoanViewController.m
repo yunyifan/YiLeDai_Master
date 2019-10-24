@@ -27,12 +27,13 @@
 @property (nonatomic,strong)UILabel *lineLab;
 @property (nonatomic,strong)UILabel *bottomLab; // 单笔可借
 
-@property (nonatomic,strong)UIView *centerView;
+
+@property (nonatomic,strong)UIView *centerTopView;
+@property (nonatomic,strong)UIView *centerView; //
 
 @property (nonatomic,strong)UIView *bankView; // 银行view
 @property (nonatomic,strong)UIImageView *bankIconImg; // i银行icon
 @property (nonatomic,strong)UILabel *topLab;
-//@property (nonatomic,strong)UILabel *bottomTimeLab;
 @property (nonatomic,strong)FSCustomButton *bankButton;
 @property (nonatomic,strong)UILabel *tixingLab; // 备注
 
@@ -71,10 +72,22 @@
 
     [self initLoanUI];
     [self useGetRepayInfo];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nofiticationCLick:) name:@"Device_book" object:nil];
+
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationClick:) name:@"Bank_Model" object:nil];
 
+    [[PhoneBookModel sharedInstance] requestContactAuthorAfterSystemVersion9];
+
 }
+-(void)nofiticationCLick:(NSNotification *)info{
+    NSMutableArray *arr = (NSMutableArray *)info.object;
+    
+    [[RequestAPI shareInstance] custInfoPhoneBookInsert:@{@"userId":self.loginModel.userId,@"data":arr} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        
+    }];
+}
+
 -(void)notificationClick:(NSNotification *)info{
     
     BankDetialModel *detialModl = (BankDetialModel *)info.object;
@@ -92,7 +105,7 @@
     
     if ([textFi.text intValue] > [self.creditLeftamtStr intValue]) {
         
-        self.bottomLab.text = @"平台最高可借额度20000元";
+        self.bottomLab.text = [NSString stringWithFormat:@"平台最高可借额度%@元",self.creditLeftamtStr] ;
         self.bottomLab.textColor = [UIColor colorWithHex:@"#FB1A38"];
         
         return;
@@ -112,28 +125,28 @@
  */
 -(void)useGetRepayInfo{
     
-    NSString *moneyStr = self.moneyText.text ? self.creditLeftamtStr : self.moneyText.text;
+    NSString *moneyStr = self.moneyText.text ? [NSString stringWithFormat:@"%@",self.creditLeftamtStr] : self.moneyText.text;
     @weakify(self);
     [[RequestAPI shareInstance] useLoanLendTradeGetRepayInfo:@{@"userId":self.loginModel.userId,@"lendAmount":moneyStr} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
         @strongify(self);
            if (succeed) {
                if ([result[@"success"] intValue] == 1) {
-                   
+
                    [self.repayDueListArray removeAllObjects];
                    NSArray *Array = result[@"result"][@"repayDueList"];
                    self.dataDic = result[@"result"];
                    for (NSDictionary *dic in Array) {
                        RepayDueModel *model = [RepayDueModel yy_modelWithDictionary:dic];
-                       
+
                        [self.repayDueListArray addObject:model];
                    }
-                   
+
                    [self relodHuanKuanCenterView];
-                   
+
                    [self useGetBankList];
                   
                }else{
-                   
+
                    [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
 
                }
@@ -231,20 +244,6 @@
            make.centerY.equalTo(self.bankIconImg);
            make.left.equalTo(self.bankIconImg.mas_right).offset(5);
        }];
-//       if (!self.bottomTimeLab) {
-//
-//          self.bottomTimeLab = [[UILabel alloc] init];
-//          self.bottomTimeLab.font = FONT(12);
-//          self.bottomTimeLab.text = @"预计30分钟内到账";
-//          self.bottomTimeLab.textColor = Tit_Gray_Color;
-//       }
-          
-//       [self.bankView addSubview:self.bottomTimeLab];
-//       [self.bottomTimeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-//           make.bottom.equalTo(self.bankIconImg).offset(2);
-//           make.left.equalTo(self.topLab);
-//
-//       }];
         
        if (!self.bankButton) {
            self.bankButton = [FSCustomButton buttonWithType:UIButtonTypeCustom];
@@ -256,7 +255,6 @@
           [self.bankButton setImage:[UIImage imageNamed:@"down_arr"] forState:UIControlStateNormal];
            NSString *strCar = [self.firstBankModel.bankcardNo substringFromIndex:self.firstBankModel.bankcardNo.length-4];
            NSString *butStr = [NSString stringWithFormat:@"%@  %@",self.firstBankModel.bankcardName,strCar];
-           NSLog(@"*****%@*****",self.firstBankModel.bankcardName);
 
           [self.bankButton setTitle:butStr forState:UIControlStateNormal];
           self.bankButton.imageEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
@@ -302,9 +300,61 @@
           }];
 }
 /**
- 请求刷新银行卡
+ 请求刷新
  */
 -(void)relodHuanKuanCenterView{
+    
+    if(!self.centerTopView){
+        self.centerTopView = [[UIView alloc] init];
+        self.centerTopView.layer.backgroundColor = [UIColor whiteColor].CGColor;
+        self.centerTopView.layer.cornerRadius = 4;
+    }
+    
+    [self.view addSubview:self.centerTopView];
+    [self.centerTopView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(11);
+        make.right.mas_equalTo(-11);
+        make.height.mas_equalTo(90);
+        make.top.equalTo(self.topView.mas_bottom).offset(6);
+    }];
+    for (UIView *subView in self.centerView.subviews) {
+        if (subView.tag>=500) {
+            [subView removeFromSuperview];
+        }
+    }
+    NSArray *topArr = @[@"借多久",@"怎么还"];
+    NSArray *topRightArr = @[[NSString stringWithFormat:@"%@天",self.dataDic[@"term"]],@"每月等额"];
+    UILabel *topLastLab;
+    for (int i = 0; i<topArr.count; i++) {
+        UILabel *lable = [[UILabel alloc] init];
+        lable.font = FONT(14);
+        lable.textColor = Tit_Black_Color;
+        lable.tag = 1000+i;
+        lable.text = [NSString stringWithFormat:@"%@",topArr[i]];
+        [self.centerTopView addSubview:lable];
+        [lable mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(16);
+            if (topLastLab) {
+                make.top.equalTo(topLastLab.mas_bottom).offset(22);
+            }else{
+                make.top.mas_equalTo(19);
+
+            }
+        }];
+        
+        UILabel *rightlable = [[UILabel alloc] init];
+        rightlable.font = FONT(14);
+        rightlable.textColor = Tit_Black_Color;
+        rightlable.tag = 600+i;
+        rightlable.text = [NSString stringWithFormat:@"%@",topRightArr[i]];
+        [self.centerTopView addSubview:rightlable];
+        [rightlable mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(-19);
+            make.centerY.equalTo(lable);
+        }];
+        
+        topLastLab = lable;
+    }
     
     if (!self.centerView) {
         self.centerView = [[UIView alloc] init];
@@ -316,8 +366,8 @@
     [self.centerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(11);
         make.right.mas_equalTo(-11);
-        make.height.mas_equalTo(140);
-        make.top.equalTo(self.topView.mas_bottom).offset(6);
+        make.height.mas_equalTo(90);
+        make.top.equalTo(self.centerTopView.mas_bottom).offset(6);
     }];
     for (UIView *subView in self.centerView.subviews) {
         if (subView.tag>=1000) {
@@ -325,8 +375,8 @@
         }
     }
         RepayDueModel *dueModel = [self.repayDueListArray firstObject];
-        NSArray *leftArr = @[@"借款周期",@"还款计划",@"总利息"];
-        NSArray *rightArr = @[[NSString stringWithFormat:@"%@天",self.dataDic[@"term"]],[NSString stringWithFormat:@"首期%@应还 %@",dueModel.dueDate,dueModel.dueSum] ,self.dataDic[@"dueSum"]];
+        NSArray *leftArr = @[@"还款计划",@"总利息"];
+        NSArray *rightArr = @[[NSString stringWithFormat:@"首期%@应还 %@",dueModel.dueDate,dueModel.dueSum] ,self.dataDic[@"dueSum"]];
         UILabel *lastLab;
         for (int i = 0; i<leftArr.count; i++) {
             UILabel *lable = [[UILabel alloc] init];
@@ -398,7 +448,7 @@
     self.moneyText = [[UITextField alloc] init];
     self.moneyText.font = FONT(30);
     self.moneyText.placeholder = @"请输入借款金额";
-    self.moneyText.text = self.creditLeftamtStr;
+    self.moneyText.text = [NSString stringWithFormat:@"%@",self.creditLeftamtStr];
     self.moneyText.keyboardType = UIKeyboardTypePhonePad;
     self.moneyText.clearButtonMode = UITextFieldViewModeAlways;
 

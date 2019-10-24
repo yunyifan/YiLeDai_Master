@@ -26,11 +26,9 @@
 
 @property (nonatomic,strong)LoanDetialView *defultDetialView;  // 违约还款明细
 
-@property (nonatomic,strong)UIView *centerView;
-@property (nonatomic,strong)UILabel *leftPayLab;
-@property (nonatomic,strong)UILabel *evenPayLab; // 已还款
 
 @property (nonatomic,strong)NSDictionary *resultDic;
+@property (nonatomic,strong)NSArray *repayAcctListArr;
 @end
 
 @implementation RepaymentDetialViewController
@@ -42,16 +40,21 @@
     
     [self creatDetialUI];
     
+    
+    [self useGetrepayInfoInsert];
 }
 
 -(void)setTopViewData{
     
     self.titLab.text = @"还款金额(元)";  // 违约： 违约还款金额
-    self.moneyLab.text = EMPTY_IF_NIL(self.resultDic[@"realAmt"]);
+    self.moneyLab.text = [NSString stringWithFormat:@"%@",EMPTY_IF_NIL(self.resultDic[@"realAmt"])]; ;
     
     
     // 还款
-    self.detialLab.text = [NSString stringWithFormat:@"对应%@笔借款",self.resultDic[@"loanCount"]]; 
+    self.detialLab.text = [NSString stringWithFormat:@"对应%@笔借款",self.resultDic[@"loanCount"]];
+    
+    [self creatCenterView];
+
 }
 -(void)creatDetialUI{
     [self.view addSubview:self.baseScrollView];
@@ -120,99 +123,127 @@
      
      */
     
-    [self creatCenterView];
 }
 -(void)creatCenterView{
     
-    [self.contentView addSubview:self.centerView];
-    [self.centerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topView.mas_bottom).offset(9);
-        make.left.mas_equalTo(10);
-        make.right.mas_equalTo(-10);
-        make.bottom.equalTo(self.contentView).offset(-20);
+    UIView *lastView;
+    for (int i = 0; i<self.repayAcctListArr.count; i++) {
         
+        NSDictionary *dic = self.repayAcctListArr[i];
+        
+        UIView *centerView = [[UIView alloc] init];
+        centerView.layer.backgroundColor = [UIColor whiteColor].CGColor;
+        centerView.layer.cornerRadius = 4;
+           
+       [self.contentView addSubview:centerView];
+       [centerView mas_makeConstraints:^(MASConstraintMaker *make) {
+           if (lastView) {
+               make.top.equalTo(lastView.mas_bottom).offset(9);
+
+           }else{
+               make.top.equalTo(self.topView.mas_bottom).offset(9);
+
+           }
+           make.left.mas_equalTo(10);
+           make.right.mas_equalTo(-10);
+           
+       }];
+           
+           UILabel *leftPayLab = [[UILabel alloc] init];
+           leftPayLab.font = BOLDFONT(14);
+           leftPayLab.textColor = Tit_Black_Color;
+           leftPayLab.text = @"本次已还";
+           [centerView addSubview:leftPayLab];
+           [leftPayLab mas_makeConstraints:^(MASConstraintMaker *make) {
+               make.left.mas_equalTo(16);
+               make.top.mas_equalTo(12);
+           }];
+           
+           UILabel *evenPayLab = [[UILabel alloc] init];
+           evenPayLab.font = BOLDFONT(14);
+           evenPayLab.textColor = Tit_Black_Color;
+           evenPayLab.text = [NSString stringWithFormat:@"%@",dic[@"realAmt"]];
+           [centerView addSubview:evenPayLab];
+           [evenPayLab mas_makeConstraints:^(MASConstraintMaker *make) {
+               make.right.mas_equalTo(-16);
+               make.centerY.equalTo(leftPayLab);
+           }];
+           
+           UIView *lineVc = [[UIView alloc] initWithFrame:CGRectMake(16, 42, (SCREEN_WIDTH-27*2), 1)];
+           [centerView addSubview:lineVc];
+           [LYDUtil drawDashLine:lineVc lineLength:10 lineSpacing:5 lineColor:[UIColor colorWithHex:@"#E8E8E8"]];
+           
+           UILabel *moneyLab = [[UILabel alloc] init];
+           moneyLab.font = FONT(14);
+           moneyLab.textColor = [UIColor colorWithHex:@"#99A7B8"];
+           moneyLab.text = @"借款金额";
+           [centerView addSubview:moneyLab];
+           [moneyLab mas_makeConstraints:^(MASConstraintMaker *make) {
+               make.top.equalTo(leftPayLab.mas_bottom).offset(28);
+               make.left.equalTo(leftPayLab);
+           }];
+           
+           UIImageView *arrImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_arrow"]];
+           [centerView addSubview:arrImg];
+           [arrImg mas_makeConstraints:^(MASConstraintMaker *make) {
+               make.centerY.equalTo(moneyLab);
+               make.right.mas_equalTo(-10);
+           }];
+           
+           UIButton *loanDetialBut = [UIButton buttonWithType:UIButtonTypeCustom];
+           loanDetialBut.titleLabel.font = FONT(13);
+           loanDetialBut.tag = i+1;
+           NSMutableAttributedString *string = [LYDUtil LableTextShowInBottom:[NSString stringWithFormat:@"%@   借款详情",dic[@"dueAmt"]] InsertWithString:@"借款详情" InsertSecondStr:@"" InsertStringColor:But_Bg_Color WithInsertStringFont:BOLDFONT(13)];
+           [loanDetialBut setAttributedTitle:string forState:UIControlStateNormal];
+        [loanDetialBut addTarget:self action:@selector(loanDetialButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+           [centerView addSubview:loanDetialBut];
+           [loanDetialBut mas_makeConstraints:^(MASConstraintMaker *make) {
+               make.right.equalTo(arrImg.mas_left).offset(-8);
+               make.centerY.equalTo(moneyLab);
+           }];
+           
+           UILabel *timeLab = [[UILabel alloc] init];
+           timeLab.font = FONT(14);
+           timeLab.textColor = [UIColor colorWithHex:@"#99A7B8"];
+           timeLab.text = @"借款时间";
+           [centerView addSubview:timeLab];
+           [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+               make.top.equalTo(moneyLab.mas_bottom).offset(20);
+               make.left.equalTo(moneyLab);
+               make.bottom.mas_equalTo(-20);
+           }];
+           
+           UILabel *timeDataLab = [[UILabel alloc] init];
+           timeDataLab.font = FONT(14);
+           timeDataLab.textColor = [UIColor colorWithHex:@"#99A7B8"];
+           timeDataLab.text = [NSString stringWithFormat:@"%@",dic[@"createTime"]];
+           [centerView addSubview:timeDataLab];
+           [timeDataLab mas_makeConstraints:^(MASConstraintMaker *make) {
+               make.right.mas_equalTo(-20);
+               make.centerY.equalTo(timeLab);
+           }];
+        
+        lastView = centerView;
+    }
+    
+    [lastView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.bottom.equalTo(self.contentView).offset(-20);
+
     }];
     
-    self.leftPayLab = [[UILabel alloc] init];
-    self.leftPayLab.font = BOLDFONT(14);
-    self.leftPayLab.textColor = Tit_Black_Color;
-    self.leftPayLab.text = @"本次已还";
-    [self.centerView addSubview:self.leftPayLab];
-    [self.leftPayLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(16);
-        make.top.mas_equalTo(12);
-    }];
-    
-    self.evenPayLab = [[UILabel alloc] init];
-    self.evenPayLab.font = BOLDFONT(14);
-    self.evenPayLab.textColor = Tit_Black_Color;
-    self.evenPayLab.text = @"1000.00";
-    [self.centerView addSubview:self.evenPayLab];
-    [self.evenPayLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-16);
-        make.centerY.equalTo(self.leftPayLab);
-    }];
-    
-    UIView *lineVc = [[UIView alloc] initWithFrame:CGRectMake(16, 42, (SCREEN_WIDTH-27*2), 1)];
-    [self.centerView addSubview:lineVc];
-    [LYDUtil drawDashLine:lineVc lineLength:10 lineSpacing:5 lineColor:[UIColor colorWithHex:@"#E8E8E8"]];
-    
-    UILabel *moneyLab = [[UILabel alloc] init];
-    moneyLab.font = FONT(14);
-    moneyLab.textColor = [UIColor colorWithHex:@"#99A7B8"];
-    moneyLab.text = @"借款金额";
-    [self.centerView addSubview:moneyLab];
-    [moneyLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.leftPayLab.mas_bottom).offset(28);
-        make.left.equalTo(self.leftPayLab);
-    }];
-    
-    UIImageView *arrImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_arrow"]];
-    [self.centerView addSubview:arrImg];
-    [arrImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(moneyLab);
-        make.right.mas_equalTo(-10);
-    }];
-    
-    UIButton *loanDetialBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    loanDetialBut.titleLabel.font = FONT(13);
-    NSMutableAttributedString *string = [LYDUtil LableTextShowInBottom:@"1000.00  借款详情" InsertWithString:@"借款详情" InsertSecondStr:@"" InsertStringColor:But_Bg_Color WithInsertStringFont:BOLDFONT(13)];
-    [loanDetialBut setAttributedTitle:string forState:UIControlStateNormal];
-    [loanDetialBut addTarget:self action:@selector(loanDetialButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.centerView addSubview:loanDetialBut];
-    [loanDetialBut mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(arrImg.mas_left).offset(-8);
-        make.centerY.equalTo(moneyLab);
-    }];
-    
-    UILabel *timeLab = [[UILabel alloc] init];
-    timeLab.font = FONT(14);
-    timeLab.textColor = [UIColor colorWithHex:@"#99A7B8"];
-    timeLab.text = @"借款金额";
-    [self.centerView addSubview:timeLab];
-    [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(moneyLab.mas_bottom).offset(20);
-        make.left.equalTo(moneyLab);
-        make.bottom.mas_equalTo(-20);
-    }];
-    
-    UILabel *timeDataLab = [[UILabel alloc] init];
-    timeDataLab.font = FONT(14);
-    timeDataLab.textColor = [UIColor colorWithHex:@"#99A7B8"];
-    timeDataLab.text = @"2019年07月12日";
-    [self.centerView addSubview:timeDataLab];
-    [timeDataLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-20);
-        make.centerY.equalTo(timeLab);
-    }];
+   
 }
 
 /**
  借款详情
  */
--(void)loanDetialButtonClick{
+-(void)loanDetialButtonClick:(UIButton *)but{
+    
+    NSDictionary *dic = self.repayAcctListArr[but.tag-1];
+    
     LoanDetialViewController *loanDeVc = [[LoanDetialViewController alloc] init];
-    loanDeVc.dataDic = self.dataDic;
+    loanDeVc.dataDic = dic;
     [self.navigationController pushViewController:loanDeVc animated:YES];
 }
 /**
@@ -233,6 +264,7 @@
         if (succeed) {
             if ([result[@"success"] intValue] == 1) {
                 self.resultDic = result[@"result"][@"repayInfo"];
+                self.repayAcctListArr = result[@"result"][@"repayAcctList"];
                 [self setTopViewData];
 
             }else{
@@ -314,14 +346,6 @@
         _defultDetialView.layer.cornerRadius = 4;
     }
     return _defultDetialView;
-}
--(UIView *)centerView{
-    if (!_centerView) {
-        _centerView = [[UIView alloc] init];
-        _centerView.layer.backgroundColor = [UIColor whiteColor].CGColor;
-        _centerView.layer.cornerRadius = 4;
-    }
-    return _centerView;
 }
 /*
 #pragma mark - Navigation

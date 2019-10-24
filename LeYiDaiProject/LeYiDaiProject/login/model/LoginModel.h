@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSString *custId;
 @property (nonatomic,strong)NSString *custName;
 @property (nonatomic,strong)NSString *token;
+@property (nonatomic,strong)NSString *servicetele;
 
 +(id)sharedInstance;
 

@@ -62,6 +62,12 @@
 		C11B3C282351758C00E4EE8B /* DetectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3C1D2351758B00E4EE8B /* DetectionViewController.m */; };
 		C11B3C2A2351758C00E4EE8B /* FaceBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3C222351758C00E4EE8B /* FaceBaseViewController.m */; };
 		C11B3C2D235180A600E4EE8B /* LivingConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C11B3C2B235180A500E4EE8B /* LivingConfigModel.m */; };
+		C11D6CE523618E6D00DA1020 /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11D6CE423618E6D00DA1020 /* FeedBackViewController.m */; };
+		C11D6CE82361949400DA1020 /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = C11D6CE62361949300DA1020 /* UITextView+Placeholder.m */; };
+		C11D6CEB2361A6FF00DA1020 /* YSSfbCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C11D6CEA2361A6FF00DA1020 /* YSSfbCollectionViewCell.m */; };
+		C11D6CF42361A78E00DA1020 /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = C11D6CEE2361A78E00DA1020 /* SDPhotoBrowser.m */; };
+		C11D6CF52361A78E00DA1020 /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C11D6CEF2361A78E00DA1020 /* SDWaitingView.m */; };
+		C11D6CF62361A78E00DA1020 /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C11D6CF02361A78E00DA1020 /* SDBrowserImageView.m */; };
 		C11DBC0C2323560700733E2B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11DBC0B2323560700733E2B /* SettingViewController.m */; };
 		C12167162354585B001EE1C6 /* IQTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C12166F52354585B001EE1C6 /* IQTextView.m */; };
 		C12167172354585B001EE1C6 /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = C12166F92354585B001EE1C6 /* IQToolbar.m */; };
@@ -242,6 +248,19 @@
 		C11B3C232351758C00E4EE8B /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		C11B3C2B235180A500E4EE8B /* LivingConfigModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivingConfigModel.m; sourceTree = "<group>"; };
 		C11B3C2C235180A600E4EE8B /* LivingConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivingConfigModel.h; sourceTree = "<group>"; };
+		C11D6CE323618E6D00DA1020 /* FeedBackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
+		C11D6CE423618E6D00DA1020 /* FeedBackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
+		C11D6CE62361949300DA1020 /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextView+Placeholder.m"; path = "../../../../壹升升/YSSProject-master/YSSProject-master/Category/UITextView+Placeholder.m"; sourceTree = "<group>"; };
+		C11D6CE72361949300DA1020 /* UITextView+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextView+Placeholder.h"; path = "../../../../壹升升/YSSProject-master/YSSProject-master/Category/UITextView+Placeholder.h"; sourceTree = "<group>"; };
+		C11D6CE92361A6FF00DA1020 /* YSSfbCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSfbCollectionViewCell.h; sourceTree = "<group>"; };
+		C11D6CEA2361A6FF00DA1020 /* YSSfbCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSfbCollectionViewCell.m; sourceTree = "<group>"; };
+		C11D6CED2361A78E00DA1020 /* SDPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowserConfig.h; sourceTree = "<group>"; };
+		C11D6CEE2361A78E00DA1020 /* SDPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPhotoBrowser.m; sourceTree = "<group>"; };
+		C11D6CEF2361A78E00DA1020 /* SDWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWaitingView.m; sourceTree = "<group>"; };
+		C11D6CF02361A78E00DA1020 /* SDBrowserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBrowserImageView.m; sourceTree = "<group>"; };
+		C11D6CF12361A78E00DA1020 /* SDWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWaitingView.h; sourceTree = "<group>"; };
+		C11D6CF22361A78E00DA1020 /* SDPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowser.h; sourceTree = "<group>"; };
+		C11D6CF32361A78E00DA1020 /* SDBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserImageView.h; sourceTree = "<group>"; };
 		C11DBC0A2323560700733E2B /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		C11DBC0B2323560700733E2B /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		C12166F52354585B001EE1C6 /* IQTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQTextView.m; sourceTree = "<group>"; };
@@ -320,7 +339,7 @@
 		C199FC9D2349B86100F25A64 /* MainDetianModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainDetianModel.m; sourceTree = "<group>"; };
 		C1C11BB22356D6C800CABDE5 /* BankDetialModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BankDetialModel.h; sourceTree = "<group>"; };
 		C1C11BB32356D6C800CABDE5 /* BankDetialModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankDetialModel.m; sourceTree = "<group>"; };
-		C1CE22C82320F90F00515633 /* LeYiDaiProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeYiDaiProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1CE22C82320F90F00515633 /* 安心贷.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "安心贷.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1CE22CB2320F90F00515633 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C1CE22CC2320F90F00515633 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C1CE22CE2320F90F00515633 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -390,6 +409,7 @@
 		C1000CFE23222F3F003C822F /* pubView */ = {
 			isa = PBXGroup;
 			children = (
+				C11D6CEC2361A78E00DA1020 /* SDPhotoBrowser */,
 				C100DE3C232DD0A90034989A /* FSCustomBUtton */,
 				C1000CFF23222F49003C822F /* KLTAnimateNav */,
 			);
@@ -410,6 +430,8 @@
 		C1000D0623228307003C822F /* view */ = {
 			isa = PBXGroup;
 			children = (
+				C11D6CE92361A6FF00DA1020 /* YSSfbCollectionViewCell.h */,
+				C11D6CEA2361A6FF00DA1020 /* YSSfbCollectionViewCell.m */,
 				C1000D0F2322882C003C822F /* SelfTableViewCell.h */,
 				C1000D102322882C003C822F /* SelfTableViewCell.m */,
 				C11B3BD2234ACB9100E4EE8B /* BankTableViewCell.h */,
@@ -436,6 +458,8 @@
 				C11DBC0B2323560700733E2B /* SettingViewController.m */,
 				C11B3BCF234AC8FB00E4EE8B /* MyBankViewController.h */,
 				C11B3BD0234AC8FB00E4EE8B /* MyBankViewController.m */,
+				C11D6CE323618E6D00DA1020 /* FeedBackViewController.h */,
+				C11D6CE423618E6D00DA1020 /* FeedBackViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -511,6 +535,20 @@
 				C11B3C0F23516D4100E4EE8B /* IDLFaceSDK.framework */,
 			);
 			path = FaceSDK;
+			sourceTree = "<group>";
+		};
+		C11D6CEC2361A78E00DA1020 /* SDPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				C11D6CED2361A78E00DA1020 /* SDPhotoBrowserConfig.h */,
+				C11D6CEE2361A78E00DA1020 /* SDPhotoBrowser.m */,
+				C11D6CEF2361A78E00DA1020 /* SDWaitingView.m */,
+				C11D6CF02361A78E00DA1020 /* SDBrowserImageView.m */,
+				C11D6CF12361A78E00DA1020 /* SDWaitingView.h */,
+				C11D6CF22361A78E00DA1020 /* SDPhotoBrowser.h */,
+				C11D6CF32361A78E00DA1020 /* SDBrowserImageView.h */,
+			);
+			path = SDPhotoBrowser;
 			sourceTree = "<group>";
 		};
 		C12166F32354585B001EE1C6 /* IQKeyboardManager */ = {
@@ -724,7 +762,7 @@
 		C1CE22C92320F90F00515633 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C1CE22C82320F90F00515633 /* LeYiDaiProject.app */,
+				C1CE22C82320F90F00515633 /* 安心贷.app */,
 				C1CE22E02320F91100515633 /* LeYiDaiProjectTests.xctest */,
 				C1CE22EB2320F91100515633 /* LeYiDaiProjectUITests.xctest */,
 			);
@@ -779,6 +817,8 @@
 		C1CE22FD2321317100515633 /* category */ = {
 			isa = PBXGroup;
 			children = (
+				C11D6CE72361949300DA1020 /* UITextView+Placeholder.h */,
+				C11D6CE62361949300DA1020 /* UITextView+Placeholder.m */,
 				C10DACBD233A27B70059A94C /* AppIdentificationManage.h */,
 				C10DACBE233A27B70059A94C /* AppIdentificationManage.m */,
 				C1000CCD232132C7003C822F /* CFSwzzling.h */,
@@ -907,7 +947,7 @@
 			);
 			name = LeYiDaiProject;
 			productName = LeYiDaiProject;
-			productReference = C1CE22C82320F90F00515633 /* LeYiDaiProject.app */;
+			productReference = C1CE22C82320F90F00515633 /* 安心贷.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C1CE22DF2320F91100515633 /* LeYiDaiProjectTests */ = {
@@ -1103,16 +1143,20 @@
 				C100DE43232DD0A90034989A /* CALayer+FSUI.m in Sources */,
 				C1000CF723222D44003C822F /* MainViewController.m in Sources */,
 				C121671D2354585B001EE1C6 /* IQKeyboardManager.m in Sources */,
+				C11D6CF42361A78E00DA1020 /* SDPhotoBrowser.m in Sources */,
 				C1000CF123222D1E003C822F /* SelfViewController.m in Sources */,
 				C1457BFE233DDC3E00804E3E /* YSSModelDialog.m in Sources */,
+				C11D6CF62361A78E00DA1020 /* SDBrowserImageView.m in Sources */,
 				C1000CE4232132C7003C822F /* UITextView+Placeholder.m in Sources */,
 				C1000D0523222F49003C822F /* AnimationContoller.m in Sources */,
 				C1000CC823213235003C822F /* BaseViewController.m in Sources */,
 				C100DE46232DD2B90034989A /* MainAccationView.m in Sources */,
+				C11D6CF52361A78E00DA1020 /* SDWaitingView.m in Sources */,
 				C199FC9E2349B86100F25A64 /* MainDetianModel.m in Sources */,
 				C1000D0E232287BE003C822F /* BaseTableViewCell.m in Sources */,
 				C100DE5E232F31320034989A /* ApplicationInformationViewController.m in Sources */,
 				C1000CEE232134FB003C822F /* LoginViewController.m in Sources */,
+				C11D6CEB2361A6FF00DA1020 /* YSSfbCollectionViewCell.m in Sources */,
 				C100DE55232E36830034989A /* FaceAuthenViewController.m in Sources */,
 				C1000CE6232132C7003C822F /* UIView+LSCore.m in Sources */,
 				C11DBC0C2323560700733E2B /* SettingViewController.m in Sources */,
@@ -1121,6 +1165,7 @@
 				C100DE5B232F229E0034989A /* BankAuthenViewController.m in Sources */,
 				C1D27018235D8646006CCF33 /* LoanDetialInfoModel.m in Sources */,
 				C100DE42232DD0A90034989A /* FSCustomButton.m in Sources */,
+				C11D6CE82361949400DA1020 /* UITextView+Placeholder.m in Sources */,
 				C14E5144232898C100745493 /* BaseView.m in Sources */,
 				C121672623545CF5001EE1C6 /* YSSWebViewController.m in Sources */,
 				C11B3C2D235180A600E4EE8B /* LivingConfigModel.m in Sources */,
@@ -1138,6 +1183,7 @@
 				C11B3C262351758C00E4EE8B /* LivingConfigViewController.m in Sources */,
 				C1000CFA23222DC0003C822F /* BaseNavViewController.m in Sources */,
 				C1000CE1232132C7003C822F /* NSString+SHA256_BASE64.m in Sources */,
+				C11D6CE523618E6D00DA1020 /* FeedBackViewController.m in Sources */,
 				C16F502D235F03AE0022DB95 /* RepayDetialTableViewCell.m in Sources */,
 				C12167232354585B001EE1C6 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				C1000D112322882C003C822F /* SelfTableViewCell.m in Sources */,
@@ -1341,7 +1387,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftfintech.loansys;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "安心贷";
 				PROVISIONING_PROFILE_SPECIFIER = loansys;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1368,7 +1414,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftfintech.loansys;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "安心贷";
 				PROVISIONING_PROFILE_SPECIFIER = loansys;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

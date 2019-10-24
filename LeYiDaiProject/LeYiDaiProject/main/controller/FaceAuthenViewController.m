@@ -109,7 +109,7 @@
  */
 -(void)nextButtonClick{
         
-    [[RequestAPI shareInstance] useFaceRecognition:@{@"base64Image":@"",@"userId":self.loginModel.userId} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+    [[RequestAPI shareInstance] useFaceRecognition:@{@"base64Image":self.base64ImageStr,@"userId":self.loginModel.userId} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
         if (succeed) {
             if ([result[@"success"] intValue] == 1) {
 

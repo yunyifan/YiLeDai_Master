@@ -11,6 +11,26 @@
 #import "LYDUtil.h"
 
 @implementation PhoneBookModel
+
++(id)sharedInstance
+{
+    static id _sharedInstance = nil;
+    if (!_sharedInstance) {
+        _sharedInstance = [[[self class] alloc] init];
+    }
+    
+    return _sharedInstance;
+
+}
+-(instancetype)init{
+    self = [super init];
+    if (self) {
+       
+
+    }
+    return self;
+}
+
 //请求通讯录权限
 #pragma mark 请求通讯录权限
 - (void)requestContactAuthorAfterSystemVersion9{
@@ -23,6 +43,8 @@
                 NSLog(@"授权失败");
             }else {
                 NSLog(@"成功授权");
+                [self openContact];
+
             }
         }];
     }
@@ -49,13 +71,12 @@
     NSArray *keysToFetch = @[CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey];
     CNContactFetchRequest *fetchRequest = [[CNContactFetchRequest alloc] initWithKeysToFetch:keysToFetch];
     CNContactStore *contactStore = [[CNContactStore alloc] init];
-    
+    NSMutableArray *booKArr = [NSMutableArray array];
     [contactStore enumerateContactsWithFetchRequest:fetchRequest error:nil usingBlock:^(CNContact * _Nonnull contact, BOOL * _Nonnull stop) {
-        NSLog(@"-------------------------------------------------------");
         
         NSString *givenName = contact.givenName;
         NSString *familyName = contact.familyName;
-          NSLog(@"givenName=%@, familyName=%@", givenName, familyName);
+//          NSLog(@"givenName=%@, familyName=%@", givenName, familyName);
         //拼接姓名
         NSString *nameStr = [NSString stringWithFormat:@"%@%@",contact.familyName,contact.givenName];
         
@@ -67,7 +88,7 @@
         
         for (CNLabeledValue *labelValue in phoneNumbers) {
         //遍历一个人名下的多个电话号码
-                NSString *label = labelValue.label;
+//                NSString *label = labelValue.label;
          //   NSString *    phoneNumber = labelValue.value;
             CNPhoneNumber *phoneNumber = labelValue.value;
             
@@ -81,7 +102,9 @@
             string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
             string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
             
-        NSLog(@"姓名=%@, 电话号码是=%@", nameStr, string);
+//            NSLog(@"姓名=%@, 电话号码是=%@", nameStr, string);
+            NSDictionary *dic = @{@"name":nameStr,@"telephone":string};
+            [booKArr addObject:dic];
             
           
             
@@ -90,6 +113,7 @@
         //    *stop = YES; // 停止循环，相当于break；
         
     }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Device_book" object:booKArr];
 
 }
 

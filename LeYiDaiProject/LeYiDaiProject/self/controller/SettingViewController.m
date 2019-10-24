@@ -7,12 +7,14 @@
 //
 
 #import "SettingViewController.h"
+#import "SDImageCache.h"
 
 @interface SettingViewController ()
 
 @property (nonatomic,strong)UIView *setView;
 @property (nonatomic,strong)UIButton *loginOut; // 退出
 
+@property (nonatomic,strong)NSArray *titArray;
 @end
 
 @implementation SettingViewController
@@ -22,6 +24,7 @@
     // Do any additional setup after loading the view.
     
     self.navigationItem.title = @"设置";
+    self.titArray = @[@"清除缓存",@"关于我们"];
     
     [self creatSetUI];
 }
@@ -43,7 +46,7 @@
     }];
     
     UIView *lastView;
-    for (int i = 0; i<3; i++) {
+    for (int i = 0; i<self.titArray.count; i++) {
         
         UIView *cellBgView = [[UIView alloc] init];
         cellBgView.backgroundColor = [UIColor whiteColor];
@@ -61,7 +64,7 @@
         UILabel *titlab = [[UILabel alloc] init];
         titlab.font = FONT(15);
         titlab.textColor = Tit_Black_Color;
-        titlab.text = @"清除缓存";
+        titlab.text = self.titArray[i];
         [cellBgView addSubview:titlab];
         [titlab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(cellBgView);
@@ -69,7 +72,7 @@
         }];
         if (i == 0) {
             UILabel *desLab = [[UILabel alloc] init];
-            desLab.text = @"90M";
+            desLab.text = [NSString stringWithFormat:@"%luM",(unsigned long)[[SDImageCache sharedImageCache] getSize]];
             desLab.font = FONT(15);
             desLab.textColor = Tit_Black_Color;
             [cellBgView addSubview:desLab];
