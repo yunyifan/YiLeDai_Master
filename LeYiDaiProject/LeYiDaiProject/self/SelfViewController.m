@@ -11,6 +11,8 @@
 #import "MyBankViewController.h"
 #import "FeedBackViewController.h"
 #import "SelfTableViewCell.h"
+
+#import "MainDetianModel.h"
 @interface SelfViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 // 头部UI
@@ -57,6 +59,19 @@
     self.titArr = @[@"我的银行卡",@"客服电话",@"意见反馈",@"设置"];
     [self creatTopView];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selfNotificationCLick:) name:@"Main_data" object:nil];
+    
+}
+-(void)selfNotificationCLick:(NSNotification *)info{
+    
+    MainDetianModel *detialModel = info.object;
+    
+    if (detialModel.userState >3) {
+        self.statueLab.text = @"已认证";
+    }else{
+        self.statueLab.text = @"未认证";
+
+    }
 }
 -(void)creatTopView{
     [self.view addSubview:self.topView];
@@ -227,7 +242,6 @@
         _statueLab = [[UILabel alloc] init];
         _statueLab.font = FONT(13);
         _statueLab.textColor = [UIColor colorWithHex:@"#FF52A5"];
-        _statueLab.text = @"已认证";
     }
     return _statueLab;
 }

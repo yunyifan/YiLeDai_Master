@@ -323,7 +323,7 @@
         }
     }
     NSArray *topArr = @[@"借多久",@"怎么还"];
-    NSArray *topRightArr = @[[NSString stringWithFormat:@"%@天",self.dataDic[@"term"]],@"每月等额"];
+    NSArray *topRightArr = @[[NSString stringWithFormat:@"%@天",self.dataDic[@"term"]],self.dataDic[@"repayType"]];
     UILabel *topLastLab;
     for (int i = 0; i<topArr.count; i++) {
         UILabel *lable = [[UILabel alloc] init];
@@ -376,7 +376,7 @@
     }
         RepayDueModel *dueModel = [self.repayDueListArray firstObject];
         NSArray *leftArr = @[@"还款计划",@"总利息"];
-        NSArray *rightArr = @[[NSString stringWithFormat:@"首期%@应还 %@",dueModel.dueDate,dueModel.dueSum] ,self.dataDic[@"dueSum"]];
+        NSArray *rightArr = @[[NSString stringWithFormat:@"首期%@应还 %@",dueModel.dueDate,dueModel.dueSum] ,[NSString stringWithFormat:@"%@",self.dataDic[@"dueSum"]]];
         UILabel *lastLab;
         for (int i = 0; i<leftArr.count; i++) {
             UILabel *lable = [[UILabel alloc] init];
@@ -399,7 +399,7 @@
             button.titleLabel.font = FONT(14);
             button.tag = 1200+i;
             [button setTitleColor:Tit_Gray_Color forState:UIControlStateNormal];
-            if (i == 1) {
+            if (i == 0) {
                 button.buttonImagePosition = FSCustomButtonImagePositionRight;
                 [button setImage:[UIImage imageNamed:@"down_arr"] forState:UIControlStateNormal];
                 NSAttributedString *string = [LYDUtil LableTextShowInBottom:rightArr[i] InsertWithString:[NSString stringWithFormat:@"%@",dueModel.dueSum] InsertSecondStr:@"" InsertStringColor:[UIColor colorWithHex:@"#4D56EF"] WithInsertStringFont:FONT(14)];
@@ -525,6 +525,8 @@
     for (int i = 0; i<self.repayDueListArray.count; i++) {
         RepayDueModel *dueModel = self.repayDueListArray[i];
         [array addObject:[NSString stringWithFormat:@"第%d期%@应还%@",i+1,dueModel.dueDate,dueModel.dueSum]];
+        
+//        [array addObject:@"哈哈测试了"];
 
     }
     [BRStringPickerView showStringPickerWithTitle:@"还款计划" dataSource:array defaultSelValue:@"" isAutoSelect:NO themeColor:[UIColor colorWithHex:@"#4D56EF"] resultBlock:^(id selectValue) {

@@ -186,6 +186,8 @@
                     [self creatMianUI];
                     
                 }
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"Main_data" object:self.detialModel];
             }else{
                 
                 
