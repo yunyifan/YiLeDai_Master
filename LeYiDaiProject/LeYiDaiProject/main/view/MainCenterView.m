@@ -39,7 +39,7 @@
         }
     }
 
-    if (self.creaditInfoModel.userState == 1 || self.self.creaditInfoModel.userState == 2 || (self.self.creaditInfoModel.userState == 4 && [self.creaditInfoModel.creditInfo.creditAppstate intValue] == 9) ){
+    if (self.creaditInfoModel.userState == 1 || self.creaditInfoModel.userState == 2 || (self.creaditInfoModel.userState == 4 && [self.creaditInfoModel.creditInfo.creditAppstate intValue] == 9) ){
         
         
         NSArray *titArr = @[@"申请借款",@"快速审核",@"实名认证",@"快速放款"];
@@ -102,13 +102,13 @@
         [self addSubview:self.lineVc];
         [LYDUtil drawDashLine:self.lineVc lineLength:10 lineSpacing:5 lineColor:[UIColor colorWithHex:@"#FF52A5"]];
         
-    }else if(self.self.creaditInfoModel.userState == 3 || self.self.creaditInfoModel.userState == 4 ||self.self.creaditInfoModel.userState == 5){
+    }else if(self.creaditInfoModel.userState == 3 || self.creaditInfoModel.userState == 4 || self.creaditInfoModel.userState == 5){
         UIImage *leftIm;
         NSString *righStr;
-        if (self.self.creaditInfoModel.userState == 3) {
+        if (self.creaditInfoModel.userState == 3) {
             leftIm = [UIImage imageNamed:@"shenhe_icon"];
             righStr = @"统正在审核的资料，我们将在10-30分钟内估算出";
-        }else if(self.self.creaditInfoModel.userState == 4 && [self.creaditInfoModel.creditInfo.creditAppstate intValue] == 1){
+        }else if(self.creaditInfoModel.userState == 4 && [self.creaditInfoModel.creditInfo.creditAppstate intValue] == 1){
             leftIm = [UIImage imageNamed:@"loan_icon"];
             righStr = @"恭喜您，审核通过！立即去借款吧。";
         }else{
@@ -139,6 +139,8 @@
         self.lineVc = [[UIView alloc] initWithFrame:CGRectMake(16, 42, (SCREEN_WIDTH-27*2), 1)];
         [self addSubview:self.lineVc];
         [LYDUtil drawDashLine:self.lineVc lineLength:10 lineSpacing:5 lineColor:[UIColor whiteColor]];
+    }else{
+        
     }
     [self initDetialView];
 
@@ -148,20 +150,20 @@
        //        _rateLab.text = @"日利率：0.9%";
        self.rateLab.text = [NSString stringWithFormat:@"日利率：%@%@",self.creaditInfoModel.creditInfo.inteRate,@"%"];
     self.totalMoney.text = [NSString stringWithFormat:@"总额度%@",self.creaditInfoModel.creditInfo.creditLimit];
-    if (self.self.creaditInfoModel.userState == 1 || self.self.creaditInfoModel.userState == 2) {
-        if(self.self.creaditInfoModel.userState == 1){
+    if (self.creaditInfoModel.userState == 1 || self.creaditInfoModel.userState == 2) {
+        if(self.creaditInfoModel.userState == 1){
             [self.statueBut setTitle:@"去认证" forState:UIControlStateNormal];
         }
         self.titLab.text = @"最高可借额度";
         self.img.hidden = YES;
         self.totalMoney.hidden = YES;
         self.statueBut.enabled = YES;
-    }else if (self.self.creaditInfoModel.userState == 3){
+    }else if (self.creaditInfoModel.userState == 3){
         self.titLab.text = @"最高可借额度";
        self.img.hidden = NO;
        self.totalMoney.hidden = NO;
         self.statueBut.enabled = NO;
-    }else if (self.self.creaditInfoModel.userState == 4){
+    }else if (self.creaditInfoModel.userState == 4){
         if ([self.creaditInfoModel.creditInfo.creditAppstate intValue] == 1) {
             self.titLab.text = @"可借额度";
 
@@ -175,7 +177,7 @@
             }
             self.statueBut.enabled = NO;
         }
-    }else if (self.self.creaditInfoModel.userState == 5){
+    }else if (self.creaditInfoModel.userState == 5){
         self.titLab.text = @"剩余额度";
         self.statueBut.enabled = NO;
 

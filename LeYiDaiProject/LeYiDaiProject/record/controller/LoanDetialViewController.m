@@ -17,6 +17,7 @@
 #import "CheckRepayDetialView.h"
 
 #import "LoanDetialInfoModel.h"
+#import "BRPickerView.h"
 
 @interface LoanDetialViewController ()<RecordDetialLoanViewDelegate>
 @property(nonatomic,strong)UIScrollView *baseScrollView; // 底层scrollview
@@ -265,17 +266,27 @@
     if (butTag == 1) {
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in self.detialInfoModel.LoanRepayTermList) {
-            NSAttributedString *string = [LYDUtil LableTextShowInBottom:[NSString stringWithFormat:@"第%@期%@应还 %@",dic[@"dueTerm"],dic[@"dueDate"],dic[@"realAmt"]] InsertWithString:[NSString stringWithFormat:@"%@",dic[@"realAmt"]] InsertSecondStr:@"" InsertStringColor:[UIColor colorWithHex:@"#4D56EF"] WithInsertStringFont:FONT(14)];
-            [array addObject:string];
+//            NSAttributedString *string = [LYDUtil LableTextShowInBottom:[NSString stringWithFormat:@"第%@期%@应还 %@",dic[@"dueTerm"],dic[@"dueDate"],dic[@"realAmt"]] InsertWithString:[NSString stringWithFormat:@"%@",dic[@"realAmt"]] InsertSecondStr:@"" InsertStringColor:[UIColor colorWithHex:@"#4D56EF"] WithInsertStringFont:FONT(14)];
+            
+            NSString *str = [NSString stringWithFormat:@"第%@期%@应还 %@",dic[@"dueTerm"],dic[@"dueDate"],dic[@"realAmt"]];
+            
+            [array addObject:str];
 
         }
-        
-        CheckRepayDetialView *detialVc = [[CheckRepayDetialView alloc] init];
-        [detialVc creatArrayLable:array];
-        [YSSModelDialog showView:detialVc andAlpha:0.3];
-        [detialVc mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.bottom.equalTo(self.view);
+        [BRStringPickerView showStringPickerWithTitle:@"还款计划" dataSource:array defaultSelValue:@"" isAutoSelect:NO themeColor:[UIColor colorWithHex:@"#4D56EF"] resultBlock:^(id selectValue) {
+           
+
         }];
+
+        
+//        CheckRepayDetialView *detialVc = [[CheckRepayDetialView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-180, SCREEN_WIDTH, 180)];
+//        [YSSModelDialog showView:detialVc andAlpha:0.3];
+//        [detialVc mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.right.bottom.equalTo(self.view);
+//        }];
+        
+//        [detialVc creatArrayLable:array];
+
         
 
     }else{

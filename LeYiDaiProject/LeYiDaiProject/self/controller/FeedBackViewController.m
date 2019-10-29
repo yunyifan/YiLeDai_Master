@@ -293,7 +293,20 @@
 }
 -(void)sureButtonClick{
     
-    [MBProgressHUD showSuccess:@"提交"];
+    
+    [[RequestAPI shareInstance] feedBackUploadMoreImage:@{@"userid":self.loginModel.userId,@"complaint":self.textView.text,@"img1":@"123",@"img2":@"456",@"img3":@"789"} :self.imageArray Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        if (succeed) {
+              if ([result[@"success"] intValue] == 1) {
+                  
+                  [MBProgressHUD showSuccess:@"感谢您的反馈意见，我们会及时与您联系"];
+              }else{
+                  
+                  [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
+
+              }
+          }
+
+    }];
 }
 -(UIView *)topView{
     if (!_topView) {

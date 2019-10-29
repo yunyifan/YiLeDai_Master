@@ -59,7 +59,10 @@
     self.titArr = @[@"我的银行卡",@"客服电话",@"意见反馈",@"设置"];
     [self creatTopView];
     
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selfNotificationCLick:) name:@"Main_data" object:nil];
+    
+
     
 }
 -(void)selfNotificationCLick:(NSNotification *)info{

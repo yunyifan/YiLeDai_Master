@@ -431,4 +431,79 @@
 
     }];
 }
+
+-(void)feedBackUploadMoreImage:(NSDictionary *)prmDic :(NSArray *)arr Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+ //   服务器提交图片
+     AFHTTPSessionManager *manager = self.sessionManager;
+       if([self.loginModel isLogin]){
+           [manager.requestSerializer setValue:self.loginModel.token forHTTPHeaderField:@"X-Access-Token"];
+
+       }
+               
+       [manager.requestSerializer setValue:APPID forHTTPHeaderField:@"appId"];
+    NSLog(@"传入的参数 %@,%@",prmDic,[NSString stringWithFormat:@"%@api/cust/complaint",BASEUEL]);
+
+    @weakify(self);
+    [manager POST:[NSString stringWithFormat:@"%@api/cust/complaint",BASEUEL] parameters:prmDic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        // 上传 多张图片
+        for(NSInteger i = 0; i < arr.count; i++){
+            
+            UIImage *image = [arr objectAtIndex: i];
+            
+            NSData *imageData  = UIImageJPEGRepresentation(image, 0.4);
+            
+            // 上传的参数名
+            NSString * Name = [NSString stringWithFormat:@"img%ld",i+1];
+            
+            // 上传filename
+            NSString * fileName = [NSString stringWithFormat:@"%@.jpg", Name];
+            
+            [formData appendPartWithFileData:imageData name:Name fileName:fileName mimeType:@"image/jpg"];
+        }
+
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        @strongify(self);
+        NSDictionary * dic = responseObject;
+//        [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"完成 %@", responseObject);
+//
+        if ([dic[@"code"] intValue] == 995) {
+            [self.loginModel removeFromLocal];
+            
+//            [[AppDelegate shareAppDelegate] logout];
+        }
+        completion(TRUE,responseObject,nil);
+
+
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"错误 %@", error.localizedDescription);
+        if(error.code>=500){
+              [MBProgressHUD showError:@"不好意思，服务器走神了，请稍后再试"];
+
+          }else{
+              [MBProgressHUD showError:@"网络链接失败，请检查网络设置"];
+
+          }
+          completion(FALSE,nil,error);
+
+    }];
+
+    
+}
+/**
+ 查询协议h5页面
+ 
+ */
+-(void)useWebGetWebInfo:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+    [[RequestAPI shareInstance] GET:[NSString stringWithFormat:@"%@api/web/getWebInfo",BASEUEL] parameters:prmDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
+
+}
 @end

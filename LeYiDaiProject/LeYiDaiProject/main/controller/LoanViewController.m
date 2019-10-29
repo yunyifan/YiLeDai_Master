@@ -72,7 +72,9 @@
 
     [self initLoanUI];
     [self useGetRepayInfo];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nofiticationCLick:) name:@"Device_book" object:nil];
+    [self useGetWebUrlInsert];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nofiticationBookCLick:) name:@"Device_book" object:nil];
 
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationClick:) name:@"Bank_Model" object:nil];
@@ -80,12 +82,14 @@
     [[PhoneBookModel sharedInstance] requestContactAuthorAfterSystemVersion9];
 
 }
--(void)nofiticationCLick:(NSNotification *)info{
+-(void)nofiticationBookCLick:(NSNotification *)info{
     NSMutableArray *arr = (NSMutableArray *)info.object;
     
-    [[RequestAPI shareInstance] custInfoPhoneBookInsert:@{@"userId":self.loginModel.userId,@"data":arr} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
-        
-    }];
+    if(arr.count > 0){
+        [[RequestAPI shareInstance] custInfoPhoneBookInsert:@{@"userId":self.loginModel.userId,@"data":arr} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+            NSLog(@"通讯录 %@",result[@"message"]);
+        }];
+    }
 }
 
 -(void)notificationClick:(NSNotification *)info{
@@ -202,6 +206,16 @@
               }
           }
 
+    }];
+}
+/**
+ 查询协议h5页面
+ 
+ */
+-(void)useGetWebUrlInsert{
+    
+    [[RequestAPI shareInstance] useWebGetWebInfo:@{@"userId":self.loginModel.userId,@"type":@"2"} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        
     }];
 }
 /*

@@ -157,6 +157,9 @@
     }
     LivenessViewController* lvc = [[LivenessViewController alloc] init];
     LivingConfigModel* model = [LivingConfigModel sharedInstance];
+//    [model.liveActionArray addObject:@(LivenessRemindCodeLiveEye)];
+//    [model.liveActionArray addObject:@(LivenessRemindCodeLiveYawRight)];
+    
     [lvc livenesswithList:model.liveActionArray order:model.isByOrder numberOfLiveness:model.numOfLiveness];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:lvc];
     navi.navigationBarHidden = true;

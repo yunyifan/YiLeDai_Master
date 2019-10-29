@@ -21,7 +21,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     self.navigationController.navigationBar.translucent = NO;
     self.view.backgroundColor = [UIColor colorWithHex:@"#F6F7FB"];
     [self.navigationController.navigationBar setBackgroundImage:[LYDUtil imageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];

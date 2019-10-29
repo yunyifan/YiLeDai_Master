@@ -81,9 +81,11 @@
     
     NSMutableArray *arr = (NSMutableArray *)info.object;
     
-    [[RequestAPI shareInstance] custInfoPhoneBookInsert:@{@"userId":self.loginModel.userId,@"data":arr} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
-        
-    }];
+    if(arr.count > 0){
+        [[RequestAPI shareInstance] custInfoPhoneBookInsert:@{@"userId":self.loginModel.userId,@"data":arr} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+            NSLog(@"通讯录 %@",result[@"message"]);
+        }];
+    }
 }
 -(void)nextButtonClick{
     

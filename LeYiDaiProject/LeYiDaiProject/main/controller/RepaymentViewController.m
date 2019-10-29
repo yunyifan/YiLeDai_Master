@@ -15,6 +15,8 @@
 #import "YSSModelDialog.h"
 #import "RepayDueModel.h"
 #import "BankDetialModel.h"
+#import "IQKeyboardManager.h"
+
 @interface RepaymentViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UIView *topView;
@@ -38,6 +40,7 @@
 @end
 
 @implementation RepaymentViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -125,9 +128,8 @@
     
     [self.view addSubview:self.sureBut];
     [self.sureBut mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(0);
-        make.right.mas_equalTo(0);
-        make.left.mas_equalTo(0);
+        make.bottom.equalTo(self.view);
+        make.left.right.equalTo(self.view);
         make.height.mas_equalTo(45);
     }];
 }

@@ -56,6 +56,10 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)useRepayListGetrepayInfo:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
 
 -(void)custInfoPhoneBookInsert:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
+
+-(void)feedBackUploadMoreImage:(NSDictionary *)prmDic :(NSArray *)arr Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
+
+-(void)useWebGetWebInfo:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
 @end
 
 NS_ASSUME_NONNULL_END
