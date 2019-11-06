@@ -17,7 +17,7 @@
 #import "BankDetialModel.h"
 #import "IQKeyboardManager.h"
 
-@interface RepaymentViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface RepaymentViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 
 @property (nonatomic,strong)UIView *topView;
 @property (nonatomic,strong)UILabel *topLine;
@@ -100,7 +100,6 @@
     
     self.moneyText = [[UITextField alloc] init];
     self.moneyText.font = FONT(16);
-    self.moneyText.enabled = NO;
     self.moneyText.placeholder = @"请输入还款金额";
     [self.topView addSubview:self.moneyText];
     [self.moneyText mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -225,6 +224,10 @@
 
     
     
+}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    
+    [self.view endEditing:YES];
 }
 #pragma mark -------------选择银行卡--------------------
 -(void)selectBankViewClick{

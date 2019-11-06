@@ -1,23 +1,20 @@
 //
-//  YSSWebViewController.m
-//  YSSProject-master
+//  NewWebViewController.m
+//  LeYiDaiProject
 //
-//  Created by 貟一凡 on 2019/5/18.
+//  Created by 貟一凡 on 2019/10/30.
 //  Copyright © 2019 貟一凡. All rights reserved.
 //
 
-#import "YSSWebViewController.h"
-#import "BankAuthenViewController.h"
+#import "NewWebViewController.h"
 #import <WebKit/WebKit.h>
 
-@interface YSSWebViewController ()<WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
-
+@interface NewWebViewController ()<WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
 @property (nonatomic,strong)WKWebView *webView;
 @property (nonatomic, strong) UIProgressView *myProgressView;
-
 @end
 
-@implementation YSSWebViewController
+@implementation NewWebViewController
 // 记得取消监听
 - (void)dealloc
 {
@@ -35,19 +32,48 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"额度评估-运营商认证";
-
-//    [self.navigationController.navigationBar setBackgroundImage:[YSSUtils imageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
-    self.automaticallyAdjustsScrollViewInsets = YES;
-    [self.view addSubview:self.webView];
-    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-    [self.view addSubview:self.myProgressView];
     
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlStr]]];
+    self.automaticallyAdjustsScrollViewInsets = YES;
+       [self.view addSubview:self.webView];
+       [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+           make.edges.equalTo(self.view);
+       }];
+       [self.view addSubview:self.myProgressView];
+    
+    NSDictionary *dataDic;
+    if (self.typeIndex == 2) {
+        dataDic = @{@"userId":self.loginModel.userId,@"type":@(self.typeIndex),@"amount":self.loanMoneyStr};
+    }else{
+        dataDic = @{@"userId":self.loginModel.userId,@"type":@(self.typeIndex)};
+    }
+    @weakify(self);
+    [[RequestAPI shareInstance] useWebGetWebInfo:dataDic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        if (succeed) {
+            @strongify(self);
+           if ([result[@"success"] intValue] == 1) {
+             
+               NSDictionary *dic = result[@"result"];
+               
+               if (!STRING_ISNIL(dic[@"webUrl"])) {
+                   self.navigationItem.title = EMPTY_IF_NIL(dic[@"webName"]);
+                   
+                  [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:dic[@"webUrl"]]]];
 
 
+               }else{
+                   
+                   [MBProgressHUD showSuccess:@"暂无服务"];
+               }
+               
+           }else{
+               
+               
+               [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
+           }
+        }
+    }];
+    
+       
 }
 #pragma mark - event response
 // 计算wkWebView进度条
@@ -174,8 +200,7 @@
     NSLog(@"-------%@",message.name);// 方法名
     NSLog(@"-------%@",message.body);// 传递的数据
     if([message.name isEqualToString:@"nextStep"]){
-        BankAuthenViewController *bankAhthenVc = [[BankAuthenViewController alloc] init];
-        [self.navigationController pushViewController:bankAhthenVc animated:YES];
+       
     }
 }
 
@@ -184,9 +209,9 @@
     if (!_webView) {
         WKWebViewConfiguration * config = [[WKWebViewConfiguration alloc]init];
         WKUserContentController *wkUController = [[WKUserContentController alloc] init];
-        [wkUController removeScriptMessageHandlerForName:@"nextStep"];
+//        [wkUController removeScriptMessageHandlerForName:@"nextStep"];
 
-        [wkUController addScriptMessageHandler:self name:@"nextStep"];
+//        [wkUController addScriptMessageHandler:self name:@"nextStep"];
 
         config.userContentController = wkUController;
         // 创建设置对象

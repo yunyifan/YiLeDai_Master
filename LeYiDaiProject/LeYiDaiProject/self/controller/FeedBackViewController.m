@@ -221,7 +221,7 @@
             [self chousePiack];
             
         }else{
-            [self showBigImage:indexPath];
+//            [self showBigImage:indexPath];
         }
 
     }
@@ -294,11 +294,14 @@
 -(void)sureButtonClick{
     
     
-    [[RequestAPI shareInstance] feedBackUploadMoreImage:@{@"userid":self.loginModel.userId,@"complaint":self.textView.text,@"img1":@"123",@"img2":@"456",@"img3":@"789"} :self.imageArray Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+    [[RequestAPI shareInstance] feedBackUploadMoreImage:@{@"userId":self.loginModel.userId,@"custComplaint":self.textView.text} :self.imageArray Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
         if (succeed) {
               if ([result[@"success"] intValue] == 1) {
                   
-                  [MBProgressHUD showSuccess:@"感谢您的反馈意见，我们会及时与您联系"];
+                  NSDictionary *dataDic = result[@"result"];
+                  [MBProgressHUD showSuccess:EMPTY_IF_NIL(dataDic[@"feedback"])];
+                  
+                  [self.navigationController popViewControllerAnimated:YES];
               }else{
                   
                   [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];

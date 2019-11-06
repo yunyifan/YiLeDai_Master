@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "NewWebViewController.h"
 #import "AppDelegate.h"
 
 @interface LoginViewController ()<UITextFieldDelegate,UITextViewDelegate>
@@ -206,6 +207,16 @@
     }];
     
 }
+#pragma mark UItextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction API_AVAILABLE(ios(10.0)){
+    NSLog(@"URL %@",URL.absoluteString);
+    NewWebViewController *webVc = [[NewWebViewController alloc] init];
+    webVc.typeIndex = URL.absoluteString.intValue;
+    [self.navigationController pushViewController:webVc animated:YES];
+    return NO;
+}
+
 // 登录
 -(void)loginButClick{
     NSDictionary *pramDic = @{@"accountType":@"mobile",@"account":self.phoneText.text,@"password":self.codeText.text};
@@ -283,7 +294,7 @@
     if (!_descLab) {
         _descLab = [[UILabel alloc] init];
         _descLab.font = BOLDFONT(13);
-        _descLab.text = @"欢迎使用安心贷";
+        _descLab.text = @"欢迎使用捷分期";
     }
     return _descLab;
 }
@@ -384,10 +395,12 @@
 -(UITextView *)secretText{
     if (!_secretText) {
         _secretText = [[UITextView alloc] init];
-        NSString *strLink = @"我已阅读并同意《用户协议》";
+        NSString *strLink = @"我已阅读并同意《用户协议》《隐私协议》";
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:strLink];
         
-        [attributedString addAttributes:@{NSLinkAttributeName:[NSURL URLWithString:@"http://www.baidu.com"], NSFontAttributeName:FONT(12),NSForegroundColorAttributeName:[UIColor colorWithHex:@"#4D56EF"]} range:[strLink rangeOfString:@"《用户协议》"]];
+        [attributedString addAttributes:@{NSLinkAttributeName:[NSURL URLWithString:@"6"], NSFontAttributeName:FONT(12),NSForegroundColorAttributeName:[UIColor colorWithHex:@"#4D56EF"]} range:[strLink rangeOfString:@"《用户协议》"]];
+        [attributedString addAttributes:@{NSLinkAttributeName:[NSURL URLWithString:@"7"], NSFontAttributeName:FONT(12),NSForegroundColorAttributeName:[UIColor colorWithHex:@"#4D56EF"]} range:[strLink rangeOfString:@"《隐私协议》"]];
+
         _secretText.attributedText = attributedString;
         _secretText.font = FONT(12);
         _secretText.scrollEnabled = NO;

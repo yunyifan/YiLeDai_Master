@@ -9,7 +9,7 @@
 #import "LoanViewController.h"
 #import "LoanOningViewController.h"
 #import "MyBankViewController.h"
-
+#import "NewWebViewController.h"
 #import "IQKeyboardManager.h"
 #import "MainAccationView.h"
 
@@ -17,8 +17,9 @@
 #import "BankDetialModel.h"
 
 #import "BRPickerView.h"
+#import "APPProdsModel.h"
 
-@interface LoanViewController ()
+@interface LoanViewController ()<UITextViewDelegate>
 
 @property (nonatomic,strong)MainAccationView *accationView; // 逾期警告
 @property (nonatomic,strong)UIView *topView;
@@ -47,6 +48,8 @@
 @property (nonatomic,strong)NSDictionary *dataDic;
 
 @property (nonatomic,strong)BankDetialModel *firstBankModel;
+
+@property (nonatomic,strong)APPProdsModel *prodsModel;
 @end
 
 @implementation LoanViewController
@@ -70,9 +73,8 @@
     self.repayDueListArray = [NSMutableArray array];
     self.navigationItem.title = @"借款";
 
+    [self useGetAppRrods];
     [self initLoanUI];
-    [self useGetRepayInfo];
-    [self useGetWebUrlInsert];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nofiticationBookCLick:) name:@"Device_book" object:nil];
 
@@ -123,15 +125,26 @@
     [self useGetRepayInfo];
    
 }
+#pragma mark UItextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction API_AVAILABLE(ios(10.0)){
+    
+    NSLog(@"**************");
+    NSLog(@"URL %@",URL.absoluteString);
+    NewWebViewController *webVc = [[NewWebViewController alloc] init];
+    webVc.typeIndex = URL.absoluteString.intValue;
+    webVc.loanMoneyStr = EMPTY_IF_NIL(self.moneyText.text);
+    [self.navigationController pushViewController:webVc animated:YES];
+    return NO;
+}
 /**
  还款计算
  
  */
 -(void)useGetRepayInfo{
     
-    NSString *moneyStr = self.moneyText.text ? [NSString stringWithFormat:@"%@",self.creditLeftamtStr] : self.moneyText.text;
     @weakify(self);
-    [[RequestAPI shareInstance] useLoanLendTradeGetRepayInfo:@{@"userId":self.loginModel.userId,@"lendAmount":moneyStr} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+    [[RequestAPI shareInstance] useLoanLendTradeGetRepayInfo:@{@"userId":self.loginModel.userId,@"prodId":self.prodsModel.prodId,@"lendAmount":self.moneyText.text,@"lendTerm":self.prodsModel.term,@"retuKind":self.prodsModel.retunKind} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
         @strongify(self);
            if (succeed) {
                if ([result[@"success"] intValue] == 1) {
@@ -189,7 +202,7 @@
  */
 -(void)useLoanLendTradeUp{
     @weakify(self);
-    NSDictionary *praDic = @{@"userId":self.loginModel.userId,@"lendAmount":EMPTY_IF_NIL(self.moneyText.text),@"lendBankid":EMPTY_IF_NIL(self.firstBankModel.cardBankid),@"lendBankname":self.firstBankModel.bankcardName,@"lendCardNo":self.firstBankModel.bankcardNo };
+    NSDictionary *praDic = @{@"userId":self.loginModel.userId,@"lendAmount":EMPTY_IF_NIL(self.moneyText.text),@"lendBankid":EMPTY_IF_NIL(self.firstBankModel.cardBankid),@"lendBankname":self.firstBankModel.bankcardName,@"lendCardNo":self.firstBankModel.bankcardNo,@"lendCardName":self.firstBankModel.cardBankname,@"loanuse":@"10",@"retuKind":self.prodsModel.retunKind,@"lendTerm":self.prodsModel.term };
     [[RequestAPI shareInstance] useLoanLendTradeUpInsert:praDic Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
         @strongify(self);
         if (succeed) {
@@ -209,14 +222,32 @@
     }];
 }
 /**
- 查询协议h5页面
+ app查询h可用产品
  
  */
--(void)useGetWebUrlInsert{
+-(void)useGetAppRrods{
     
-    [[RequestAPI shareInstance] useWebGetWebInfo:@{@"userId":self.loginModel.userId,@"type":@"2"} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
-        
+    @weakify(self);
+    [[RequestAPI shareInstance] useSysappGetAppprods:@{@"prodId":@""} Completion:^(BOOL succeed, NSDictionary * _Nonnull result, NSError * _Nonnull error) {
+        if (succeed) {
+            @strongify(self);
+            if ([result[@"success"] intValue] == 1) {
+
+                NSArray *array = result[@"result"][@"prods"];
+                self.prodsModel = [APPProdsModel yy_modelWithDictionary:array[0]];
+                self.moneyText.text = [NSString stringWithFormat:@"%@",self.prodsModel.amount];
+
+                [self useGetRepayInfo];
+
+            }else{
+
+                [MBProgressHUD showError:EMPTY_IF_NIL(result[@"message"]) ];
+
+            }
+        }
+
     }];
+    
 }
 /*
  刷新银行卡
@@ -390,7 +421,7 @@
     }
         RepayDueModel *dueModel = [self.repayDueListArray firstObject];
         NSArray *leftArr = @[@"还款计划",@"总利息"];
-        NSArray *rightArr = @[[NSString stringWithFormat:@"首期%@应还 %@",dueModel.dueDate,dueModel.dueSum] ,[NSString stringWithFormat:@"%@",self.dataDic[@"dueSum"]]];
+        NSArray *rightArr = @[[NSString stringWithFormat:@"首期%@应还 %@",dueModel.dueDate,dueModel.dueSum] ,[NSString stringWithFormat:@"%@元",self.dataDic[@"dueSum"]]];
         UILabel *lastLab;
         for (int i = 0; i<leftArr.count; i++) {
             UILabel *lable = [[UILabel alloc] init];
@@ -462,7 +493,6 @@
     self.moneyText = [[UITextField alloc] init];
     self.moneyText.font = FONT(30);
     self.moneyText.placeholder = @"请输入借款金额";
-    self.moneyText.text = [NSString stringWithFormat:@"%@",self.creditLeftamtStr];
     self.moneyText.keyboardType = UIKeyboardTypePhonePad;
     self.moneyText.clearButtonMode = UITextFieldViewModeAlways;
 
@@ -583,20 +613,20 @@
 -(UITextView *)secretText{
     if (!_secretText) {
         _secretText = [[UITextView alloc] init];
-        NSString *strLink = @"同意《借款协议》《权益服务协议》《委托扣款协议》";
+        NSString *strLink = @"同意《借款协议》《委托扣款协议》";
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:strLink];
-        [attributedString addAttributes:@{NSLinkAttributeName:[NSURL URLWithString:[NSString stringWithFormat:@"www.baidu.com"]], NSFontAttributeName:FONT(12),NSForegroundColorAttributeName:[UIColor blueColor]} range:[strLink rangeOfString:@"《借款协议》"]];
+        [attributedString addAttributes:@{NSLinkAttributeName:[NSURL URLWithString:[NSString stringWithFormat:@"2"]], NSFontAttributeName:FONT(12),NSForegroundColorAttributeName:[UIColor blueColor]} range:[strLink rangeOfString:@"《借款协议》"]];
         
-        [attributedString addAttributes:@{NSLinkAttributeName:[NSURL URLWithString:[NSString stringWithFormat:@"www.baidu.com"]], NSFontAttributeName:FONT(12),NSForegroundColorAttributeName:[UIColor blueColor]} range:[strLink rangeOfString:@"《权益服务协议》"]];
+//        [attributedString addAttributes:@{NSLinkAttributeName:[NSURL URLWithString:[NSString stringWithFormat:@"3"]], NSFontAttributeName:FONT(12),NSForegroundColorAttributeName:[UIColor blueColor]} range:[strLink rangeOfString:@"《权益服务协议》"]];
         
-        [attributedString addAttributes:@{NSLinkAttributeName:[NSURL URLWithString:[NSString stringWithFormat:@"www.baidu.com"]], NSFontAttributeName:FONT(12),NSForegroundColorAttributeName:[UIColor blueColor]} range:[strLink rangeOfString:@"《委托扣款协议》"]];
+        [attributedString addAttributes:@{NSLinkAttributeName:[NSURL URLWithString:[NSString stringWithFormat:@"4"]], NSFontAttributeName:FONT(12),NSForegroundColorAttributeName:[UIColor blueColor]} range:[strLink rangeOfString:@"《委托扣款协议》"]];
         
         _secretText.attributedText = attributedString;
         _secretText.font = FONT(12);
         _secretText.backgroundColor = [UIColor clearColor];
         _secretText.scrollEnabled = NO;
         _secretText.editable = NO;
-//        _secretText.delegate = self;
+        _secretText.delegate = self;
     }
     return _secretText;
 }

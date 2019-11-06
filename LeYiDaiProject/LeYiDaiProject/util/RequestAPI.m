@@ -69,7 +69,7 @@
     [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         @strongify(self);
         NSDictionary *dic = (NSDictionary *)responseObject;
-        NSLog(@"JSON: %@", dic);
+        NSLog(@"JSON: %@,%@", dic,URLString);
         if ([dic[@"code"] intValue] == 995) {
             [self.loginModel removeFromLocal];
             
@@ -445,7 +445,7 @@
     NSLog(@"传入的参数 %@,%@",prmDic,[NSString stringWithFormat:@"%@api/cust/complaint",BASEUEL]);
 
     @weakify(self);
-    [manager POST:[NSString stringWithFormat:@"%@api/cust/complaint",BASEUEL] parameters:prmDic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    [manager POST:[NSString stringWithFormat:@"%@api/custAuth/subComplaint",BASEUEL] parameters:prmDic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         // 上传 多张图片
         for(NSInteger i = 0; i < arr.count; i++){
             
@@ -501,6 +501,19 @@
 -(void)useWebGetWebInfo:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
     
     [[RequestAPI shareInstance] GET:[NSString stringWithFormat:@"%@api/web/getWebInfo",BASEUEL] parameters:prmDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
+        completion(succeed,result,error);
+
+    }];
+
+}
+
+/**
+ 
+ APP查询可用产品（20191104）
+ */
+-(void)useSysappGetAppprods:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion{
+    
+    [[RequestAPI shareInstance] GET:[NSString stringWithFormat:@"%@api/sysapp/getAppprods",BASEUEL] parameters:prmDic completion:^(BOOL succeed, NSDictionary *result, NSError *error) {
         completion(succeed,result,error);
 
     }];

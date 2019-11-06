@@ -60,6 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)feedBackUploadMoreImage:(NSDictionary *)prmDic :(NSArray *)arr Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
 
 -(void)useWebGetWebInfo:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
+
+-(void)useSysappGetAppprods:(NSDictionary *)prmDic Completion:(void (^)(BOOL succeed, NSDictionary* result, NSError *error))completion;
 @end
 
 NS_ASSUME_NONNULL_END

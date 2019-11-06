@@ -97,6 +97,7 @@
 		C14E514A2328C04200745493 /* LoanDetialView.m in Sources */ = {isa = PBXBuildFile; fileRef = C14E51492328C04200745493 /* LoanDetialView.m */; };
 		C14E514D2328E27B00745493 /* RepaymentDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C14E514C2328E27B00745493 /* RepaymentDetialViewController.m */; };
 		C14E5153232914FF00745493 /* MainCenterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C14E5152232914FF00745493 /* MainCenterView.m */; };
+		C154468523726A6F0071BC9C /* APPProdsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C154468423726A6F0071BC9C /* APPProdsModel.m */; };
 		C15EC7D5233CB94E00B13E71 /* RepaymentBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = C15EC7D4233CB94E00B13E71 /* RepaymentBottomView.m */; };
 		C16C104A2334CA7C00B34076 /* RequestAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C16C10492334CA7C00B34076 /* RequestAPI.m */; };
 		C16F5024235ED75D0022DB95 /* RepaySelectBankView.m in Sources */ = {isa = PBXBuildFile; fileRef = C16F5023235ED75D0022DB95 /* RepaySelectBankView.m */; };
@@ -116,6 +117,7 @@
 		C1CE22E52320F91100515633 /* LeYiDaiProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CE22E42320F91100515633 /* LeYiDaiProjectTests.m */; };
 		C1CE22F02320F91100515633 /* LeYiDaiProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CE22EF2320F91100515633 /* LeYiDaiProjectUITests.m */; };
 		C1D27018235D8646006CCF33 /* LoanDetialInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D27017235D8646006CCF33 /* LoanDetialInfoModel.m */; };
+		C1F79BFB23695D46009529CC /* NewWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F79BFA23695D46009529CC /* NewWebViewController.m */; };
 		F576662F17A32B2D8A2731A4 /* Pods_LeYiDaiProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4D27320F73A4D9D768242FE /* Pods_LeYiDaiProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -319,6 +321,8 @@
 		C14E514C2328E27B00745493 /* RepaymentDetialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepaymentDetialViewController.m; sourceTree = "<group>"; };
 		C14E5151232914FF00745493 /* MainCenterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainCenterView.h; sourceTree = "<group>"; };
 		C14E5152232914FF00745493 /* MainCenterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainCenterView.m; sourceTree = "<group>"; };
+		C154468323726A6F0071BC9C /* APPProdsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APPProdsModel.h; sourceTree = "<group>"; };
+		C154468423726A6F0071BC9C /* APPProdsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APPProdsModel.m; sourceTree = "<group>"; };
 		C15EC7D3233CB94E00B13E71 /* RepaymentBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepaymentBottomView.h; sourceTree = "<group>"; };
 		C15EC7D4233CB94E00B13E71 /* RepaymentBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepaymentBottomView.m; sourceTree = "<group>"; };
 		C16C10482334CA7C00B34076 /* RequestAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestAPI.h; sourceTree = "<group>"; };
@@ -339,7 +343,7 @@
 		C199FC9D2349B86100F25A64 /* MainDetianModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainDetianModel.m; sourceTree = "<group>"; };
 		C1C11BB22356D6C800CABDE5 /* BankDetialModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BankDetialModel.h; sourceTree = "<group>"; };
 		C1C11BB32356D6C800CABDE5 /* BankDetialModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankDetialModel.m; sourceTree = "<group>"; };
-		C1CE22C82320F90F00515633 /* 安心贷.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "安心贷.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1CE22C82320F90F00515633 /* 捷分期.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "捷分期.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1CE22CB2320F90F00515633 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C1CE22CC2320F90F00515633 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C1CE22CE2320F90F00515633 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -357,6 +361,8 @@
 		C1CE22F12320F91100515633 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1D27016235D8646006CCF33 /* LoanDetialInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoanDetialInfoModel.h; sourceTree = "<group>"; };
 		C1D27017235D8646006CCF33 /* LoanDetialInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoanDetialInfoModel.m; sourceTree = "<group>"; };
+		C1F79BF923695D46009529CC /* NewWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewWebViewController.h; sourceTree = "<group>"; };
+		C1F79BFA23695D46009529CC /* NewWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewWebViewController.m; sourceTree = "<group>"; };
 		D4D27320F73A4D9D768242FE /* Pods_LeYiDaiProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeYiDaiProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -681,6 +687,8 @@
 				C121672823548A8E001EE1C6 /* CustInfoUpModel.m */,
 				C121672F2355D2FC001EE1C6 /* RepayDueModel.h */,
 				C12167302355D2FC001EE1C6 /* RepayDueModel.m */,
+				C154468323726A6F0071BC9C /* APPProdsModel.h */,
+				C154468423726A6F0071BC9C /* APPProdsModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -711,6 +719,8 @@
 			children = (
 				C121672523545CF4001EE1C6 /* YSSWebViewController.h */,
 				C121672423545CF4001EE1C6 /* YSSWebViewController.m */,
+				C1F79BF923695D46009529CC /* NewWebViewController.h */,
+				C1F79BFA23695D46009529CC /* NewWebViewController.m */,
 				C11B3BEB23501CC800E4EE8B /* FaceAuther */,
 				C100DE47232DD5AC0034989A /* RepaymentViewController.h */,
 				C100DE48232DD5AC0034989A /* RepaymentViewController.m */,
@@ -762,7 +772,7 @@
 		C1CE22C92320F90F00515633 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C1CE22C82320F90F00515633 /* 安心贷.app */,
+				C1CE22C82320F90F00515633 /* 捷分期.app */,
 				C1CE22E02320F91100515633 /* LeYiDaiProjectTests.xctest */,
 				C1CE22EB2320F91100515633 /* LeYiDaiProjectUITests.xctest */,
 			);
@@ -947,7 +957,7 @@
 			);
 			name = LeYiDaiProject;
 			productName = LeYiDaiProject;
-			productReference = C1CE22C82320F90F00515633 /* 安心贷.app */;
+			productReference = C1CE22C82320F90F00515633 /* 捷分期.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C1CE22DF2320F91100515633 /* LeYiDaiProjectTests */ = {
@@ -1157,6 +1167,7 @@
 				C100DE5E232F31320034989A /* ApplicationInformationViewController.m in Sources */,
 				C1000CEE232134FB003C822F /* LoginViewController.m in Sources */,
 				C11D6CEB2361A6FF00DA1020 /* YSSfbCollectionViewCell.m in Sources */,
+				C1F79BFB23695D46009529CC /* NewWebViewController.m in Sources */,
 				C100DE55232E36830034989A /* FaceAuthenViewController.m in Sources */,
 				C1000CE6232132C7003C822F /* UIView+LSCore.m in Sources */,
 				C11DBC0C2323560700733E2B /* SettingViewController.m in Sources */,
@@ -1200,6 +1211,7 @@
 				C12167212354585B001EE1C6 /* IQUIView+Hierarchy.m in Sources */,
 				C100DE64232F6C2A0034989A /* FinishAuthenViewController.m in Sources */,
 				C1000D0423222F49003C822F /* KLTNavigationController.m in Sources */,
+				C154468523726A6F0071BC9C /* APPProdsModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1387,7 +1399,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftfintech.loansys;
-				PRODUCT_NAME = "安心贷";
+				PRODUCT_NAME = "捷分期";
 				PROVISIONING_PROFILE_SPECIFIER = loansys;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1414,7 +1426,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftfintech.loansys;
-				PRODUCT_NAME = "安心贷";
+				PRODUCT_NAME = "捷分期";
 				PROVISIONING_PROFILE_SPECIFIER = loansys;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

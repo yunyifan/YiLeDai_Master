@@ -171,6 +171,7 @@
         }else{
             if([self.creaditInfoModel.creditInfo.creditAppstate intValue] == 9){
                 self.titLab.text = @"审核未通过,7天后再试";
+                self.moneyLab.text = @"0";
             }else{
                 self.titLab.text = @"最高可借额度";
 

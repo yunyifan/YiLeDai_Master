@@ -120,14 +120,6 @@
  */
 -(void)renZhengButtonClick{
     
-//      YSSWebViewController *webVc = [[YSSWebViewController alloc] init];
-//       NSString *urlEncoded = [@"http://47.100.11.188:8090/jeecg-boot/authResult.html?type=ios" stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-//      webVc.urlStr = [NSString stringWithFormat:@"%@",urlEncoded];
-//      [self.navigationController pushViewController:webVc animated:YES];
-//
-//
-//    return;
-    
     for (int i = 0; i<self.listArray.count; i++) {
         CustAuthresultMedel *model = self.listArray[i];
         if (model.authState == 0 || model.authState == 9) {
